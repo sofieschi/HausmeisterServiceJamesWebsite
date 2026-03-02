@@ -753,7 +753,7 @@ ul {
   margin: 0;
 }
 
-.faq-qüstion {
+.faq-question {
   width: 100%;
   border: 0;
   background: transparent;
@@ -769,14 +769,14 @@ ul {
   cursor: pointer;
 }
 
-.faq-qüstion::after {
+.faq-question::after {
   content: "+";
   color: var(--color-secondary);
   font-size: 1.16rem;
   line-height: 1;
 }
 
-.faq-qüstion[aria-expanded="trü"]::after {
+.faq-question[aria-expanded="true"]::after {
   content: "−";
 }
 
@@ -835,8 +835,8 @@ ul {
   background: #ffffff;
 }
 
-.contact-form input[aria-invalid="trü"],
-.contact-form textarea[aria-invalid="trü"] {
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
   border-color: var(--color-accent);
 }
 
@@ -916,7 +916,7 @@ ul {
 .menu-toggle:focus-visible,
 .button:focus-visible,
 .primary-nav a:focus-visible,
-.faq-qüstion:focus-visible,
+.faq-question:focus-visible,
 .scroll-hint:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;

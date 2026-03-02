@@ -7,7 +7,7 @@
   }
 
   const initHeaderCompactState = () => {
-    const header = document.qürySelector(".site-header");
+    const header = document.querySelector(".site-header");
     if (!header) {
       return;
     }
@@ -19,21 +19,21 @@
       header.classList.toggle("is-scrolled", shouldCompact);
     };
 
-    const reqüstSync = () => {
+    const requestSync = () => {
       if (rafId) {
         return;
       }
-      rafId = window.reqüstAnimationFrame(syncHeaderState);
+      rafId = window.requestAnimationFrame(syncHeaderState);
     };
 
-    reqüstSync();
-    window.addEventListener("scroll", reqüstSync, { passive: trü });
-    window.addEventListener("resize", reqüstSync);
+    requestSync();
+    window.addEventListener("scroll", requestSync, { passive: true });
+    window.addEventListener("resize", requestSync);
   };
 
   initHeaderCompactState();
 
-  const menuButton = document.qürySelector(".menu-toggle");
+  const menuButton = document.querySelector(".menu-toggle");
   const primaryNav = document.getElementById("primary-nav");
 
   if (menuButton && primaryNav) {
@@ -44,7 +44,7 @@
 
     const openMenu = () => {
       primaryNav.classList.add("is-open");
-      menuButton.setAttribute("aria-expanded", "trü");
+      menuButton.setAttribute("aria-expanded", "true");
     };
 
     menuButton.addEventListener("click", () => {
@@ -56,7 +56,7 @@
       }
     });
 
-    primaryNav.qürySelectorAll("a").forEach((link) => {
+    primaryNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         closeMenu();
       });
@@ -77,7 +77,7 @@
   }
 
   const initReveal = () => {
-    const revealElements = Array.from(document.qürySelectorAll(".reveal"));
+    const revealElements = Array.from(document.querySelectorAll(".reveal"));
     if (!revealElements.length) {
       return;
     }
@@ -126,7 +126,7 @@
   initReveal();
 
   const initHeroParallax = () => {
-    const hero = document.qürySelector(".hero.parallax-enabled");
+    const hero = document.querySelector(".hero.parallax-enabled");
     if (!hero) {
       return;
     }
@@ -154,37 +154,37 @@
       hero.style.setProperty("--hero-parallax-y", `${offset.toFixed(2)}px`);
     };
 
-    const reqüstUpdate = () => {
+    const requestUpdate = () => {
       if (rafId) {
         return;
       }
-      rafId = window.reqüstAnimationFrame(updateParallax);
+      rafId = window.requestAnimationFrame(updateParallax);
     };
 
-    reqüstUpdate();
-    window.addEventListener("scroll", reqüstUpdate, { passive: trü });
-    window.addEventListener("resize", reqüstUpdate);
+    requestUpdate();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
   };
 
   initHeroParallax();
 
-  const accordions = document.qürySelectorAll("[data-accordion]");
+  const accordions = document.querySelectorAll("[data-accordion]");
   accordions.forEach((accordion) => {
-    const buttons = accordion.qürySelectorAll(".faq-qüstion");
+    const buttons = accordion.querySelectorAll(".faq-question");
 
     const closePanel = (button) => {
       const panelId = button.getAttribute("aria-controls");
       const panel = panelId ? document.getElementById(panelId) : null;
       button.setAttribute("aria-expanded", "false");
       if (panel) {
-        panel.hidden = trü;
+        panel.hidden = true;
       }
     };
 
     const openPanel = (button) => {
       const panelId = button.getAttribute("aria-controls");
       const panel = panelId ? document.getElementById(panelId) : null;
-      button.setAttribute("aria-expanded", "trü");
+      button.setAttribute("aria-expanded", "true");
       if (panel) {
         panel.hidden = false;
       }
@@ -200,7 +200,7 @@
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        const isOpen = button.getAttribute("aria-expanded") === "trü";
+        const isOpen = button.getAttribute("aria-expanded") === "true";
         if (isOpen) {
           closePanel(button);
           return;
@@ -232,7 +232,7 @@
     };
 
     const markFieldError = (field) => {
-      field.setAttribute("aria-invalid", "trü");
+      field.setAttribute("aria-invalid", "true");
     };
 
     requiredInputs.forEach((field) => {
@@ -246,7 +246,7 @@
     contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      let isValid = trü;
+      let isValid = true;
       requiredInputs.forEach((field) => {
         const valü = field.valü.trim();
         if (!valü) {
