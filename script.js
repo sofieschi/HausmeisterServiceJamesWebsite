@@ -5,7 +5,7 @@
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
   const REVEAL_DELAY_FACTOR = 1.25;
-  const REVEAL_DELAY_FACTOR_SERVICES = 1.5;
+  const REVEAL_DELAY_FACTOR_SERVICES = 2.5;
   const REVEAL_BASE_DELAY_MS = 110;
   const REVEAL_GROUP_STAGGER_MS = 90;
 
@@ -117,6 +117,8 @@
 
     const prefersReducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION).matches;
     const revealGroupIndex = new Map();
+    const serviceCardElements = [];
+    const defaultRevealElements = [];
 
     revealElements.forEach((element) => {
       const delayAttr = element.getAttribute("data-reveal-delay");
@@ -138,6 +140,12 @@
       const explicitDelay = Number.isFinite(delay) && delay >= 0 ? Math.round(delay * delayFactor) : 0;
       const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay;
       element.style.setProperty("--reveal-delay", `${finalDelay}ms`);
+
+      if (serviceCardElement) {
+        serviceCardElements.push(element);
+      } else {
+        defaultRevealElements.push(element);
+      }
     });
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
@@ -147,14 +155,14 @@
       return;
     }
 
-    const observer = new IntersectionObserver(
+    const defaultObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             return;
           }
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          defaultObserver.unobserve(entry.target);
         });
       },
       {
@@ -164,8 +172,29 @@
       }
     );
 
-    revealElements.forEach((element) => {
-      observer.observe(element);
+    const serviceObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          entry.target.classList.add("is-visible");
+          serviceObserver.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -2% 0px",
+        threshold: 0.28,
+      }
+    );
+
+    defaultRevealElements.forEach((element) => {
+      defaultObserver.observe(element);
+    });
+
+    serviceCardElements.forEach((element) => {
+      serviceObserver.observe(element);
     });
   };
 
