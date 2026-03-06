@@ -16,10 +16,23 @@
   --color-panel-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   --color-panel-shadow-hover: 0 18px 36px rgba(0, 0, 0, 0.11);
 
+  /* Spacing rhythm (8px base) */
+  --space-8: 0.5rem;
+  --space-16: 1rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-96: 6rem;
+
   --radius: 16px;
-  --container: 86rem;
-  --container-padding: clamp(1rem, 3vw, 2.5rem);
-  --section-space: clamp(4rem, 7vw, 6rem);
+  --container: 75rem;
+  --container-wide: 80rem;
+  --container-narrow: 54rem;
+  --container-padding: clamp(var(--space-16), 2.4vw, var(--space-32));
+  --section-space: clamp(var(--space-64), 7vw, var(--space-96));
+  --section-space-mobile: var(--space-64);
   --header-height: 4.9rem;
   --topbar-height: 0px;
 
@@ -30,6 +43,10 @@
   --reveal-duration: 1100ms;
   --reveal-hero-duration: 1300ms;
   --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout tokens */
+  --container-limit: var(--container);
+  --container-inline-size: min(100% - (var(--container-padding) * 2), var(--container-limit));
 }
 
 /* Base */
@@ -79,14 +96,30 @@ img {
   display: block;
 }
 
-.container {
-  width: min(100% - (var(--container-padding) * 2), var(--container));
+/* Layout / Containers */
+.container,
+.container-wide,
+.container-narrow {
+  width: var(--container-inline-size);
   margin-inline: auto;
 }
 
+.container {
+  --container-limit: var(--container);
+}
+
+.container-wide {
+  --container-limit: var(--container-wide);
+}
+
+.container-narrow {
+  --container-limit: var(--container-narrow);
+}
+
+/* Shared section utilities */
 .section {
   position: relative;
-  padding: var(--section-space) 0;
+  padding-block: var(--section-space);
   scroll-margin-top: calc(var(--header-height) + var(--topbar-height) + 1rem);
 }
 
@@ -100,6 +133,11 @@ img {
 
 #leistungen {
   background: linear-gradient(180deg, #faf9f7 0%, #f6f4f1 100%);
+}
+
+#leistungen .container,
+#ablauf .container {
+  --container-limit: var(--container-wide);
 }
 
 #ablauf {
@@ -437,8 +475,8 @@ ul {
 }
 
 .hero-content {
-  width: min(100%, 49rem);
-  max-width: 49rem;
+  width: min(100%, 46rem);
+  max-width: 46rem;
   display: grid;
   gap: clamp(1.18rem, 2vw, 1.66rem);
   margin-inline: auto;
@@ -456,7 +494,7 @@ ul {
 
 .lead,
 .section-intro {
-  max-width: 60ch;
+  max-width: 58ch;
   color: var(--color-muted);
   font-size: clamp(1rem, 1.4vw, 1.18rem);
 }
@@ -1094,7 +1132,7 @@ ul {
 
 /* Contact */
 .narrow {
-  max-width: 58rem;
+  max-width: var(--container-narrow);
 }
 
 .contact-layout {
@@ -1399,7 +1437,7 @@ ul {
 }
 
 .legal-layout {
-  max-width: 52rem;
+  max-width: 50rem;
   display: grid;
   gap: 1rem;
 }
@@ -1527,7 +1565,7 @@ ul {
   }
 
   .section {
-    padding-block: 4rem;
+    padding-block: var(--section-space-mobile);
   }
 
   .services-grid {
@@ -1572,7 +1610,6 @@ ul {
   }
 
   .about-values-list li {
-    padding: 0.5rem 0 0.5rem 1rem;
     line-height: 1.55;
   }
 
@@ -1612,7 +1649,6 @@ ul {
   .hero-trust {
     margin-top: 0.28rem;
     gap: 0.24rem 0.46rem;
-    max-width: 100%;
   }
 
   .hero-trust li {
