@@ -22,6 +22,8 @@
       return;
     }
 
+    header.classList.add("is-initializing");
+
     let rafId = 0;
     let lastScrollY = getScrollY();
     const syncHeaderState = () => {
@@ -55,7 +57,10 @@
       rafId = window.requestAnimationFrame(syncHeaderState);
     };
 
-    requestSync();
+    syncHeaderState();
+    window.requestAnimationFrame(() => {
+      header.classList.remove("is-initializing");
+    });
     window.addEventListener("scroll", requestSync, { passive: true });
     window.addEventListener("resize", requestSync);
   };
