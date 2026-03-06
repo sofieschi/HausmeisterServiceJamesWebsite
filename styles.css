@@ -294,10 +294,10 @@ ul {
   background-color: var(--color-secondary);
   background-image: linear-gradient(
       102deg,
-      rgba(0, 0, 0, 0.78) 10%,
-      rgba(0, 0, 0, 0.58) 38%,
-      rgba(70, 92, 136, 0.4) 68%,
-      rgba(70, 92, 136, 0.28) 100%
+      rgba(0, 0, 0, 0.74) 12%,
+      rgba(0, 0, 0, 0.52) 40%,
+      rgba(70, 92, 136, 0.34) 70%,
+      rgba(70, 92, 136, 0.22) 100%
     ),
     url("assets/LandshutBanner3.webp");
   background-size: cover;
@@ -316,8 +316,8 @@ ul {
   position: absolute;
   inset: -14% -8%;
   z-index: -2;
-  background: radial-gradient(circle at 18% 28%, rgba(255, 122, 48, 0.14), transparent 42%),
-    radial-gradient(circle at 82% 72%, rgba(70, 92, 136, 0.16), transparent 50%);
+  background: radial-gradient(circle at 18% 28%, rgba(255, 122, 48, 0.12), transparent 44%),
+    radial-gradient(circle at 82% 72%, rgba(70, 92, 136, 0.14), transparent 52%);
   animation: hero-overlay-shift var(--anim-slow) ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -349,12 +349,12 @@ ul {
 }
 
 .hero-content {
-  width: min(100%, 54rem);
-  max-width: 54rem;
+  width: min(100%, 52rem);
+  max-width: 52rem;
   display: grid;
-  gap: 1.1rem;
+  gap: clamp(1.05rem, 1.8vw, 1.45rem);
   margin-inline: auto;
-  padding-block: clamp(6.1rem, 11vh, 8rem) clamp(4rem, 8vh, 6rem);
+  padding-block: clamp(6.3rem, 11vh, 8.2rem) clamp(4.2rem, 8vh, 6rem);
   padding-inline: 0;
 }
 
@@ -363,7 +363,7 @@ ul {
   letter-spacing: 0.11em;
   font-size: 0.76rem;
   color: var(--color-secondary);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0;
 }
 
 .lead,
@@ -375,13 +375,21 @@ ul {
 
 .hero .lead {
   color: rgba(255, 255, 255, 0.92);
-  max-width: 48ch;
+  max-width: 44ch;
+  margin-bottom: 0.15rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
+}
+
+.hero h1 {
+  margin-bottom: 0.25rem;
+  max-width: 14.5ch;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.34);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
+  gap: 0.82rem;
 }
 
 .scroll-hint {
@@ -1200,20 +1208,26 @@ ul {
   }
 
   .hero-content {
-    width: min(100%, 38rem);
-    gap: 1.25rem;
+    width: min(100%, 36rem);
+    gap: 1.15rem;
+  }
+
+  .hero h1 {
+    max-width: 13.5ch;
+    margin-bottom: 0.15rem;
   }
 
   .hero .lead {
-    max-width: 34ch;
+    max-width: 32ch;
     line-height: 1.6;
+    margin-bottom: 0.12rem;
   }
 
   .hero-actions {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.75rem;
+    gap: 0.68rem;
   }
 
   .hero-actions .button {
@@ -1293,7 +1307,7 @@ ul {
 
   .hero-content {
     margin-inline: 0;
-    padding-left: clamp(1.5rem, 4vw, 4rem);
+    padding-left: clamp(1.8rem, 4vw, 4.2rem);
   }
 
   .header-inner {
@@ -1388,6 +1402,10 @@ ul {
 @media (max-width: 56.24rem) {
   .hero.parallax-enabled::before {
     background-attachment: scroll;
+  }
+
+  .hero::after {
+    animation: none;
   }
 }
 

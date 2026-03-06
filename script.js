@@ -144,7 +144,8 @@
     }
 
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotionQuery.matches) {
+    const isSmallScreen = window.matchMedia("(max-width: 56.24rem)").matches;
+    if (reducedMotionQuery.matches || isSmallScreen) {
       hero.style.setProperty("--hero-parallax-y", "0px");
       return;
     }
