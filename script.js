@@ -4,10 +4,9 @@
   const MEDIA_DESKTOP_NAV = "(min-width: 56.25rem)";
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
-  const REVEAL_DELAY_FACTOR = 1.25;
-  const REVEAL_DELAY_FACTOR_SERVICES = 2.5;
-  const REVEAL_BASE_DELAY_MS = 110;
-  const REVEAL_GROUP_STAGGER_MS = 90;
+  const REVEAL_SERVICE_EXTRA_DELAY_MS = 40;
+  const REVEAL_BASE_DELAY_MS = 90;
+  const REVEAL_GROUP_STAGGER_MS = 110;
 
   const getScrollY = () => window.scrollY || window.pageYOffset || 0;
   const isDesktopNav = () => window.matchMedia(MEDIA_DESKTOP_NAV).matches;
@@ -136,9 +135,9 @@
       }
 
       const serviceCardElement = element.classList.contains("service-card");
-      const delayFactor = serviceCardElement ? REVEAL_DELAY_FACTOR_SERVICES : REVEAL_DELAY_FACTOR;
-      const explicitDelay = Number.isFinite(delay) && delay >= 0 ? Math.round(delay * delayFactor) : 0;
-      const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay;
+      const explicitDelay = Number.isFinite(delay) && delay >= 0 ? delay : 0;
+      const serviceDelay = serviceCardElement ? REVEAL_SERVICE_EXTRA_DELAY_MS : 0;
+      const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay + serviceDelay;
       element.style.setProperty("--reveal-delay", `${finalDelay}ms`);
 
       if (serviceCardElement) {
@@ -184,8 +183,8 @@
       },
       {
         root: null,
-        rootMargin: "0px 0px -2% 0px",
-        threshold: 0.28,
+        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.16,
       }
     );
 
