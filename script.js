@@ -1,6 +1,13 @@
 "use strict";
 
 (() => {
+  const MEDIA_DESKTOP_NAV = "(min-width: 56.25rem)";
+  const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+  const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
+
+  const getScrollY = () => window.scrollY || window.pageYOffset || 0;
+  const isDesktopNav = () => window.matchMedia(MEDIA_DESKTOP_NAV).matches;
+
   const yearTarget = document.getElementById("year");
   if (yearTarget) {
     yearTarget.textContent = String(new Date().getFullYear());
@@ -13,10 +20,10 @@
     }
 
     let rafId = 0;
-    let lastScrollY = window.scrollY || window.pageYOffset || 0;
+    let lastScrollY = getScrollY();
     const syncHeaderState = () => {
       rafId = 0;
-      const currentScrollY = window.scrollY || window.pageYOffset || 0;
+      const currentScrollY = getScrollY();
       const shouldCompact = currentScrollY > 18;
       header.classList.toggle("is-scrolled", shouldCompact);
 
@@ -56,53 +63,44 @@
   const primaryNav = document.getElementById("primary-nav");
 
   if (menuButton && primaryNav) {
-    const closeMenu = () => {
-      primaryNav.classList.remove("is-open");
-      menuButton.setAttribute("aria-expanded", "false");
-    };
-
-    const openMenu = () => {
-      primaryNav.classList.add("is-open");
-      menuButton.setAttribute("aria-expanded", "true");
+    const setMenuState = (isOpen) => {
+      primaryNav.classList.toggle("is-open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
     };
 
     menuButton.addEventListener("click", () => {
       const isOpen = primaryNav.classList.contains("is-open");
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      setMenuState(!isOpen);
     });
 
     primaryNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        closeMenu();
+        setMenuState(false);
       });
     });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
-        closeMenu();
+        setMenuState(false);
         menuButton.focus();
       }
     });
 
     document.addEventListener("click", (event) => {
-      const isMobile = !window.matchMedia("(min-width: 56.25rem)").matches;
+      const isMobile = !isDesktopNav();
       if (!isMobile || !primaryNav.classList.contains("is-open")) {
         return;
       }
 
       const target = event.target;
       if (target instanceof Node && !primaryNav.contains(target) && !menuButton.contains(target)) {
-        closeMenu();
+        setMenuState(false);
       }
     });
 
     window.addEventListener("resize", () => {
-      if (window.matchMedia("(min-width: 56.25rem)").matches) {
-        closeMenu();
+      if (isDesktopNav()) {
+        setMenuState(false);
       }
     });
   }
@@ -113,7 +111,7 @@
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION).matches;
 
     revealElements.forEach((element) => {
       const delayAttr = element.getAttribute("data-reveal-delay");
@@ -162,8 +160,8 @@
       return;
     }
 
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const isSmallScreen = window.matchMedia("(max-width: 56.24rem)").matches;
+    const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
+    const isSmallScreen = window.matchMedia(MEDIA_PARALLAX_DISABLED).matches;
     if (reducedMotionQuery.matches || isSmallScreen) {
       hero.style.setProperty("--hero-parallax-y", "0px");
       return;
@@ -181,8 +179,7 @@
         return;
       }
 
-      const scrollY = window.scrollY || window.pageYOffset;
-      const offset = scrollY * compensation;
+      const offset = getScrollY() * compensation;
       hero.style.setProperty("--hero-parallax-y", `${offset.toFixed(2)}px`);
     };
 
@@ -203,10 +200,13 @@
   const accordions = document.querySelectorAll("[data-accordion]");
   accordions.forEach((accordion) => {
     const buttons = accordion.querySelectorAll(".faq-question");
+    const getPanel = (button) => {
+      const panelId = button.getAttribute("aria-controls");
+      return panelId ? document.getElementById(panelId) : null;
+    };
 
     const closePanel = (button) => {
-      const panelId = button.getAttribute("aria-controls");
-      const panel = panelId ? document.getElementById(panelId) : null;
+      const panel = getPanel(button);
       button.setAttribute("aria-expanded", "false");
       if (panel) {
         panel.hidden = true;
@@ -214,8 +214,7 @@
     };
 
     const openPanel = (button) => {
-      const panelId = button.getAttribute("aria-controls");
-      const panel = panelId ? document.getElementById(panelId) : null;
+      const panel = getPanel(button);
       button.setAttribute("aria-expanded", "true");
       if (panel) {
         panel.hidden = false;
