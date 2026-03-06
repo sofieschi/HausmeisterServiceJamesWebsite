@@ -608,6 +608,20 @@ ul {
   max-width: 39ch;
 }
 
+.service-list {
+  margin: 0.08rem 0 0;
+  padding-left: 1.08rem;
+  display: grid;
+  gap: 0.3rem;
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.46;
+}
+
+.service-list li {
+  margin: 0;
+}
+
 .service-card p:last-child,
 .step-card p:last-child {
   margin-bottom: 0;
@@ -1324,6 +1338,14 @@ ul {
   .service-card p {
     line-height: 1.55;
     max-width: 38ch;
+  }
+
+  .service-list {
+    margin-top: 0.12rem;
+    gap: 0.26rem;
+    font-size: 0.89rem;
+    line-height: 1.5;
+    max-width: 34ch;
   }
 
   .service-overlay {
