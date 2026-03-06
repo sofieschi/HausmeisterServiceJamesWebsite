@@ -223,12 +223,18 @@
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
 
       const data = {
         name: form.name.value,
         email: form.email.value,
         telefon: form.telefon.value,
         nachricht: form.nachricht.value,
+        website: form.website ? form.website.value : "",
       };
 
       try {
@@ -249,6 +255,10 @@
       } catch (error) {
         console.error(error);
         alert("Serverfehler. Bitte später erneut versuchen.");
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
       }
     });
   }

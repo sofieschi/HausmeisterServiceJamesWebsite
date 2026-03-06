@@ -8,7 +8,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, telefon, nachricht } = req.body;
+    const { name, email, telefon, nachricht, website } = req.body;
+
+    if (website) {
+      return res.status(200).json({ success: true });
+    }
 
     if (!name || !email || !nachricht) {
       return res.status(400).json({ error: "Missing required fields" });
@@ -27,6 +31,32 @@ Nachricht:
 ${nachricht}
 `,
     });
+
+    try {
+      await resend.emails.send({
+        from: "Hausmeisterservice James GbR <onboarding@resend.dev>",
+        to: email,
+        subject: "Vielen Dank für Ihre Anfrage | Hausmeisterservice James GbR",
+        text: `Hallo ${name},
+
+vielen Dank für Ihre Anfrage an Hausmeisterservice James GbR.
+
+Wir haben Ihre Nachricht erhalten und melden uns schnellstmöglich bei Ihnen zurück.
+
+Ihre Angaben:
+Name: ${name}
+E-Mail: ${email}
+Telefon: ${telefon || "nicht angegeben"}
+
+Nachricht:
+${nachricht}
+
+Freundliche Grüße
+Hausmeisterservice James GbR`,
+      });
+    } catch (confirmationError) {
+      console.error("Confirmation email failed:", confirmationError);
+    }
 
     return res.status(200).json({ success: true });
   } catch (error) {
