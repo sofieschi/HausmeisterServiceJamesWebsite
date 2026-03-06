@@ -293,11 +293,11 @@ ul {
   will-change: transform;
   background-color: var(--color-secondary);
   background-image: linear-gradient(
-      102deg,
-      rgba(0, 0, 0, 0.72) 10%,
-      rgba(0, 0, 0, 0.5) 38%,
-      rgba(70, 92, 136, 0.33) 68%,
-      rgba(70, 92, 136, 0.2) 100%
+      104deg,
+      rgba(0, 0, 0, 0.7) 9%,
+      rgba(0, 0, 0, 0.49) 36%,
+      rgba(70, 92, 136, 0.31) 66%,
+      rgba(70, 92, 136, 0.18) 100%
     ),
     url("assets/LandshutBanner3.webp");
   background-size: cover;
@@ -349,12 +349,12 @@ ul {
 }
 
 .hero-content {
-  width: min(100%, 52rem);
-  max-width: 52rem;
+  width: min(100%, 49rem);
+  max-width: 49rem;
   display: grid;
-  gap: clamp(1.12rem, 1.9vw, 1.5rem);
+  gap: clamp(1.18rem, 2vw, 1.66rem);
   margin-inline: auto;
-  padding-block: clamp(6.4rem, 11vh, 8.3rem) clamp(4.25rem, 8vh, 6.1rem);
+  padding-block: clamp(6.45rem, 11vh, 8.4rem) clamp(4.35rem, 8.1vh, 6.2rem);
   padding-inline: 0;
 }
 
@@ -374,16 +374,16 @@ ul {
 }
 
 .hero .lead {
-  color: rgba(255, 255, 255, 0.92);
-  max-width: 42ch;
-  margin-bottom: 0.18rem;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.93);
+  max-width: 40ch;
+  margin-bottom: 0.22rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.27);
 }
 
 .hero h1 {
-  margin-bottom: 0.3rem;
-  max-width: 14.5ch;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.34);
+  margin-bottom: 0.38rem;
+  max-width: 13.6ch;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.35);
   line-height: 1.12;
 }
 
@@ -391,7 +391,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.78rem;
+  gap: 0.82rem;
+  margin-top: 0.34rem;
 }
 
 .scroll-hint {
@@ -457,14 +458,15 @@ ul {
 
 .services-grid {
   grid-template-columns: 1fr;
-  gap: clamp(0.95rem, 1.8vw, 1.5rem);
+  gap: clamp(1.05rem, 1.9vw, 1.65rem);
 }
 
 .service-card {
   height: 100%;
   display: grid;
   align-content: start;
-  gap: 0.6rem;
+  gap: 0.72rem;
+  padding: clamp(1.22rem, 2vw, 1.65rem);
   overflow: hidden;
 }
 
@@ -492,7 +494,7 @@ ul {
   display: grid;
   align-content: end;
   padding: 1rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.68) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.72) 100%);
   color: #ffffff;
   opacity: 0;
   transform: translateY(8px);
@@ -502,14 +504,20 @@ ul {
 
 .service-overlay__content {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  max-width: 34ch;
 }
 
 .service-card:hover .service-overlay,
 .service-card:focus-within .service-overlay {
   opacity: 1;
   transform: translateY(0);
+}
+
+.service-card:hover .service-media img,
+.service-card:focus-within .service-media img {
+  transform: scale(1.015);
 }
 
 .service-card:focus-within {
@@ -519,6 +527,10 @@ ul {
 .service-media:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: -2px;
+}
+
+.service-media img {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card-tag {
@@ -535,7 +547,14 @@ ul {
 
 .service-card h3,
 .step-card h3 {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.26rem;
+  line-height: 1.22;
+}
+
+.service-card > p {
+  margin-bottom: 0;
+  line-height: 1.56;
+  max-width: 39ch;
 }
 
 .service-card p:last-child,
@@ -872,26 +891,33 @@ ul {
 
 .contact-form {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.05rem;
   background: var(--color-surface-strong);
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
-  padding: clamp(1.05rem, 2vw, 1.45rem);
+  padding: clamp(1.15rem, 2.2vw, 1.65rem);
 }
 
 .contact-form h2 {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.12rem;
 }
 
 .contact-intro {
-  margin: 0 0 0.25rem;
-  font-size: 0.92rem;
+  margin: 0 0 0.46rem;
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.contact-form > div:not(.hp-field) {
+  display: grid;
+  gap: 0.36rem;
 }
 
 .contact-form label {
   display: inline-block;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .required-indicator {
@@ -901,17 +927,36 @@ ul {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  border: 1px solid var(--color-line);
-  border-radius: 10px;
-  padding: 0.68rem 0.78rem;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 11px;
+  padding: 0.72rem 0.84rem;
   font: inherit;
   color: var(--color-text);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 8.6rem;
+  line-height: 1.52;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(0, 0, 0, 0.44);
 }
 
 .contact-form input[aria-invalid="true"],
 .contact-form textarea[aria-invalid="true"] {
   border-color: var(--color-accent);
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  border-color: rgba(255, 122, 48, 0.66);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255, 122, 48, 0.14);
 }
 
 .hp-field {
@@ -929,10 +974,16 @@ ul {
   box-shadow: none;
 }
 
+.contact-form .button[type="submit"] {
+  margin-top: 0.32rem;
+  justify-self: start;
+}
+
 .form-status {
   min-height: 1.5rem;
-  margin: 0.2rem 0 0;
+  margin: 0.1rem 0 0;
   font-size: 0.93rem;
+  line-height: 1.45;
   color: var(--color-muted);
 }
 
@@ -1192,27 +1243,27 @@ ul {
   }
 
   .services-grid {
-    gap: 1.2rem;
+    gap: 1.35rem;
   }
 
   .service-card {
-    gap: 0.72rem;
-    padding: 1.2rem;
+    gap: 0.78rem;
+    padding: 1.26rem;
   }
 
   .service-card p {
     line-height: 1.55;
-    max-width: 42ch;
+    max-width: 38ch;
   }
 
   .service-overlay {
-    padding: 1.1rem;
+    padding: 1rem;
   }
 
   .service-overlay__content {
-    font-size: 0.95rem;
-    line-height: 1.52;
-    max-width: 36ch;
+    font-size: 0.93rem;
+    line-height: 1.5;
+    max-width: 33ch;
   }
 
   .about-values-list {
@@ -1226,27 +1277,28 @@ ul {
   }
 
   .hero-content {
-    width: min(100%, 36rem);
-    gap: 1.05rem;
+    width: min(100%, 34rem);
+    gap: 1.16rem;
   }
 
   .hero h1 {
-    max-width: 13.5ch;
-    margin-bottom: 0.22rem;
-    line-height: 1.14;
+    max-width: 12.5ch;
+    margin-bottom: 0.3rem;
+    line-height: 1.16;
   }
 
   .hero .lead {
-    max-width: 31ch;
-    line-height: 1.6;
-    margin-bottom: 0.18rem;
+    max-width: 29ch;
+    line-height: 1.62;
+    margin-bottom: 0.26rem;
   }
 
   .hero-actions {
     width: 100%;
     flex-direction: column;
-    align-items: stretch;
-    gap: 0.62rem;
+    align-items: flex-start;
+    gap: 0.66rem;
+    margin-top: 0.1rem;
   }
 
   .hero-actions .button {
@@ -1254,26 +1306,36 @@ ul {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 20rem;
+    width: min(100%, 20rem);
   }
 
   .contact-form {
-    gap: 1rem;
+    gap: 1.08rem;
+    padding: 1.18rem;
   }
 
   .contact-form label {
-    margin-bottom: 0.42rem;
+    font-size: 0.96rem;
   }
 
   .contact-form input,
   .contact-form textarea {
     min-height: 44px;
-    padding-block: 0.75rem;
+    padding-block: 0.78rem;
+    padding-inline: 0.86rem;
   }
 
   .contact-form textarea {
-    min-height: 9rem;
+    min-height: 9.5rem;
+  }
+
+  .contact-form .button[type="submit"] {
+    margin-top: 0.42rem;
+    min-height: 46px;
+  }
+
+  .form-status {
+    margin-top: 0.16rem;
   }
 
   .primary-nav a {
