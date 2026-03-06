@@ -69,6 +69,18 @@
       }
     });
 
+    document.addEventListener("click", (event) => {
+      const isMobile = !window.matchMedia("(min-width: 56.25rem)").matches;
+      if (!isMobile || !primaryNav.classList.contains("is-open")) {
+        return;
+      }
+
+      const target = event.target;
+      if (target instanceof Node && !primaryNav.contains(target) && !menuButton.contains(target)) {
+        closeMenu();
+      }
+    });
+
     window.addEventListener("resize", () => {
       if (window.matchMedia("(min-width: 56.25rem)").matches) {
         closeMenu();
