@@ -4,6 +4,10 @@
   const MEDIA_DESKTOP_NAV = "(min-width: 56.25rem)";
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
+  const REVEAL_DELAY_FACTOR = 1.25;
+  const REVEAL_DELAY_FACTOR_SERVICES = 1.5;
+  const REVEAL_BASE_DELAY_MS = 110;
+  const REVEAL_GROUP_STAGGER_MS = 90;
 
   const getScrollY = () => window.scrollY || window.pageYOffset || 0;
   const isDesktopNav = () => window.matchMedia(MEDIA_DESKTOP_NAV).matches;
@@ -112,15 +116,28 @@
     }
 
     const prefersReducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION).matches;
+    const revealGroupIndex = new Map();
 
     revealElements.forEach((element) => {
       const delayAttr = element.getAttribute("data-reveal-delay");
       const delay = delayAttr ? Number.parseInt(delayAttr, 10) : 0;
-      if (Number.isFinite(delay) && delay >= 0) {
-        element.style.setProperty("--reveal-delay", `${delay}ms`);
-      } else {
-        element.style.setProperty("--reveal-delay", "0ms");
+      let staggerDelay = 0;
+
+      if (!(Number.isFinite(delay) && delay >= 0)) {
+        const groupElement = element.closest("[data-reveal-group]");
+        if (groupElement) {
+          const groupKey = groupElement.getAttribute("data-reveal-group") || "__group__";
+          const groupIndex = revealGroupIndex.get(groupKey) || 0;
+          staggerDelay = groupIndex * REVEAL_GROUP_STAGGER_MS;
+          revealGroupIndex.set(groupKey, groupIndex + 1);
+        }
       }
+
+      const serviceCardElement = element.classList.contains("service-card");
+      const delayFactor = serviceCardElement ? REVEAL_DELAY_FACTOR_SERVICES : REVEAL_DELAY_FACTOR;
+      const explicitDelay = Number.isFinite(delay) && delay >= 0 ? Math.round(delay * delayFactor) : 0;
+      const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay;
+      element.style.setProperty("--reveal-delay", `${finalDelay}ms`);
     });
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
