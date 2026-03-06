@@ -881,6 +881,36 @@ ul {
   border-color: var(--color-accent);
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form .button[disabled] {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.form-status {
+  min-height: 1.5rem;
+  margin: 0.2rem 0 0;
+  font-size: 0.93rem;
+  color: var(--color-muted);
+}
+
+.form-status.is-success {
+  color: #2a6b46;
+}
+
+.form-status.is-error {
+  color: #a53e1a;
+}
+
 .contact-card p {
   margin-bottom: 0.7rem;
 }

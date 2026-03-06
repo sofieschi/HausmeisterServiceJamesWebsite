@@ -1,0 +1,9 @@
+{
+  "name": "hausmeisterservice-james-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static Hausmeisterservice website with Vercel serverless contact endpoint.",
+  "dependencies": {
+    "resend": "^4.0.0"
+  }
+}

@@ -413,7 +413,7 @@
 
       <section class="section" id="kontakt">
         <div class="container split contact-layout">
-          <form class="contact-form reveal" id="contact-form" action="#" method="post" novalidate>
+          <form class="contact-form reveal" id="contact-form" action="/api/contact" method="post" novalidate>
             <h2>Kontakt</h2>
             <p class="contact-intro">Pflichtfelder sind mit <span aria-hidden="true">*</span> markiert.</p>
             <div>
@@ -441,12 +441,17 @@
               </label>
               <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
             </div>
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
             <button class="button" type="submit">Anfrage senden</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           </form>
 
           <aside class="card contact-card reveal" aria-label="Kontaktdaten">
             <h3>Direkter Kontakt</h3>
-            <p><strong>Telefon:</strong> <a href="tel:+491601112474">160 111 2474</a></p>
+            <p><strong>Telefon:</strong> <a href="tel:+491601112474">0160 111 2474</a></p>
             <p><strong>E-Mail:</strong> <a href="mailto:info@hausmeister-james.de">info@hausmeister-james.de</a></p>
             <p><strong>Einsatzgebiet:</strong> Landshut und Umgebung</p>
             <p><strong>Zeiten:</strong> Mo-Fr, 08:00-17:00 Uhr</p>
@@ -465,7 +470,7 @@
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
         </nav>
-        <p class="footer-contact">Kontakt: 160 111 2474 | info@hausmeister-james.de</p>
+        <p class="footer-contact">Kontakt: 0160 111 2474 | info@hausmeister-james.de</p>
       </div>
       <div class="container footer-meta">
         <small>&copy; <span id="year"></span> Hausmeister Service James GbR</small>

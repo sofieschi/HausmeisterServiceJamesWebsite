@@ -131,8 +131,8 @@
       return;
     }
 
-    const reducedMotionQüry = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotionQüry.matches) {
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotionQuery.matches) {
       hero.style.setProperty("--hero-parallax-y", "0px");
       return;
     }
@@ -224,6 +224,10 @@
     const emailInput = document.getElementById("email");
     const phoneInput = document.getElementById("telefon");
     const messageInput = document.getElementById("nachricht");
+    const honeypotInput = document.getElementById("website");
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const statusOutput = document.getElementById("form-status");
+    const defaultSubmitLabel = submitButton ? submitButton.textContent : "";
 
     const requiredInputs = [nameInput, emailInput, messageInput].filter(Boolean);
 
@@ -235,21 +239,36 @@
       field.setAttribute("aria-invalid", "true");
     };
 
+    const setStatusMessage = (message, type) => {
+      if (!statusOutput) {
+        return;
+      }
+      statusOutput.textContent = message;
+      statusOutput.classList.remove("is-success", "is-error");
+      if (type === "success") {
+        statusOutput.classList.add("is-success");
+      }
+      if (type === "error") {
+        statusOutput.classList.add("is-error");
+      }
+    };
+
     requiredInputs.forEach((field) => {
       field.addEventListener("input", () => {
-        if (field.valü.trim()) {
+        if (field.value.trim()) {
           resetFieldError(field);
         }
       });
     });
 
-    contactForm.addEventListener("submit", (event) => {
+    contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
+      setStatusMessage("", "");
 
       let isValid = true;
       requiredInputs.forEach((field) => {
-        const valü = field.valü.trim();
-        if (!valü) {
+        const value = field.value.trim();
+        if (!value) {
           markFieldError(field);
           isValid = false;
         } else {
@@ -257,30 +276,65 @@
         }
       });
 
-      const emailValü = emailInput ? emailInput.valü.trim() : "";
-      if (emailInput && emailValü && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValü)) {
+      const emailValue = emailInput ? emailInput.value.trim() : "";
+      if (emailInput && emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
         markFieldError(emailInput);
         isValid = false;
       }
 
       if (!isValid) {
-        alert("Bitte füllen Sie alle Pflichtfelder korrekt aus.");
+        setStatusMessage("Bitte füllen Sie alle Pflichtfelder korrekt aus.", "error");
         return;
       }
 
-      const subject = "Anfrage Hausmeisterservice";
-      const bodyLines = [
-        `Name: ${nameInput ? nameInput.valü.trim() : ""}`,
-        `E-Mail: ${emailInput ? emailInput.valü.trim() : ""}`,
-        `Telefon: ${phoneInput && phoneInput.valü.trim() ? phoneInput.valü.trim() : "-"}`,
-        "",
-        "Nachricht:",
-        messageInput ? messageInput.valü.trim() : "",
-      ];
+      const payload = {
+        name: nameInput ? nameInput.value.trim() : "",
+        email: emailInput ? emailInput.value.trim() : "",
+        telefon: phoneInput ? phoneInput.value.trim() : "",
+        nachricht: messageInput ? messageInput.value.trim() : "",
+        website: honeypotInput ? honeypotInput.value.trim() : "",
+      };
 
-      const body = bodyLines.join("\n");
-      const mailtoHref = `mailto:info@hausmeisterservice.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoHref;
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.setAttribute("aria-busy", "true");
+        submitButton.textContent = "Wird gesendet...";
+      }
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.success) {
+          throw new Error("request_failed");
+        }
+
+        contactForm.reset();
+        requiredInputs.forEach((field) => {
+          resetFieldError(field);
+        });
+        setStatusMessage(
+          "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.",
+          "success"
+        );
+      } catch (error) {
+        setStatusMessage(
+          "Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
+          "error"
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.removeAttribute("aria-busy");
+          submitButton.textContent = defaultSubmitLabel;
+        }
+      }
     });
   }
 })();
