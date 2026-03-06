@@ -13,10 +13,29 @@
     }
 
     let rafId = 0;
+    let lastScrollY = window.scrollY || window.pageYOffset || 0;
     const syncHeaderState = () => {
       rafId = 0;
-      const shouldCompact = (window.scrollY || window.pageYOffset) > 16;
+      const currentScrollY = window.scrollY || window.pageYOffset || 0;
+      const shouldCompact = currentScrollY > 18;
       header.classList.toggle("is-scrolled", shouldCompact);
+
+      if (currentScrollY <= 10) {
+        header.classList.remove("is-topbar-hidden");
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      const scrollingDown = currentScrollY > lastScrollY + 2;
+      const scrollingUp = currentScrollY < lastScrollY - 2;
+
+      if (scrollingDown && currentScrollY > 34) {
+        header.classList.add("is-topbar-hidden");
+      } else if (scrollingUp) {
+        header.classList.remove("is-topbar-hidden");
+      }
+
+      lastScrollY = currentScrollY;
     };
 
     const requestSync = () => {

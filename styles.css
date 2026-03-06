@@ -17,6 +17,7 @@
   --container-padding: clamp(1rem, 3vw, 2.5rem);
   --section-space: clamp(4.5rem, 7vw, 7rem);
   --header-height: 4.9rem;
+  --topbar-height: 0px;
 
   --anim-fast: 180ms;
   --anim-base: 460ms;
@@ -60,7 +61,7 @@ img {
 .section {
   position: relative;
   padding: var(--section-space) 0;
-  scroll-margin-top: calc(var(--header-height) + 1rem);
+  scroll-margin-top: calc(var(--header-height) + var(--topbar-height) + 1rem);
 }
 
 .full-bleed {
@@ -98,6 +99,7 @@ ul {
 }
 
 .site-header {
+  --topbar-height: 2rem;
   position: sticky;
   top: 0;
   z-index: 40;
@@ -111,6 +113,55 @@ ul {
   background: rgba(233, 227, 223, 0.92);
   backdrop-filter: blur(13px);
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+.site-header.is-topbar-hidden {
+  --topbar-height: 0px;
+}
+
+.header-topbar {
+  max-height: var(--topbar-height);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  background: rgba(247, 242, 238, 0.9);
+  transition: max-height 240ms ease, opacity 220ms ease, border-color 220ms ease;
+}
+
+.site-header.is-topbar-hidden .header-topbar {
+  opacity: 0;
+  border-color: transparent;
+}
+
+.header-topbar-inner {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.25rem;
+  font-size: 0.79rem;
+  color: rgba(0, 0, 0, 0.74);
+  line-height: 1.3;
+}
+
+.header-topbar-inner a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--anim-fast) var(--anim-ease);
+}
+
+.header-topbar-inner a:hover,
+.header-topbar-inner a:focus-visible {
+  color: var(--color-secondary);
+}
+
+.header-topbar-inner a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.header-topbar-inner p {
+  margin: 0;
 }
 
 .header-inner {
@@ -1177,6 +1228,25 @@ ul {
 }
 
 @media (max-width: 48rem) {
+  .site-header {
+    --topbar-height: 3.2rem;
+  }
+
+  .header-topbar-inner {
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.95rem;
+    padding: 0.45rem 0;
+    min-height: 3.2rem;
+    font-size: 0.74rem;
+  }
+
+  .header-topbar-inner a,
+  .header-topbar-inner p {
+    white-space: nowrap;
+  }
+
   .brand-text {
     display: none;
   }
@@ -1381,6 +1451,10 @@ ul {
 }
 
 @media (min-width: 56.25rem) {
+  .site-header {
+    --topbar-height: 2rem;
+  }
+
   .hero {
     min-height: 620px;
     height: 86vh;
@@ -1524,5 +1598,9 @@ ul {
     opacity: 1;
     transform: none;
     animation: none;
+  }
+
+  .header-topbar {
+    transition: none;
   }
 }
