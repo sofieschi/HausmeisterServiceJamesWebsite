@@ -218,88 +218,18 @@
     });
   });
 
-  const contactForm = document.getElementById("contact-form");
-  if (contactForm) {
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const phoneInput = document.getElementById("telefon");
-    const messageInput = document.getElementById("nachricht");
-    const honeypotInput = document.getElementById("website");
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const statusOutput = document.getElementById("form-status");
-    const defaultSubmitLabel = submitButton ? submitButton.textContent : "";
+  const form = document.getElementById("contact-form");
 
-    const requiredInputs = [nameInput, emailInput, messageInput].filter(Boolean);
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    const resetFieldError = (field) => {
-      field.setAttribute("aria-invalid", "false");
-    };
-
-    const markFieldError = (field) => {
-      field.setAttribute("aria-invalid", "true");
-    };
-
-    const setStatusMessage = (message, type) => {
-      if (!statusOutput) {
-        return;
-      }
-      statusOutput.textContent = message;
-      statusOutput.classList.remove("is-success", "is-error");
-      if (type === "success") {
-        statusOutput.classList.add("is-success");
-      }
-      if (type === "error") {
-        statusOutput.classList.add("is-error");
-      }
-    };
-
-    requiredInputs.forEach((field) => {
-      field.addEventListener("input", () => {
-        if (field.value.trim()) {
-          resetFieldError(field);
-        }
-      });
-    });
-
-    contactForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      setStatusMessage("", "");
-
-      let isValid = true;
-      requiredInputs.forEach((field) => {
-        const value = field.value.trim();
-        if (!value) {
-          markFieldError(field);
-          isValid = false;
-        } else {
-          resetFieldError(field);
-        }
-      });
-
-      const emailValue = emailInput ? emailInput.value.trim() : "";
-      if (emailInput && emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-        markFieldError(emailInput);
-        isValid = false;
-      }
-
-      if (!isValid) {
-        setStatusMessage("Bitte füllen Sie alle Pflichtfelder korrekt aus.", "error");
-        return;
-      }
-
-      const payload = {
-        name: nameInput ? nameInput.value.trim() : "",
-        email: emailInput ? emailInput.value.trim() : "",
-        telefon: phoneInput ? phoneInput.value.trim() : "",
-        nachricht: messageInput ? messageInput.value.trim() : "",
-        website: honeypotInput ? honeypotInput.value.trim() : "",
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        telefon: form.telefon.value,
+        nachricht: form.nachricht.value,
       };
-
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.setAttribute("aria-busy", "true");
-        submitButton.textContent = "Wird gesendet...";
-      }
 
       try {
         const response = await fetch("/api/contact", {
@@ -307,33 +237,18 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(data),
         });
 
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || !result.success) {
-          throw new Error("request_failed");
+        if (response.ok) {
+          alert("Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.");
+          form.reset();
+        } else {
+          alert("Beim Senden ist ein Fehler aufgetreten.");
         }
-
-        contactForm.reset();
-        requiredInputs.forEach((field) => {
-          resetFieldError(field);
-        });
-        setStatusMessage(
-          "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.",
-          "success"
-        );
       } catch (error) {
-        setStatusMessage(
-          "Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
-          "error"
-        );
-      } finally {
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.removeAttribute("aria-busy");
-          submitButton.textContent = defaultSubmitLabel;
-        }
+        console.error(error);
+        alert("Serverfehler. Bitte später erneut versuchen.");
       }
     });
   }
