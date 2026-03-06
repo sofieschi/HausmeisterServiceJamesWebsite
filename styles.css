@@ -446,6 +446,28 @@ ul {
   margin-top: 0.34rem;
 }
 
+.hero-trust {
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem 0.56rem;
+  max-width: 38rem;
+}
+
+.hero-trust li {
+  margin: 0;
+  padding: 0.24rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
 .scroll-hint {
   position: absolute;
   left: 50%;
@@ -973,6 +995,40 @@ ul {
   line-height: 1.5;
 }
 
+.contact-reassurance {
+  margin: -0.08rem 0 0.16rem;
+  font-size: 0.91rem;
+  line-height: 1.48;
+  color: rgba(0, 0, 0, 0.76);
+}
+
+.contact-trust-points {
+  margin: 0 0 0.34rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.26rem;
+  font-size: 0.87rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.contact-trust-points li {
+  position: relative;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.contact-trust-points li::before {
+  content: "";
+  position: absolute;
+  left: 0.05rem;
+  top: 0.44rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: rgba(70, 92, 136, 0.42);
+}
+
 .contact-form > div:not(.hp-field) {
   display: grid;
   gap: 0.36rem;
@@ -1401,9 +1457,31 @@ ul {
     width: min(100%, 20rem);
   }
 
+  .hero-trust {
+    margin-top: 0.28rem;
+    gap: 0.34rem 0.44rem;
+    max-width: 100%;
+  }
+
+  .hero-trust li {
+    font-size: 0.74rem;
+    padding: 0.22rem 0.52rem;
+  }
+
   .contact-form {
     gap: 1.08rem;
     padding: 1.18rem;
+  }
+
+  .contact-reassurance {
+    font-size: 0.9rem;
+    line-height: 1.52;
+  }
+
+  .contact-trust-points {
+    gap: 0.24rem;
+    font-size: 0.86rem;
+    margin-bottom: 0.3rem;
   }
 
   .contact-form label {
