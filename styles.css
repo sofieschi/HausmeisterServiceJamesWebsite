@@ -568,17 +568,58 @@ ul {
   margin-bottom: 0;
 }
 
-.about-valüs {
-  transform: translateY(0.4rem);
+.about-values-integrated {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  padding: clamp(0.35rem, 1vw, 0.7rem) 0;
 }
 
-.about-valüs h3,
+.about-values-integrated::before {
+  content: "";
+  position: absolute;
+  inset: -0.4rem -1rem;
+  z-index: -1;
+  background: radial-gradient(circle at 78% 20%, rgba(70, 92, 136, 0.09), transparent 60%);
+  pointer-events: none;
+}
+
+.about-values-label {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(70, 92, 136, 0.82);
+  font-weight: 600;
+}
+
+.about-values-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem 1rem;
+}
+
+.about-values-list li {
+  margin: 0;
+  padding: 0.68rem 0.05rem 0.68rem 0.85rem;
+  border-left: 2px solid rgba(70, 92, 136, 0.22);
+  background: rgba(70, 92, 136, 0.04);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 450;
+  max-width: 100%;
+}
+
 .profile-note h3,
 .contact-card h3 {
   margin-bottom: 0.75rem;
 }
 
-.valüs-list,
 .profile-points {
   margin: 0;
   padding-left: 1.1rem;
@@ -1030,6 +1071,10 @@ ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .about-values-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .profile-card {
     grid-template-columns: minmax(18rem, 45%) minmax(0, 1fr);
     align-items: center;
@@ -1090,8 +1135,8 @@ ul {
     gap: clamp(1.3rem, 2.5vw, 2.8rem);
   }
 
-  .about-valüs {
-    margin-top: 0.9rem;
+  .about-values-integrated {
+    margin-top: 0.4rem;
   }
 
   .services-grid {
