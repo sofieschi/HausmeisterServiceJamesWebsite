@@ -4,6 +4,9 @@
   const MEDIA_DESKTOP_NAV = "(min-width: 56.25rem)";
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
+  const HEADER_DIRECTION_DELTA_PX = 8;
+  const HEADER_BOTTOM_ZONE_PX = 20;
+  const HEADER_BOTTOM_BOUNCE_DELTA_PX = 14;
   const REVEAL_SERVICE_EXTRA_DELAY_MS = 40;
   const REVEAL_BASE_DELAY_MS = 90;
   const REVEAL_GROUP_STAGGER_MS = 110;
@@ -38,12 +41,22 @@
         return;
       }
 
-      const scrollingDown = currentScrollY > lastScrollY + 2;
-      const scrollingUp = currentScrollY < lastScrollY - 2;
+      const scrollDelta = currentScrollY - lastScrollY;
+      const maxScrollY = Math.max(
+        0,
+        (document.documentElement?.scrollHeight || document.body.scrollHeight) - window.innerHeight
+      );
+      const isNearBottom = maxScrollY - currentScrollY <= HEADER_BOTTOM_ZONE_PX;
+      const isBottomBounceNoise = isNearBottom && Math.abs(scrollDelta) < HEADER_BOTTOM_BOUNCE_DELTA_PX;
 
-      if (scrollingDown && currentScrollY > 34) {
+      if (isBottomBounceNoise || Math.abs(scrollDelta) < HEADER_DIRECTION_DELTA_PX) {
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (scrollDelta > 0 && currentScrollY > 34) {
         header.classList.add("is-topbar-hidden");
-      } else if (scrollingUp) {
+      } else if (scrollDelta < 0) {
         header.classList.remove("is-topbar-hidden");
       }
 
