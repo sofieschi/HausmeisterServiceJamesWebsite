@@ -1601,6 +1601,14 @@ ul {
     padding: 1.5rem;
   }
 
+  .service-media {
+    min-height: clamp(12rem, 52vw, 13.5rem);
+  }
+
+  .service-media img {
+    height: clamp(12rem, 52vw, 13.5rem);
+  }
+
   .service-card h3 {
     min-height: 2.6rem;
   }
