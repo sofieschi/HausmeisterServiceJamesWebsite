@@ -19,8 +19,8 @@ export default async function handler(req, res) {
     }
 
     await resend.emails.send({
-      from: "Website Anfrage <onboarding@resend.dev>",
-      to: "sofie.schi@gmail.com",
+      from: "Hausmeisterservice James <info@hausmeister-james.de>",
+      to: "info@hausmeister-james.de",
       subject: "Neue Anfrage über die Website",
       text: `
 Name: ${name}
@@ -34,7 +34,7 @@ ${nachricht}
 
     try {
       await resend.emails.send({
-        from: "Hausmeisterservice James GbR <onboarding@resend.dev>",
+        from: "Hausmeisterservice James GbR <info@hausmeister-james.de>",
         to: email,
         subject: "Vielen Dank für Ihre Anfrage | Hausmeisterservice James GbR",
         text: `Hallo ${name},
@@ -42,14 +42,6 @@ ${nachricht}
 vielen Dank für Ihre Anfrage an Hausmeisterservice James GbR.
 
 Wir haben Ihre Nachricht erhalten und melden uns schnellstmöglich bei Ihnen zurück.
-
-Ihre Angaben:
-Name: ${name}
-E-Mail: ${email}
-Telefon: ${telefon || "nicht angegeben"}
-
-Nachricht:
-${nachricht}
 
 Freundliche Grüße
 Hausmeisterservice James GbR`,
