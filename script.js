@@ -4,9 +4,7 @@
   const MEDIA_DESKTOP_NAV = "(min-width: 56.25rem)";
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
-  const HEADER_DIRECTION_DELTA_PX = 8;
-  const HEADER_BOTTOM_ZONE_PX = 20;
-  const HEADER_BOTTOM_BOUNCE_DELTA_PX = 14;
+  const HERO_TOPBAR_BUFFER_PX = 24;
   const REVEAL_SERVICE_EXTRA_DELAY_MS = 40;
   const REVEAL_BASE_DELAY_MS = 90;
   const REVEAL_GROUP_STAGGER_MS = 110;
@@ -24,11 +22,11 @@
     if (!header) {
       return;
     }
+    const heroSection = document.querySelector(".hero");
 
     header.classList.add("is-initializing");
 
     let rafId = 0;
-    let lastScrollY = getScrollY();
     const syncHeaderState = () => {
       rafId = 0;
       const currentScrollY = getScrollY();
@@ -37,30 +35,17 @@
 
       if (currentScrollY <= 10) {
         header.classList.remove("is-topbar-hidden");
-        lastScrollY = currentScrollY;
         return;
       }
 
-      const scrollDelta = currentScrollY - lastScrollY;
-      const maxScrollY = Math.max(
-        0,
-        (document.documentElement?.scrollHeight || document.body.scrollHeight) - window.innerHeight
-      );
-      const isNearBottom = maxScrollY - currentScrollY <= HEADER_BOTTOM_ZONE_PX;
-      const isBottomBounceNoise = isNearBottom && Math.abs(scrollDelta) < HEADER_BOTTOM_BOUNCE_DELTA_PX;
-
-      if (isBottomBounceNoise || Math.abs(scrollDelta) < HEADER_DIRECTION_DELTA_PX) {
-        lastScrollY = currentScrollY;
-        return;
-      }
-
-      if (scrollDelta > 0 && currentScrollY > 34) {
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        const topbarVisibleZone = (header.offsetHeight || 0) + HERO_TOPBAR_BUFFER_PX;
+        const isWithinHeroZone = heroBottom > topbarVisibleZone;
+        header.classList.toggle("is-topbar-hidden", !isWithinHeroZone);
+      } else {
         header.classList.add("is-topbar-hidden");
-      } else if (scrollDelta < 0) {
-        header.classList.remove("is-topbar-hidden");
       }
-
-      lastScrollY = currentScrollY;
     };
 
     const requestSync = () => {
