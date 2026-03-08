@@ -1540,6 +1540,7 @@ ul {
     top: calc(100% + 0.5rem);
     left: auto;
     right: 0;
+    display: flex;
     width: min(15.5rem, calc(100vw - (var(--container-padding) * 2)));
     min-width: 12rem;
     padding: 0.5rem;
@@ -1549,6 +1550,22 @@ ul {
     background: rgba(247, 242, 238, 0.95);
     box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
     backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px) scale(0.985);
+    transform-origin: top right;
+    transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 250ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 250ms;
+  }
+
+  .primary-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 250ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
   }
 
   .primary-nav a {
