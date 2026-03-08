@@ -449,7 +449,7 @@ ul {
       rgba(70, 92, 136, 0.31) 66%,
       rgba(70, 92, 136, 0.18) 100%
     ),
-    url("assets/LandshutBanner3.webp");
+    url("assets/LandshutBanner.webp");
   background-size: cover;
   background-position: center center;
   background-attachment: scroll;
