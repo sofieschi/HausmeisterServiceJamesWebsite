@@ -5,9 +5,9 @@
   const MEDIA_REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
   const MEDIA_PARALLAX_DISABLED = "(max-width: 56.24rem)";
   const HERO_TOPBAR_BUFFER_PX = 24;
-  const REVEAL_SERVICE_EXTRA_DELAY_MS = 40;
   const REVEAL_BASE_DELAY_MS = 90;
   const REVEAL_GROUP_STAGGER_MS = 110;
+  const REVEAL_SERVICE_STAGGER_MS = 500;
 
   const getScrollY = () => window.scrollY || window.pageYOffset || 0;
   const isDesktopNav = () => window.matchMedia(MEDIA_DESKTOP_NAV).matches;
@@ -119,10 +119,16 @@
 
     const prefersReducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION).matches;
     const revealGroupIndex = new Map();
-    const serviceCardElements = [];
-    const defaultRevealElements = [];
+    const serviceCardElements = Array.from(document.querySelectorAll(".services-grid .service-card.reveal"));
+    const serviceSection = document.getElementById("leistungen");
+    const serviceCardSet = new Set(serviceCardElements);
+    const defaultRevealElements = revealElements.filter((element) => !serviceCardSet.has(element));
 
-    revealElements.forEach((element) => {
+    serviceCardElements.forEach((element, index) => {
+      element.style.setProperty("--reveal-delay", `${index * REVEAL_SERVICE_STAGGER_MS}ms`);
+    });
+
+    defaultRevealElements.forEach((element) => {
       const delayAttr = element.getAttribute("data-reveal-delay");
       const delay = delayAttr ? Number.parseInt(delayAttr, 10) : 0;
       let staggerDelay = 0;
@@ -137,17 +143,9 @@
         }
       }
 
-      const serviceCardElement = element.classList.contains("service-card");
       const explicitDelay = Number.isFinite(delay) && delay >= 0 ? delay : 0;
-      const serviceDelay = serviceCardElement ? REVEAL_SERVICE_EXTRA_DELAY_MS : 0;
-      const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay + serviceDelay;
+      const finalDelay = REVEAL_BASE_DELAY_MS + explicitDelay + staggerDelay;
       element.style.setProperty("--reveal-delay", `${finalDelay}ms`);
-
-      if (serviceCardElement) {
-        serviceCardElements.push(element);
-      } else {
-        defaultRevealElements.push(element);
-      }
     });
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
@@ -170,24 +168,7 @@
       {
         root: null,
         rootMargin: "0px 0px -8% 0px",
-        threshold: 0.12,
-      }
-    );
-
-    const serviceObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-          entry.target.classList.add("is-visible");
-          serviceObserver.unobserve(entry.target);
-        });
-      },
-      {
-        root: null,
-        rootMargin: "0px 0px -6% 0px",
-        threshold: 0.16,
+        threshold: 0.08,
       }
     );
 
@@ -195,9 +176,30 @@
       defaultObserver.observe(element);
     });
 
-    serviceCardElements.forEach((element) => {
-      serviceObserver.observe(element);
-    });
+    if (serviceSection && serviceCardElements.length) {
+      const serviceObserver = new IntersectionObserver(
+        (entries, observer) => {
+          const isVisible = entries.some((entry) => entry.isIntersecting);
+          if (!isVisible) {
+            return;
+          }
+
+          serviceCardElements.forEach((card) => {
+            card.classList.add("is-visible");
+          });
+
+          observer.unobserve(serviceSection);
+          observer.disconnect();
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -8% 0px",
+          threshold: 0.14,
+        }
+      );
+
+      serviceObserver.observe(serviceSection);
+    }
   };
 
   initReveal();
