@@ -76,7 +76,7 @@
           "Kleinreparaturen",
           "Winterdienst",
           "Entrümpelung",
-          "Möbelmontage",
+          "Montagearbeiten",
           "kleine Umzüge"
         ]
       }
@@ -103,7 +103,7 @@
 
       <div class="header-right nav-anim">
         <nav id="primary-nav" class="primary-nav" aria-label="Hauptnavigation">
-          <a href="#leistungen">Leistungen</a>
+          <a href="/leistungen.html">Leistungen</a>
           <a href="#ueber-uns">Über uns</a>
           <a href="#ablauf">Ablauf</a>
           <a href="#faq">FAQ</a>
@@ -153,12 +153,14 @@
       <div class="container">
         <h2 class="reveal">Leistungen</h2>
         <p class="section-intro reveal">
-          Wir unterstützen Sie bei der laufenden Pflege und Betreuung Ihrer Immobilie. Unsere
-          Leistungen sind praxisnah, zuverlässig und auf den Alltag rund ums Objekt abgestimmt.
+          Ob Privatperson oder Gewerbe, wir unterstützen Sie bei der Pflege und laufenden Betreuung Ihrer Immobilie. 
+          <br>
+          <br>
+          Klicken Sie auf die Leistung, die Sie interessiert, um mehr zu erfahren. 
         </p>
         <div class="grid services-grid" data-reveal-group="services">
-          <article class="card service-card reveal" data-reveal-delay="0">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Hausmeisterdienste und Objektbetreuung">
+          <a href="/leistungen.html#hausmeisterdienste" class="card service-card reveal" data-reveal-delay="0" aria-label="Mehr Details zu Hausmeisterdienste und Objektbetreuung">
+            <div class="service-media" aria-hidden="true">
               <img src="assets/services/wohnungen-960.webp"
                 srcset="assets/services/wohnungen-640.webp 640w, assets/services/wohnungen-960.webp 960w, assets/services/wohnungen-1280.webp 1280w"
                 sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
@@ -170,15 +172,10 @@
               </div>
             </div>
             <h3>Hausmeisterdienste &amp; Objektbetreuung</h3>
-            <ul class="service-list">
-              <li>Regelmäßige Kontrollgänge</li>
-              <li>Fensterreinigung, Außenreinigung und Ordnung</li>
-              <li>Mülldienst nach Absprache</li>
-              <li>Überwachung technischer Anlagen</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="80">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Garten- und Grünanlagenpflege">
+          </a>
+
+          <a href="/leistungen.html#gartenpflege" class="card service-card reveal" data-reveal-delay="80" aria-label="Mehr Details zu Garten- und Grünanlagenpflege">
+            <div class="service-media" aria-hidden="true">
               <img src="assets/services/garten-960.webp"
                 srcset="assets/services/garten-640.webp 640w, assets/services/garten-960.webp 960w, assets/services/garten-1280.webp 1280w"
                 sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
@@ -191,15 +188,67 @@
               </div>
             </div>
             <h3>Garten- und Grünanlagenpflege</h3>
-            <ul class="service-list">
-              <li>Rasen mähen und Kantenpflege</li>
-              <li>Hecken- und Strauchschnitt</li>
-              <li>Pflege von Beeten</li>
-              <li>Laub- und Saisonarbeiten</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="160">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Kleinreparaturen und Instandhaltung">
+          </a>
+
+          <a href="/leistungen.html#rohrreinigung" class="card service-card reveal" data-reveal-delay="160" aria-label="Mehr Details zu Rohrreinigung">
+            <div class="service-media" aria-hidden="true">
+              <img src="assets/services/rohrreinigung.webp"
+                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+                alt="Rohrreinigung und Hilfe bei Verstopfungen" />
+              <!-- durch neue Fotos austauschen sobald moeglich
+              <img src="assets/services/notdienst-960.webp"
+                srcset="assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w"
+                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+                alt="Rohrreinigung und Hilfe bei Verstopfungen" />
+              -->  
+              <div class="service-overlay" aria-hidden="true">
+                <p class="service-overlay__content">
+                  Professionelle Beseitigung von Verstopfungen in Küche, Bad und Abfluss, schnell, sauber und
+                  zuverlässig ausgeführt.
+                </p>
+              </div>
+            </div>
+            <h3>Rohrreinigung</h3>
+          </a>
+
+          <a href="/leistungen.html#glasreinigung" class="card service-card reveal" data-reveal-delay="320" aria-label="Mehr Details zu Fenster- und Glasreinigung inklusive Solarpanels">
+            <div class="service-media" aria-hidden="true">
+              <img src="assets/services/solar.webp"
+              sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+              alt="Fenster- und Glasreinigung an einem Gebäude" />
+              <!-- durch neue Fotos austauschen sobald moeglich
+              <img src="assets/services/entruempelung-960.webp"
+                srcset="assets/services/entruempelung-640.webp 640w, assets/services/entruempelung-960.webp 960w, assets/services/entruempelung-1280.webp 1280w"
+                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+                alt="Fenster- und Glasreinigung an einem Gebäude" />
+              -->  
+              <div class="service-overlay" aria-hidden="true">
+                <p class="service-overlay__content">
+                  Gründliche Reinigung von Fenstern, Glasflächen und Solarpanels, sauber ausgeführt und zuverlässig
+                  abgestimmt.
+                </p>
+              </div>
+            </div>
+            <h3>Fenster- &amp; Glasreinigung (inkl. Solarpanels)</h3>
+          </a>
+
+          <a href="/leistungen.html#moebelmontage" class="card service-card reveal" data-reveal-delay="400" aria-label="Mehr Details zu Montagearbeiten">
+            <div class="service-media" aria-hidden="true">
+              <img src="assets/services/moebelmontage-960.webp"
+                srcset="assets/services/moebelmontage-640.webp 640w, assets/services/moebelmontage-960.webp 960w, assets/services/moebelmontage-1280.webp 1280w"
+                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+                alt="Montage von Möbeln in einem Innenraum" />
+              <div class="service-overlay" aria-hidden="true">
+                <p class="service-overlay__content">
+                  Möbel und Befestigungen montieren wir sauber, präzise und mit Blick auf ein stimmiges Gesamtbild.
+                </p>
+              </div>
+            </div>
+            <h3>Montagearbeiten</h3>
+          </a>
+
+          <a href="/leistungen.html#kleinreparaturen" class="card service-card reveal" data-reveal-delay="240" aria-label="Mehr Details zu Kleinreparaturen und Instandhaltung">
+            <div class="service-media" aria-hidden="true">
               <img src="assets/services/reparaturen-960.webp"
                 srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-960.webp 960w, assets/services/reparaturen-1280.webp 1280w"
                 sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
@@ -212,15 +261,26 @@
               </div>
             </div>
             <h3>Kleinreparaturen &amp; Instandhaltung</h3>
-            <ul class="service-list">
-              <li>Kleine Defekte beheben</li>
-              <li>Justieren und Nachbessern</li>
-              <li>Wartungsnahe Instandhaltung</li>
-              <li>Koordination bei Folgemaßnahmen</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="240">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Winterdienst und Außenreinigung">
+          </a>
+
+          <a href="/leistungen.html#umzuege-entruempelung" class="card service-card reveal" data-reveal-delay="480" aria-label="Mehr Details zu Umzüge und Entrümpelung">
+            <div class="service-media" aria-hidden="true">
+              <img src="assets/services/umzug-960.webp"
+                srcset="assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w"
+                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
+                alt="Unterstützung bei einem Umzug" />
+              <div class="service-overlay" aria-hidden="true">
+                <p class="service-overlay__content">
+                  Unterstützung bei Umzügen und Entrümpelungen, strukturiert organisiert und mit einem sauberen,
+                  verlässlichen Ablauf umgesetzt.
+                </p>
+              </div>
+            </div>
+            <h3>Umzüge &amp; Entrümpelung</h3>
+          </a>
+
+          <a href="/leistungen.html#winterdienst" class="card service-card reveal" data-reveal-delay="560" aria-label="Mehr Details zu Winterdienst und Außenreinigung">
+            <div class="service-media" aria-hidden="true">
               <img src="assets/services/winterdienst-960.webp"
                 srcset="assets/services/winterdienst-640.webp 640w, assets/services/winterdienst-960.webp 960w, assets/services/winterdienst-1280.webp 1280w"
                 sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
@@ -232,92 +292,71 @@
               </div>
             </div>
             <h3>Winterdienst</h3>
-            <ul class="service-list">
-              <li>Räumen von Wegen</li>
-              <li>Streuen bei Glätte</li>
-              <li>Kontrolle von Zugängen</li>
-              <li>Außenreinigung nach Bedarf</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="320">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Möbelmontage">
-              <img src="assets/services/moebelmontage-960.webp"
-                srcset="assets/services/moebelmontage-640.webp 640w, assets/services/moebelmontage-960.webp 960w, assets/services/moebelmontage-1280.webp 1280w"
-                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
-                alt="Montage von Möbeln in einem Innenraum" />
-              <div class="service-overlay" aria-hidden="true">
-                <p class="service-overlay__content">
-                  Möbel und Befestigungen montieren wir sauber, präzise und mit Blick auf ein stimmiges Gesamtbild.
-                </p>
-              </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section portfolio-section full-bleed" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="portfolio-shell">
+          <h2 class="reveal" id="portfolio-title">Handwerker mit Herz</h2>
+          <p class="section-intro reveal" data-reveal-delay="80">
+            Einblicke in unseren Arbeitsalltag.
+          </p>
+          <div class="portfolio-grid" data-reveal-group="portfolio">
+            <figure class="portfolio-item portfolio-item-square reveal" data-reveal-delay="0">
+              <a class="portfolio-link" href="assets/services/leistungensubpage/james_rasen.webp" aria-label="Projektansicht Rasenpflege">
+                <img src="assets/services/leistungensubpage/james_rasen.webp"
+                  data-full="assets/services/leistungensubpage/james_rasen.webp"
+                  srcset="assets/services/leistungensubpage/james_rasen.webp 640w, assets/services/leistungensubpage/james_rasen.webp 960w, assets/services/leistungensubpage/james_rasen.webp 1280w"
+                  sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 33vw" loading="lazy" decoding="async"
+                  alt="Rasenpflege mit professionellem Akku-Rasenmäher" />
+              </a>
+            </figure>
+            <figure class="portfolio-item portfolio-item-portrait reveal" data-reveal-delay="80">
+              <a class="portfolio-link" href="assets/services/leistungensubpage/james_glas.webp" aria-label="Projektansicht Glasreinigung">
+                <img src="assets/services/leistungensubpage/james_glas.webp"
+                  data-full="assets/services/leistungensubpage/james_glas.webp"
+                  srcset="assets/services/leistungensubpage/james_glas.webp 640w, assets/services/leistungensubpage/james_glas.webp 960w, assets/services/leistungensubpage/james_glas.webp 1280w"
+                  sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 33vw" loading="lazy" decoding="async"
+                  alt="Saubere Glasflächen und gepflegte Gebäudeansicht" />
+              </a>
+            </figure>
+            <figure class="portfolio-item portfolio-item-landscape reveal" data-reveal-delay="160">
+              <a class="portfolio-link" href="assets/services/leistungensubpage/werkzeug_rasen.webp" aria-label="Projektansicht Werkzeug und Arbeitsmaterial">
+                <img src="assets/services/leistungensubpage/werkzeug_rasen.webp"
+                  data-full="assets/services/leistungensubpage/werkzeug_rasen.webp"
+                  srcset="assets/services/leistungensubpage/werkzeug_rasen.webp 640w, assets/services/leistungensubpage/werkzeug_rasen.webp 960w, assets/services/leistungensubpage/werkzeug_rasen.webp 1280w"
+                  sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 33vw" loading="lazy" decoding="async"
+                  alt="Professionelles Werkzeug im täglichen Einsatz" />
+              </a>
+            </figure>
+            <figure class="portfolio-item portfolio-item-landscape reveal" data-reveal-delay="240">
+              <a class="portfolio-link" href="assets/services/leistungensubpage/sprinter.webp" aria-label="Projektansicht Fuhrpark">
+                <img src="assets/services/leistungensubpage/sprinter.webp"
+                  data-full="assets/services/leistungensubpage/sprinter.webp"
+                  srcset="assets/services/leistungensubpage/sprinter.webp 640w, assets/services/leistungensubpage/sprinter.webp 960w, assets/services/leistungensubpage/sprinter.webp 1280w"
+                  sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 33vw" loading="lazy" decoding="async"
+                  alt="Einsatzfahrzeug von Hausmeisterservice James" />
+              </a>
+            </figure>
+            <figure class="portfolio-item portfolio-item-portrait reveal" data-reveal-delay="320">
+              <a class="portfolio-link" href="assets/services/leistungensubpage/sprinter_2.webp" aria-label="Projektansicht weiteres Einsatzfahrzeug">
+                <img src="assets/services/leistungensubpage/sprinter_2.webp"
+                  data-full="assets/services/leistungensubpage/sprinter_2.webp"
+                  srcset="assets/services/leistungensubpage/sprinter_2.webp 640w, assets/services/leistungensubpage/sprinter_2.webp 960w, assets/services/leistungensubpage/sprinter_2.webp 1280w"
+                  sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 50vw, 33vw" loading="lazy" decoding="async"
+                  alt="Weiteres Fahrzeug und Ausstattung im Einsatz" />
+              </a>
+            </figure>
+          </div>
+          <div class="portfolio-partners reveal" data-reveal-delay="400" aria-label="Partner und Qualitätsmarken">
+            <p class="portfolio-partners-label">Wir arbeiten mit professionellen Marken und Materialien</p>
+            <div class="partner-logo-row">
+              <img src="assets/wuerth.webp" alt="Hausmeisterservice James GbR Logo" loading="lazy" decoding="async" />
             </div>
-            <h3>Möbelmontage und Bilder aufhängen</h3>
-            <ul class="service-list">
-              <li>Möbel aufbauen und ausrichten</li>
-              <li>Bilder und Spiegel anbringen</li>
-              <li>Regale montieren</li>
-              <li>Gardinenstangen befestigen</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="400">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Entrümpelung von Wohnungen und Häusern">
-              <img src="assets/services/entruempelung-960.webp"
-                srcset="assets/services/entruempelung-640.webp 640w, assets/services/entruempelung-960.webp 960w, assets/services/entruempelung-1280.webp 1280w"
-                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
-                alt="Entrümpelung eines Wohnbereichs" />
-              <div class="service-overlay" aria-hidden="true">
-                <p class="service-overlay__content">
-                  Entrümpelungen führen wir strukturiert, diskret und mit klar abgestimmtem Ablauf durch.
-                </p>
-              </div>
-            </div>
-            <h3>Entrümpelung von Wohnungen &amp; Häusern</h3>
-            <ul class="service-list">
-              <li>Wohnungen und Häuser entrümpeln</li>
-              <li>Keller und Nebenräume leeren</li>
-              <li>Besenreine Übergabe nach Absprache</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="480">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Umzügen">
-              <img src="assets/services/umzug-960.webp"
-                srcset="assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w"
-                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
-                alt="Unterstützung bei einem Umzug" />
-              <div class="service-overlay" aria-hidden="true">
-                <p class="service-overlay__content">
-                  Bei kleineren Umzügen unterstützen wir zuverlässig bei Organisation, Transport und sorgfältigem
-                  Möbelhandling.
-                </p>
-              </div>
-            </div>
-            <h3>Umzüge</h3>
-            <ul class="service-list">
-              <li>Tragen und Verladen von Umzugskisten</li>
-              <li>Unterstützung beim Transport</li>
-            </ul>
-          </article>
-          <article class="card service-card reveal" data-reveal-delay="560">
-            <div class="service-media" tabindex="0" aria-label="Mehr Details zu Notdienst an Sonn- und Feiertagen">
-              <img src="assets/services/notdienst-960.webp"
-                srcset="assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w"
-                sizes="(max-width: 42rem) 100vw, (max-width: 56.25rem) 50vw, 25vw" loading="lazy" decoding="async"
-                alt="Notdienst-Einsatz" />
-              <div class="service-overlay" aria-hidden="true">
-                <p class="service-overlay__content">
-                  Keine Sorge, auch bei dringenden Anliegen sind wir außerhalb unserer Öffnungszeiten für Sie
-                  erreichbar. Rufen Sie uns einfach an und wir helfen Ihnen weiter.
-                </p>
-              </div>
-            </div>
-            <h3>Notdienst außerhalb der Öffnungszeiten</h3>
-            <ul class="service-list">
-              <li>Erreichbarkeit bei dringenden Fällen</li>
-              <li>Erste Einschätzung am Telefon</li>
-              <li>Kurzfristige Vor-Ort-Unterstützung</li>
-              <li>Pragmatische Sofortmaßnahmen</li>
-            </ul>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -328,6 +367,65 @@
           Ein Service, auf den Sie zählen können.<br />
           Wir sind immer für Sie da.
         </blockquote>
+      </div>
+    </section>
+
+    <section class="section reviews-section" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="reviews-header reveal">
+          <!--<p class="eyebrow">Kundenstimmen</p>-->
+          <h2 id="reviews-title">Was Kunden über uns sagen:</h2>
+          <p class="section-intro">
+            Echte Rückmeldungen von Kunden, die unseren Service bereits genutzt haben.
+          </p>
+        </div>
+
+        <div class="reviews-grid" data-reveal-group="reviews">
+          <article class="review-card reveal" data-reveal-delay="0">
+            <figure class="review-proof">
+              <img src="/assets/bewertungen/simonBewertung.webp" alt="Screenshot einer Google Bewertung" loading="lazy" />
+            </figure>
+            <div class="review-stars" aria-label="5 von 5 Sternen">★★★★★</div>
+            <p class="review-text">
+              "Absolut bester Service den ich jemals bekommen habe. Mein Zimmer wurde hochgradig aufgewertet und ich bin maximal zufrieden. 
+              Hausmeister James ist unglaublich sympathisch, kompetent und hat alles blitzschnell und perfekt erledigt. 
+              Perfektionist liefert perfekte Ergebnisse ✌️."
+            </p>
+            <div class="review-meta">
+              <span class="review-author">Simon</span>
+              <span class="review-source">Google Bewertung</span>
+            </div>
+          </article>
+
+          <article class="review-card reveal" data-reveal-delay="80">
+            <div class="review-stars" aria-label="5 von 5 Sternen">★★★★★</div>
+            <p class="review-text">
+              "Herr Sperlich, sehr souverän, schnelle Reaktion, eine sehr Angenehme und Ruhige Art, weiß wovon der Spricht, hat auch was ausgelegt bei den Arbeiten, das nichts anderes beschädigt wird. 
+              Verschmutzung wurde Beseitigt. Rechnung kam Innerhalb von 24 Stunden, Preis/Leistung völlig in Ordnung. 
+              Werde mit Herr Sperlich mehr zusammenarbeiten 5 von 5 Punkten, kann ich und werde ich auch weiterempfehlen Danke und bis Bald."
+            </p>
+            <div class="review-meta">
+              <span class="review-author">Georg</span>
+              <span class="review-source">MyHammer</span>
+            </div>
+          </article>
+
+          <article class="review-card reveal" data-reveal-delay="160">
+            <div class="review-stars" aria-label="5 von 5 Sternen">★★★★★</div>
+            <p class="review-text">
+              "Hervorragende, fachgerechte Montage. Herr James ist mit modernster Technik ausgerüstet und arbeitet sehr genau und sauber. 
+              Wir waren sehr zufrieden und können Ihn bestens weiterempfehlen.."
+            </p>
+            <div class="review-meta">
+              <span class="review-author">Norbert</span>
+              <span class="review-source">Google Bewertung</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="reviews-cta reveal" data-reveal-delay="240">
+          <a href="https://g.page/r/CQ6o9cHv_aC4EBM/review" class="button">Google Bewertung abgeben</a>
+        </div>
       </div>
     </section>
 
@@ -446,8 +544,8 @@
           </article>
           <article class="card step-card reveal" data-reveal-delay="80">
             <p class="step-number">02</p>
-            <h3>Besichtigung</h3>
-            <p>Bei Bedarf sehen wir uns das Objekt vor Ort an und klären offene Details.</p>
+            <h3>Klärung</h3>
+            <p>Wir klären Einzelheiten und besprechen offene Details. Bei Bedarf besichtigen wir das Objekt.</p>
           </article>
           <article class="card step-card reveal" data-reveal-delay="160">
             <p class="step-number">03</p>
@@ -615,8 +713,8 @@
     </section>
   </main>
 
-  <footer class="site-footer full-bleed">
-    <div class="container footer-inner">
+    <footer class="site-footer full-bleed">
+      <div class="container footer-inner">
       <div class="footer-brand">
         <p class="footer-title">Hausmeisterservice James GbR in Landshut</p>
         <p class="footer-copy">Zuverlässige Betreuung für Wohn- und Gewerbeobjekte.</p>
@@ -627,12 +725,19 @@
       </nav>
       <p class="footer-contact">Kontakt: 0160 111 2474 | info@hausmeister-james.de</p>
     </div>
-    <div class="container footer-meta">
-      <small>&copy; <span id="year"></span> Hausmeisterservice James GbR</small>
-    </div>
-  </footer>
+      <div class="container footer-meta">
+        <small>&copy; <span id="year"></span> Hausmeisterservice James GbR</small>
+      </div>
+    </footer>
 
-  <script src="script.js"></script>
-</body>
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Schließen">×</button>
+      <button class="lightbox-prev" type="button" aria-label="Vorheriges Bild">‹</button>
+      <img class="lightbox-image" src="" alt="">
+      <button class="lightbox-next" type="button" aria-label="Nächstes Bild">›</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 
 </html>

@@ -299,6 +299,123 @@
     });
   });
 
+  const initPortfolioLightbox = () => {
+    const portfolioImages = Array.from(document.querySelectorAll(".portfolio-grid .portfolio-item img"));
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = lightbox?.querySelector(".lightbox-image");
+    const closeButton = lightbox?.querySelector(".lightbox-close");
+    const prevButton = lightbox?.querySelector(".lightbox-prev");
+    const nextButton = lightbox?.querySelector(".lightbox-next");
+
+    if (!portfolioImages.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    const updateImage = () => {
+      const currentImage = portfolioImages[currentIndex];
+      const fullSrc = currentImage.dataset.full || currentImage.currentSrc || currentImage.src;
+      lightboxImage.src = fullSrc;
+      lightboxImage.alt = currentImage.alt;
+    };
+
+    const openLightbox = (index) => {
+      currentIndex = index;
+      updateImage();
+      lightbox.classList.add("active");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove("active");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+    };
+
+    const showNextImage = () => {
+      currentIndex = (currentIndex + 1) % portfolioImages.length;
+      updateImage();
+    };
+
+    const showPreviousImage = () => {
+      currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
+      updateImage();
+    };
+
+    const handleSwipeGesture = () => {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) < swipeThreshold) {
+        return;
+      }
+
+      if (swipeDistance < 0) {
+        showNextImage();
+      } else {
+        showPreviousImage();
+      }
+    };
+
+    portfolioImages.forEach((image, index) => {
+      const trigger = image.closest(".portfolio-link");
+      if (!trigger) {
+        return;
+      }
+
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openLightbox(index);
+      });
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+    nextButton.addEventListener("click", showNextImage);
+    prevButton.addEventListener("click", showPreviousImage);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    lightbox.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
+
+    lightbox.addEventListener(
+      "touchend",
+      (event) => {
+        touchEndX = event.changedTouches[0].screenX;
+        handleSwipeGesture();
+      },
+      { passive: true }
+    );
+
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox.classList.contains("active")) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        closeLightbox();
+      } else if (event.key === "ArrowRight") {
+        showNextImage();
+      } else if (event.key === "ArrowLeft") {
+        showPreviousImage();
+      }
+    });
+  };
+
+  initPortfolioLightbox();
+
   const form = document.getElementById("contact-form");
 
   if (form) {
