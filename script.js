@@ -118,15 +118,33 @@
     }
 
     const prefersReducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION).matches;
+    const desktopServicesQuery = window.matchMedia(MEDIA_DESKTOP_NAV);
     const revealGroupIndex = new Map();
     const serviceCardElements = Array.from(document.querySelectorAll(".services-grid .service-card.reveal"));
     const serviceSection = document.getElementById("leistungen");
     const serviceCardSet = new Set(serviceCardElements);
     const defaultRevealElements = revealElements.filter((element) => !serviceCardSet.has(element));
 
-    serviceCardElements.forEach((element, index) => {
-      element.style.setProperty("--reveal-delay", `${index * REVEAL_SERVICE_STAGGER_MS}ms`);
-    });
+    const updateServiceCardDelays = () => {
+      if (!serviceCardElements.length) {
+        return;
+      }
+
+      const servicesGrid = serviceCardElements[0].closest(".services-grid");
+      const gridTemplateColumns = servicesGrid ? window.getComputedStyle(servicesGrid).gridTemplateColumns : "";
+      const columnCount = gridTemplateColumns
+        .split(" ")
+        .map((value) => value.trim())
+        .filter(Boolean).length;
+      const cardsPerRow = desktopServicesQuery.matches && columnCount > 1 ? columnCount : 1;
+
+      serviceCardElements.forEach((element, index) => {
+        const staggerIndex = desktopServicesQuery.matches ? Math.floor(index / cardsPerRow) : index;
+        element.style.setProperty("--reveal-delay", `${staggerIndex * REVEAL_SERVICE_STAGGER_MS}ms`);
+      });
+    };
+
+    updateServiceCardDelays();
 
     defaultRevealElements.forEach((element) => {
       const delayAttr = element.getAttribute("data-reveal-delay");
@@ -200,6 +218,9 @@
 
       serviceObserver.observe(serviceSection);
     }
+
+    window.addEventListener("resize", updateServiceCardDelays);
+    desktopServicesQuery.addEventListener("change", updateServiceCardDelays);
   };
 
   initReveal();
@@ -300,7 +321,8 @@
   });
 
   const initPortfolioLightbox = () => {
-    const portfolioImages = Array.from(document.querySelectorAll(".portfolio-grid .portfolio-item img"));
+    const portfolioImages = Array.from(document.querySelectorAll(".heart-marquee-track .heart-media-card:not(.is-clone) .portfolio-link img"));
+    const portfolioTriggers = Array.from(document.querySelectorAll(".heart-marquee-track .portfolio-link"));
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = lightbox?.querySelector(".lightbox-image");
     const closeButton = lightbox?.querySelector(".lightbox-close");
@@ -360,9 +382,9 @@
       }
     };
 
-    portfolioImages.forEach((image, index) => {
-      const trigger = image.closest(".portfolio-link");
-      if (!trigger) {
+    portfolioTriggers.forEach((trigger) => {
+      const index = Number.parseInt(trigger.dataset.portfolioIndex || "", 10);
+      if (!Number.isInteger(index) || index < 0 || index >= portfolioImages.length) {
         return;
       }
 
