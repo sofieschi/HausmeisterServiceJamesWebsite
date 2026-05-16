@@ -330,106 +330,88 @@
     });
   });
 
-  const initHeartMarquee = () => {
+  const initPortfolioExperience = () => {
+    const DEBUG_PORTFOLIO = true;
+    const debugPortfolio = (...args) => {
+      if (DEBUG_PORTFOLIO) {
+        console.log("[portfolio-lightbox]", ...args);
+      }
+    };
+
     const marquee = document.querySelector(".heart-marquee");
     const track = marquee?.querySelector(".heart-marquee-track");
+    const group = track?.querySelector(".heart-marquee-group");
     const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
-    if (!marquee || !track) {
+    const portfolioItems = Array.from(document.querySelectorAll(".portfolio-link"));
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = lightbox?.querySelector(".lightbox-image");
+    const closeButton = lightbox?.querySelector(".lightbox-close");
+    const prevButton = lightbox?.querySelector(".lightbox-prev");
+    const nextButton = lightbox?.querySelector(".lightbox-next");
+
+    debugPortfolio("found portfolio links:", portfolioItems.length);
+
+    if (!marquee || !track || !group || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
       return;
-    }
-
-    const originalGroup = track.querySelector(".heart-marquee-group");
-    if (!originalGroup) {
-      return;
-    }
-
-    const originalLinks = Array.from(originalGroup.querySelectorAll(".portfolio-link"));
-    originalLinks.forEach((link, index) => {
-      link.dataset.galleryKey = String(index);
-      const image = link.querySelector("img");
-      if (image && !image.dataset.full) {
-        image.dataset.full = link.getAttribute("href") || image.currentSrc || image.src;
-      }
-    });
-
-    const existingGroups = Array.from(track.querySelectorAll(".heart-marquee-group"));
-    if (existingGroups.length < 2) {
-      const cloneGroup = originalGroup.cloneNode(true);
-      cloneGroup.setAttribute("aria-hidden", "true");
-      cloneGroup.dataset.clone = "true";
-      cloneGroup.querySelectorAll(".heart-media-card").forEach((item) => {
-        item.classList.add("is-clone");
-        item.dataset.clone = "true";
-      });
-      cloneGroup.querySelectorAll("a").forEach((link) => {
-        link.setAttribute("tabindex", "-1");
-      });
-      track.append(cloneGroup);
-    } else {
-      existingGroups.slice(1).forEach((group) => {
-        group.setAttribute("aria-hidden", "true");
-        group.dataset.clone = "true";
-        group.querySelectorAll(".heart-media-card").forEach((item) => {
-          item.classList.add("is-clone");
-          item.dataset.clone = "true";
-        });
-        group.querySelectorAll("a").forEach((link) => {
-          link.setAttribute("tabindex", "-1");
-        });
-      });
     }
 
     const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
     const autoSpeed = 26;
     const resumeDelayMs = 900;
-    const dragThresholdPx = 6;
-    const suppressClickThresholdPx = 6;
 
-    let loopWidth = 0;
+    let maxOffset = 0;
     let offset = 0;
     let rafId = 0;
     let lastTimestamp = 0;
-    let pointerId = null;
-    let pointerStartX = 0;
-    let pointerStartY = 0;
-    let dragStartOffset = 0;
-    let dragDistanceX = 0;
-    let dragDistanceY = 0;
-    let isPointerDown = false;
-    let isDragging = false;
     let isHovered = false;
     let isFocused = false;
     let isInViewport = true;
     let resumeTimeoutId = 0;
-    let shouldSuppressClick = false;
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    const portfolioEntries = portfolioItems
+      .map((trigger, index) => {
+        const image = trigger.querySelector("img");
+        if (!image) {
+          return null;
+        }
+
+        const fullSrc = image.dataset.full || trigger.getAttribute("href") || image.currentSrc || image.src;
+        image.dataset.full = fullSrc;
+
+        return {
+          index,
+          trigger,
+          image,
+          fullSrc,
+          alt: image.alt || "",
+        };
+      })
+      .filter(Boolean);
+
+    if (!portfolioEntries.length) {
+      return;
+    }
 
     const normalizeOffset = (value) => {
-      if (!loopWidth) {
+      if (!maxOffset) {
         return 0;
       }
-
-      let nextValue = value % loopWidth;
-      if (nextValue < 0) {
-        nextValue += loopWidth;
-      }
-      return nextValue;
+      return Math.min(Math.max(value, 0), maxOffset);
     };
 
     const applyTransform = () => {
       track.style.transform = `translate3d(${-offset}px, 0, 0)`;
     };
 
-    const updateLoopWidth = () => {
-      const firstGroup = track.querySelector(".heart-marquee-group");
-      const trackStyles = window.getComputedStyle(track);
-      const groupGap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap || "0") || 0;
-      loopWidth = firstGroup ? firstGroup.getBoundingClientRect().width + groupGap : 0;
-      if (!Number.isFinite(loopWidth) || loopWidth <= 0) {
-        loopWidth = 0;
-        offset = 0;
-      } else {
-        offset = normalizeOffset(offset);
-      }
+    const updateBounds = () => {
+      const groupWidth = group.scrollWidth;
+      const viewportWidth = marquee.clientWidth;
+      maxOffset = Math.max(0, groupWidth - viewportWidth);
+      offset = normalizeOffset(offset);
       applyTransform();
     };
 
@@ -441,10 +423,15 @@
       resumeTimeoutId = 0;
     };
 
-    const isAutoScrollPaused = () =>
-      reducedMotionQuery.matches || !isInViewport || document.hidden || isHovered || isFocused || isDragging || isPointerDown;
+    const pauseAutoScroll = () => {
+      cancelResume();
+      lastTimestamp = 0;
+    };
 
-    const shouldKeepTicking = () => !reducedMotionQuery.matches && (isInViewport || isPointerDown || isDragging);
+    const isAutoScrollPaused = () =>
+      reducedMotionQuery.matches || !isInViewport || document.hidden || isHovered || isFocused;
+
+    const shouldKeepTicking = () => !reducedMotionQuery.matches && isInViewport;
 
     const requestTick = () => {
       if (rafId || reducedMotionQuery.matches) {
@@ -463,8 +450,9 @@
       const deltaSeconds = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
 
-      if (!isAutoScrollPaused() && loopWidth > 0) {
-        offset = normalizeOffset(offset + autoSpeed * deltaSeconds);
+      if (!isAutoScrollPaused() && maxOffset > 0) {
+        const nextOffset = offset + autoSpeed * deltaSeconds;
+        offset = nextOffset >= maxOffset ? 0 : nextOffset;
         applyTransform();
       }
 
@@ -487,67 +475,39 @@
       }, resumeDelayMs);
     };
 
-    const pauseAutoScroll = () => {
-      cancelResume();
-      lastTimestamp = 0;
-    };
-
     const nudgeBy = (distance) => {
-      if (!loopWidth) {
+      if (!maxOffset) {
         return;
       }
+
       pauseAutoScroll();
-      offset = normalizeOffset(offset + distance);
+
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+
+      lastTimestamp = 0;
+
+      const nextOffset = offset + distance;
+
+      if (nextOffset > maxOffset) {
+        offset = 0;
+      } else if (nextOffset < 0) {
+        offset = maxOffset;
+      } else {
+        offset = nextOffset;
+      }
+
       applyTransform();
-      scheduleResume();
-    };
 
-    const handlePointerMove = (event) => {
-      if (!isPointerDown || event.pointerId !== pointerId) {
-        return;
-      }
+      window.setTimeout(() => {
+        lastTimestamp = 0;
 
-      dragDistanceX = event.clientX - pointerStartX;
-      dragDistanceY = event.clientY - pointerStartY;
-
-      if (!isDragging) {
-        if (Math.abs(dragDistanceY) > Math.abs(dragDistanceX) && Math.abs(dragDistanceY) > dragThresholdPx) {
-          if (marquee.hasPointerCapture(event.pointerId)) {
-            marquee.releasePointerCapture(event.pointerId);
-          }
-          endPointerInteraction();
-          return;
+        if (!reducedMotionQuery.matches && isInViewport) {
+          requestTick();
         }
-
-        if (Math.abs(dragDistanceX) < dragThresholdPx || Math.abs(dragDistanceX) <= Math.abs(dragDistanceY)) {
-          return;
-        }
-
-        isDragging = true;
-        marquee.classList.add("is-dragging");
-      }
-
-      event.preventDefault();
-      offset = normalizeOffset(dragStartOffset - dragDistanceX);
-      applyTransform();
-    };
-
-    const endPointerInteraction = () => {
-      if (!isPointerDown) {
-        return;
-      }
-
-      if (isDragging && Math.abs(dragDistanceX) >= suppressClickThresholdPx) {
-        shouldSuppressClick = true;
-      }
-
-      isPointerDown = false;
-      isDragging = false;
-      pointerId = null;
-      dragDistanceX = 0;
-      dragDistanceY = 0;
-      marquee.classList.remove("is-dragging");
-      scheduleResume();
+      }, 220);
     };
 
     marquee.addEventListener("mouseenter", () => {
@@ -557,85 +517,45 @@
 
     marquee.addEventListener("mouseleave", () => {
       isHovered = false;
-      if (!isPointerDown) {
-        scheduleResume();
-      }
+      scheduleResume();
     });
 
-    marquee.addEventListener("focusin", (event) => {
-      const focusTarget = event.target;
-      isFocused = Boolean(focusTarget instanceof HTMLElement && focusTarget.matches(":focus-visible"));
-      if (isFocused) {
-        pauseAutoScroll();
-      }
+    marquee.addEventListener("focusin", () => {
+      isFocused = true;
+      pauseAutoScroll();
     });
 
     marquee.addEventListener("focusout", () => {
       const activeElement = document.activeElement;
-      isFocused = Boolean(
-        activeElement instanceof HTMLElement &&
-        marquee.contains(activeElement) &&
-        activeElement.matches(":focus-visible")
-      );
-      if (!isFocused && !isPointerDown) {
+      isFocused = Boolean(activeElement instanceof HTMLElement && marquee.contains(activeElement));
+      if (!isFocused) {
         scheduleResume();
       }
     });
 
-    marquee.addEventListener("pointerdown", (event) => {
-      if (reducedMotionQuery.matches || !event.isPrimary || event.button !== 0) {
-        return;
-      }
-
-      pointerId = event.pointerId;
-      isPointerDown = true;
-      isDragging = false;
-      pointerStartX = event.clientX;
-      pointerStartY = event.clientY;
-      dragDistanceX = 0;
-      dragDistanceY = 0;
-      dragStartOffset = offset;
-      pauseAutoScroll();
-      marquee.setPointerCapture(pointerId);
-    });
-
-    marquee.addEventListener("pointermove", handlePointerMove);
-
-    marquee.addEventListener("pointerup", (event) => {
-      if (pointerId !== event.pointerId) {
-        return;
-      }
-      if (marquee.hasPointerCapture(event.pointerId)) {
-        marquee.releasePointerCapture(event.pointerId);
-      }
-      endPointerInteraction();
-    });
-
-    marquee.addEventListener("pointercancel", (event) => {
-      if (pointerId !== event.pointerId) {
-        return;
-      }
-      if (marquee.hasPointerCapture(event.pointerId)) {
-        marquee.releasePointerCapture(event.pointerId);
-      }
-      endPointerInteraction();
-    });
-
-    marquee.addEventListener("lostpointercapture", () => {
-      endPointerInteraction();
-    });
-
-    marquee.addEventListener(
-      "click",
-      (event) => {
-        if (shouldSuppressClick) {
-          shouldSuppressClick = false;
-          event.preventDefault();
-          event.stopPropagation();
+    controlButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const direction = Number.parseInt(button.dataset.marqueeStep || "0", 10);
+        if (!Number.isFinite(direction) || direction === 0) {
+          return;
         }
-      },
-      true
-    );
+
+        debugPortfolio("gallery arrow clicked", direction, { maxOffset, offset });
+        const firstCard = group.querySelector(".heart-media-card");
+        const cardWidth = firstCard
+          ? firstCard.getBoundingClientRect().width
+          : marquee.clientWidth * 0.55;
+
+        const gapValue = parseFloat(
+          getComputedStyle(group).gap || "24"
+        );
+
+        const stepDistance = cardWidth + gapValue;
+        nudgeBy(stepDistance * direction);
+      });
+    });
 
     const viewportObserver = new IntersectionObserver(
       (entries) => {
@@ -644,6 +564,7 @@
           requestTick();
           return;
         }
+
         pauseAutoScroll();
         if (rafId) {
           window.cancelAnimationFrame(rafId);
@@ -657,25 +578,6 @@
     );
 
     viewportObserver.observe(marquee);
-
-    controlButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const direction = Number.parseInt(button.dataset.marqueeStep || "0", 10);
-        if (!Number.isFinite(direction) || direction === 0) {
-          return;
-        }
-
-        const stepDistance = marquee.clientWidth * 0.55;
-        nudgeBy(stepDistance * direction);
-      });
-    });
-
-    window.addEventListener("resize", () => {
-      updateLoopWidth();
-      if (!reducedMotionQuery.matches) {
-        requestTick();
-      }
-    });
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
@@ -702,89 +604,16 @@
           rafId = 0;
         }
         track.style.transform = "";
-        marquee.classList.remove("is-dragging");
         return;
       }
 
-      updateLoopWidth();
+      updateBounds();
       requestTick();
     });
-
-    track.querySelectorAll("img").forEach((image) => {
-      if (!image.complete) {
-        image.addEventListener("load", updateLoopWidth, { once: true });
-      }
-    });
-
-    updateLoopWidth();
-    if (!reducedMotionQuery.matches) {
-      requestTick();
-    }
-  };
-
-  initHeartMarquee();
-
-  const initPortfolioLightbox = () => {
-    const marquee = document.querySelector(".heart-marquee");
-    const track = marquee?.querySelector(".heart-marquee-track");
-    const originalGroup = track?.querySelector(".heart-marquee-group:not([data-clone='true'])");
-    const portfolioItems = Array.from(originalGroup?.querySelectorAll(".portfolio-link") || []);
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = lightbox?.querySelector(".lightbox-image");
-    const closeButton = lightbox?.querySelector(".lightbox-close");
-    const prevButton = lightbox?.querySelector(".lightbox-prev");
-    const nextButton = lightbox?.querySelector(".lightbox-next");
-
-    if (!marquee || !track || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
-      return;
-    }
-
-    const portfolioEntries = portfolioItems
-      .map((trigger, index) => {
-        const galleryKey = trigger.dataset.galleryKey || String(index);
-        const image = trigger.querySelector("img");
-        if (!image) {
-          return null;
-        }
-
-        const fullSrc = image.dataset.full || trigger.getAttribute("href") || image.currentSrc || image.src;
-        trigger.dataset.galleryKey = galleryKey;
-        image.dataset.full = fullSrc;
-
-        return {
-          trigger,
-          image,
-          key: galleryKey,
-          fullSrc,
-          alt: image.alt,
-        };
-      })
-      .filter(Boolean);
-
-    const portfolioCount = portfolioEntries.length;
-    if (!portfolioCount) {
-      return;
-    }
-
-    const entryByKey = new Map(portfolioEntries.map((entry, index) => [entry.key, { ...entry, index }]));
-    track.querySelectorAll(".portfolio-link").forEach((trigger) => {
-      const fallbackIndex = portfolioItems.indexOf(trigger);
-      if (!trigger.dataset.galleryKey) {
-        trigger.dataset.galleryKey = String(fallbackIndex >= 0 ? fallbackIndex : 0);
-      }
-      const image = trigger.querySelector("img");
-      if (image && !image.dataset.full) {
-        image.dataset.full = trigger.getAttribute("href") || image.currentSrc || image.src;
-      }
-    });
-
-    let currentIndex = 0;
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const swipeThreshold = 50;
 
     const updateImage = () => {
       const currentEntry = portfolioEntries[currentIndex];
+      debugPortfolio("current image href:", currentEntry.fullSrc);
       lightboxImage.src = currentEntry.fullSrc;
       lightboxImage.removeAttribute("srcset");
       lightboxImage.removeAttribute("sizes");
@@ -793,27 +622,11 @@
 
     const openLightbox = (index) => {
       currentIndex = index;
+      debugPortfolio("clicked index:", currentIndex);
       updateImage();
       lightbox.classList.add("active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.classList.add("lightbox-open");
-    };
-
-    const openFromTrigger = (trigger, event) => {
-      if (marquee.classList.contains("is-dragging")) {
-        return;
-      }
-
-      const galleryKey = trigger.dataset.galleryKey;
-      const entry = galleryKey ? entryByKey.get(galleryKey) : null;
-      if (!entry) {
-        return;
-      }
-
-      event?.preventDefault();
-      event?.stopPropagation();
-      trigger.blur();
-      openLightbox(entry.index);
     };
 
     const closeLightbox = () => {
@@ -823,12 +636,14 @@
     };
 
     const showNextImage = () => {
-      currentIndex = (currentIndex + 1) % portfolioCount;
+      currentIndex = (currentIndex + 1) % portfolioEntries.length;
+      debugPortfolio("next clicked", currentIndex);
       updateImage();
     };
 
     const showPreviousImage = () => {
-      currentIndex = (currentIndex - 1 + portfolioCount) % portfolioCount;
+      currentIndex = (currentIndex - 1 + portfolioEntries.length) % portfolioEntries.length;
+      debugPortfolio("prev clicked", currentIndex);
       updateImage();
     };
 
@@ -845,22 +660,38 @@
       }
     };
 
-    track.addEventListener("click", (event) => {
-      const trigger = event.target instanceof Element ? event.target.closest(".portfolio-link") : null;
-      if (!(trigger instanceof HTMLAnchorElement)) {
-        return;
-      }
-      openFromTrigger(trigger, event);
+    portfolioItems.forEach((trigger, index) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openLightbox(index);
+      });
     });
 
-    closeButton.addEventListener("click", closeLightbox);
-    nextButton.addEventListener("click", showNextImage);
-    prevButton.addEventListener("click", showPreviousImage);
+    prevButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      showPreviousImage();
+    });
+
+    nextButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      showNextImage();
+    });
+
+    closeButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeLightbox();
+    });
 
     lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox) {
         closeLightbox();
       }
+    });
+
+    lightboxImage.addEventListener("click", (event) => {
+      event.stopPropagation();
     });
 
     lightbox.addEventListener(
@@ -893,9 +724,26 @@
         showPreviousImage();
       }
     });
+
+    window.addEventListener("resize", updateBounds);
+    window.addEventListener("load", updateBounds, { once: true });
+    group.querySelectorAll("img").forEach((image) => {
+      if (!image.complete) {
+        image.addEventListener("load", updateBounds, { once: true });
+      }
+    });
+
+    updateBounds();
+    if (!reducedMotionQuery.matches) {
+      requestTick();
+    }
   };
 
-  initPortfolioLightbox();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPortfolioExperience, { once: true });
+  } else {
+    initPortfolioExperience();
+  }
 
   const form = document.getElementById("contact-form");
 

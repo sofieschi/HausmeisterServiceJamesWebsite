@@ -854,13 +854,13 @@ ul {
 }
 
 .heart-marquee-controls {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .heart-marquee-button {
   position: absolute;
   top: 50%;
-  z-index: 2;
+  z-index: 20;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -928,14 +928,14 @@ ul {
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   contain: layout paint;
   --heart-marquee-gap: clamp(1rem, 2vw, 1.35rem);
-  cursor: grab;
-  touch-action: pan-y;
+
+  cursor: default;
+  touch-action: auto;
 }
 
 .heart-marquee-track {
   display: flex;
   align-items: stretch;
-  gap: var(--heart-marquee-gap);
   width: max-content;
   margin: 0;
   padding: 0;
@@ -944,16 +944,6 @@ ul {
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
-}
-
-.heart-marquee.is-dragging {
-  cursor: grabbing;
-}
-
-.heart-marquee.is-dragging,
-.heart-marquee.is-dragging * {
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .heart-marquee-group {
@@ -973,7 +963,7 @@ ul {
 }
 
 .heart-marquee .portfolio-link {
-  cursor: inherit;
+  cursor: pointer;
 }
 
 .portfolio-link {
@@ -1051,12 +1041,7 @@ ul {
   }
 
   .heart-marquee-track {
-    animation: none;
     transform: none !important;
-  }
-
-  .heart-media-card.is-clone {
-    display: none;
   }
 }
 
@@ -1083,21 +1068,32 @@ ul {
 }
 
 .lightbox-image {
-  max-width: min(90vw, 82rem);
-  max-height: 90vh;
+  max-width: min(calc(100vw - 12rem), 1400px);
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 12px;
   display: block;
+  position: relative;
+  z-index: 9999;
 }
 
 .lightbox-close,
 .lightbox-prev,
 .lightbox-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
+  z-index: 10000;
+  pointer-events: auto;
   border: 0;
-  background: none;
+  background: rgba(0, 0, 0, 0.18);
   color: #ffffff;
   cursor: pointer;
   line-height: 1;
+  overflow: visible;
   transition: opacity 220ms var(--anim-ease), transform 220ms var(--anim-ease);
 }
 
@@ -1114,6 +1110,9 @@ ul {
   top: 20px;
   right: 30px;
   font-size: 32px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
 }
 
 .lightbox-prev,
@@ -1121,6 +1120,9 @@ ul {
   top: 50%;
   transform: translateY(-50%);
   font-size: 40px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
 }
 
 .lightbox-prev {
