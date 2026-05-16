@@ -343,12 +343,23 @@
       return;
     }
 
+    const originalLinks = Array.from(originalGroup.querySelectorAll(".portfolio-link"));
+    originalLinks.forEach((link, index) => {
+      link.dataset.galleryKey = String(index);
+      const image = link.querySelector("img");
+      if (image && !image.dataset.full) {
+        image.dataset.full = link.getAttribute("href") || image.currentSrc || image.src;
+      }
+    });
+
     const existingGroups = Array.from(track.querySelectorAll(".heart-marquee-group"));
     if (existingGroups.length < 2) {
       const cloneGroup = originalGroup.cloneNode(true);
       cloneGroup.setAttribute("aria-hidden", "true");
+      cloneGroup.dataset.clone = "true";
       cloneGroup.querySelectorAll(".heart-media-card").forEach((item) => {
         item.classList.add("is-clone");
+        item.dataset.clone = "true";
       });
       cloneGroup.querySelectorAll("a").forEach((link) => {
         link.setAttribute("tabindex", "-1");
@@ -357,8 +368,10 @@
     } else {
       existingGroups.slice(1).forEach((group) => {
         group.setAttribute("aria-hidden", "true");
+        group.dataset.clone = "true";
         group.querySelectorAll(".heart-media-card").forEach((item) => {
           item.classList.add("is-clone");
+          item.dataset.clone = "true";
         });
         group.querySelectorAll("a").forEach((link) => {
           link.setAttribute("tabindex", "-1");
@@ -369,8 +382,8 @@
     const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
     const autoSpeed = 26;
     const resumeDelayMs = 900;
-    const dragThresholdPx = 8;
-    const suppressClickThresholdPx = 10;
+    const dragThresholdPx = 6;
+    const suppressClickThresholdPx = 6;
 
     let loopWidth = 0;
     let offset = 0;
@@ -408,7 +421,9 @@
 
     const updateLoopWidth = () => {
       const firstGroup = track.querySelector(".heart-marquee-group");
-      loopWidth = firstGroup?.scrollWidth || 0;
+      const trackStyles = window.getComputedStyle(track);
+      const groupGap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap || "0") || 0;
+      loopWidth = firstGroup ? firstGroup.getBoundingClientRect().width + groupGap : 0;
       if (!Number.isFinite(loopWidth) || loopWidth <= 0) {
         loopWidth = 0;
         offset = 0;
@@ -710,56 +725,58 @@
   initHeartMarquee();
 
   const initPortfolioLightbox = () => {
-    const track = document.querySelector(".heart-marquee-track");
-    const portfolioItems = Array.from(
-      document.querySelectorAll(".heart-marquee-track .heart-media-card:not(.is-clone) .portfolio-link")
-    );
+    const marquee = document.querySelector(".heart-marquee");
+    const track = marquee?.querySelector(".heart-marquee-track");
+    const originalGroup = track?.querySelector(".heart-marquee-group:not([data-clone='true'])");
+    const portfolioItems = Array.from(originalGroup?.querySelectorAll(".portfolio-link") || []);
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = lightbox?.querySelector(".lightbox-image");
     const closeButton = lightbox?.querySelector(".lightbox-close");
     const prevButton = lightbox?.querySelector(".lightbox-prev");
     const nextButton = lightbox?.querySelector(".lightbox-next");
 
-    if (!track || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+    if (!marquee || !track || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
       return;
     }
 
-    const portfolioImages = portfolioItems
+    const portfolioEntries = portfolioItems
       .map((trigger, index) => {
-        trigger.dataset.portfolioIndex = String(index);
+        const galleryKey = trigger.dataset.galleryKey || String(index);
         const image = trigger.querySelector("img");
         if (!image) {
           return null;
         }
 
-        if (!image.dataset.full) {
-          image.dataset.full = trigger.getAttribute("href") || image.currentSrc || image.src;
-        }
+        const fullSrc = image.dataset.full || trigger.getAttribute("href") || image.currentSrc || image.src;
+        trigger.dataset.galleryKey = galleryKey;
+        image.dataset.full = fullSrc;
 
-        return image;
+        return {
+          trigger,
+          image,
+          key: galleryKey,
+          fullSrc,
+          alt: image.alt,
+        };
       })
       .filter(Boolean);
 
-    const portfolioCount = portfolioImages.length;
+    const portfolioCount = portfolioEntries.length;
     if (!portfolioCount) {
       return;
     }
 
-    const syncTriggerIndex = (trigger) => {
-      const group = trigger.closest(".heart-marquee-group");
-      const siblings = group ? Array.from(group.querySelectorAll(".heart-media-card .portfolio-link")) : portfolioItems;
-      const siblingIndex = siblings.indexOf(trigger);
-      if (siblingIndex >= 0) {
-        trigger.dataset.portfolioIndex = String(siblingIndex % portfolioCount);
+    const entryByKey = new Map(portfolioEntries.map((entry, index) => [entry.key, { ...entry, index }]));
+    track.querySelectorAll(".portfolio-link").forEach((trigger) => {
+      const fallbackIndex = portfolioItems.indexOf(trigger);
+      if (!trigger.dataset.galleryKey) {
+        trigger.dataset.galleryKey = String(fallbackIndex >= 0 ? fallbackIndex : 0);
       }
-
       const image = trigger.querySelector("img");
       if (image && !image.dataset.full) {
         image.dataset.full = trigger.getAttribute("href") || image.currentSrc || image.src;
       }
-    };
-
-    track.querySelectorAll(".portfolio-link").forEach(syncTriggerIndex);
+    });
 
     let currentIndex = 0;
     let touchStartX = 0;
@@ -767,10 +784,11 @@
     const swipeThreshold = 50;
 
     const updateImage = () => {
-      const currentImage = portfolioImages[currentIndex];
-      const fullSrc = currentImage.dataset.full || currentImage.currentSrc || currentImage.src;
-      lightboxImage.src = fullSrc;
-      lightboxImage.alt = currentImage.alt;
+      const currentEntry = portfolioEntries[currentIndex];
+      lightboxImage.src = currentEntry.fullSrc;
+      lightboxImage.removeAttribute("srcset");
+      lightboxImage.removeAttribute("sizes");
+      lightboxImage.alt = currentEntry.alt;
     };
 
     const openLightbox = (index) => {
@@ -782,16 +800,20 @@
     };
 
     const openFromTrigger = (trigger, event) => {
-      syncTriggerIndex(trigger);
-      const index = Number.parseInt(trigger.dataset.portfolioIndex || "", 10);
-      if (!Number.isInteger(index) || index < 0 || index >= portfolioImages.length) {
+      if (marquee.classList.contains("is-dragging")) {
+        return;
+      }
+
+      const galleryKey = trigger.dataset.galleryKey;
+      const entry = galleryKey ? entryByKey.get(galleryKey) : null;
+      if (!entry) {
         return;
       }
 
       event?.preventDefault();
       event?.stopPropagation();
       trigger.blur();
-      openLightbox(index);
+      openLightbox(entry.index);
     };
 
     const closeLightbox = () => {
@@ -801,12 +823,12 @@
     };
 
     const showNextImage = () => {
-      currentIndex = (currentIndex + 1) % portfolioImages.length;
+      currentIndex = (currentIndex + 1) % portfolioCount;
       updateImage();
     };
 
     const showPreviousImage = () => {
-      currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
+      currentIndex = (currentIndex - 1 + portfolioCount) % portfolioCount;
       updateImage();
     };
 
@@ -829,22 +851,6 @@
         return;
       }
       openFromTrigger(trigger, event);
-    });
-
-    track.querySelectorAll(".portfolio-link").forEach((trigger) => {
-      if (!(trigger instanceof HTMLAnchorElement)) {
-        return;
-      }
-
-      trigger.addEventListener("click", (event) => {
-        openFromTrigger(trigger, event);
-      });
-
-      trigger.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          openFromTrigger(trigger, event);
-        }
-      });
     });
 
     closeButton.addEventListener("click", closeLightbox);
