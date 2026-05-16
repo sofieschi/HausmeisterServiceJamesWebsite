@@ -342,16 +342,32 @@
     const track = marquee?.querySelector(".heart-marquee-track");
     const group = track?.querySelector(".heart-marquee-group");
     const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
-    const portfolioItems = Array.from(document.querySelectorAll(".portfolio-link"));
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = lightbox?.querySelector(".lightbox-image");
     const closeButton = lightbox?.querySelector(".lightbox-close");
     const prevButton = lightbox?.querySelector(".lightbox-prev");
     const nextButton = lightbox?.querySelector(".lightbox-next");
 
+    if (!marquee || !track || !group || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+      return;
+    }
+
+    track.querySelectorAll(".heart-marquee-group[data-clone='true']").forEach((node) => {
+      node.remove();
+    });
+
+    const clone = group.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.dataset.clone = "true";
+    clone.querySelectorAll("a, button, input, textarea, select").forEach((element) => {
+      element.setAttribute("tabindex", "-1");
+    });
+    track.appendChild(clone);
+
+    const portfolioItems = Array.from(group.querySelectorAll(".portfolio-link"));
     debugPortfolio("found portfolio links:", portfolioItems.length);
 
-    if (!marquee || !track || !group || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+    if (!portfolioItems.length) {
       return;
     }
 
@@ -359,7 +375,7 @@
     const autoSpeed = 26;
     const resumeDelayMs = 900;
 
-    let maxOffset = 0;
+    let loopWidth = 0;
     let offset = 0;
     let rafId = 0;
     let lastTimestamp = 0;
@@ -397,10 +413,19 @@
     }
 
     const normalizeOffset = (value) => {
-      if (!maxOffset) {
+      if (!loopWidth) {
         return 0;
       }
-      return Math.min(Math.max(value, 0), maxOffset);
+
+      if (value >= loopWidth) {
+        return value - loopWidth;
+      }
+
+      if (value < 0) {
+        return value + loopWidth;
+      }
+
+      return value;
     };
 
     const applyTransform = () => {
@@ -408,9 +433,9 @@
     };
 
     const updateBounds = () => {
-      const groupWidth = group.scrollWidth;
-      const viewportWidth = marquee.clientWidth;
-      maxOffset = Math.max(0, groupWidth - viewportWidth);
+      const groupStyles = window.getComputedStyle(group);
+      const gapValue = Number.parseFloat(groupStyles.columnGap || groupStyles.gap || "0") || 0;
+      loopWidth = group.scrollWidth + gapValue;
       offset = normalizeOffset(offset);
       applyTransform();
     };
@@ -450,9 +475,8 @@
       const deltaSeconds = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
 
-      if (!isAutoScrollPaused() && maxOffset > 0) {
-        const nextOffset = offset + autoSpeed * deltaSeconds;
-        offset = nextOffset >= maxOffset ? 0 : nextOffset;
+      if (!isAutoScrollPaused() && loopWidth > 0) {
+        offset = normalizeOffset(offset + autoSpeed * deltaSeconds);
         applyTransform();
       }
 
@@ -476,7 +500,7 @@
     };
 
     const nudgeBy = (distance) => {
-      if (!maxOffset) {
+      if (!loopWidth) {
         return;
       }
 
@@ -489,16 +513,7 @@
 
       lastTimestamp = 0;
 
-      const nextOffset = offset + distance;
-
-      if (nextOffset > maxOffset) {
-        offset = 0;
-      } else if (nextOffset < 0) {
-        offset = maxOffset;
-      } else {
-        offset = nextOffset;
-      }
-
+      offset = normalizeOffset(offset + distance);
       applyTransform();
 
       window.setTimeout(() => {
@@ -542,7 +557,7 @@
           return;
         }
 
-        debugPortfolio("gallery arrow clicked", direction, { maxOffset, offset });
+        debugPortfolio("gallery arrow clicked", direction, { loopWidth, offset });
         const firstCard = group.querySelector(".heart-media-card");
         const cardWidth = firstCard
           ? firstCard.getBoundingClientRect().width
@@ -727,7 +742,7 @@
 
     window.addEventListener("resize", updateBounds);
     window.addEventListener("load", updateBounds, { once: true });
-    group.querySelectorAll("img").forEach((image) => {
+    track.querySelectorAll("img").forEach((image) => {
       if (!image.complete) {
         image.addEventListener("load", updateBounds, { once: true });
       }
