@@ -2304,21 +2304,7 @@ body.lightbox-open {
   }
 
   .heart-marquee-controls {
-    position: static;
-    pointer-events: auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 0.6rem;
-    margin: 0 0 0.85rem;
-  }
-
-  .heart-marquee-button {
-    position: static;
-    top: auto;
-    margin-top: 0;
-    flex: 1 1 0;
-    width: auto;
-    height: 2.9rem;
+    display: none;
   }
 
   .heart-media-card {
