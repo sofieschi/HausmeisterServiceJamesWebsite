@@ -331,58 +331,20 @@
   });
 
   const initPortfolioExperience = () => {
-    const DEBUG_PORTFOLIO = true;
-    const debugPortfolio = (...args) => {
-      if (DEBUG_PORTFOLIO) {
-        console.log("[portfolio-lightbox]", ...args);
-      }
-    };
-
     const marquee = document.querySelector(".heart-marquee");
     const track = marquee?.querySelector(".heart-marquee-track");
     const group = track?.querySelector(".heart-marquee-group");
     const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
+    const portfolioItems = Array.from(group?.querySelectorAll(".portfolio-link") || []);
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = lightbox?.querySelector(".lightbox-image");
     const closeButton = lightbox?.querySelector(".lightbox-close");
     const prevButton = lightbox?.querySelector(".lightbox-prev");
     const nextButton = lightbox?.querySelector(".lightbox-next");
 
-    if (!marquee || !track || !group || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+    if (!marquee || !track || !group || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
       return;
     }
-
-    track.querySelectorAll(".heart-marquee-group[data-clone='true']").forEach((node) => {
-      node.remove();
-    });
-
-    const clone = group.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.dataset.clone = "true";
-    clone.querySelectorAll("a, button, input, textarea, select").forEach((element) => {
-      element.setAttribute("tabindex", "-1");
-    });
-    track.appendChild(clone);
-
-    const portfolioItems = Array.from(group.querySelectorAll(".portfolio-link"));
-    debugPortfolio("found portfolio links:", portfolioItems.length);
-
-    if (!portfolioItems.length) {
-      return;
-    }
-
-    const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
-    const autoSpeed = 26;
-    const resumeDelayMs = 900;
-
-    let loopWidth = 0;
-    let offset = 0;
-    let rafId = 0;
-    let lastTimestamp = 0;
-    let isHovered = false;
-    let isFocused = false;
-    let isInViewport = true;
-    let resumeTimeoutId = 0;
     let currentIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
@@ -412,141 +374,35 @@
       return;
     }
 
-    const normalizeOffset = (value) => {
-      if (!loopWidth) {
-        return 0;
-      }
-
-      if (value >= loopWidth) {
-        return value - loopWidth;
-      }
-
-      if (value < 0) {
-        return value + loopWidth;
-      }
-
-      return value;
+    const getStepDistance = () => {
+      const firstCard = group.querySelector(".heart-media-card");
+      const cardWidth = firstCard
+        ? firstCard.getBoundingClientRect().width
+        : marquee.clientWidth * 0.55;
+      const gapValue = Number.parseFloat(window.getComputedStyle(group).gap || "24") || 24;
+      return cardWidth + gapValue;
     };
 
-    const applyTransform = () => {
-      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
-    };
+    const getMaxScrollLeft = () => Math.max(0, marquee.scrollWidth - marquee.clientWidth);
 
-    const updateBounds = () => {
-      const groupStyles = window.getComputedStyle(group);
-      const gapValue = Number.parseFloat(groupStyles.columnGap || groupStyles.gap || "0") || 0;
-      loopWidth = group.scrollWidth + gapValue;
-      offset = normalizeOffset(offset);
-      applyTransform();
-    };
+    const scrollGalleryBy = (direction) => {
+      const stepDistance = getStepDistance();
+      const maxScrollLeft = getMaxScrollLeft();
+      const currentScrollLeft = marquee.scrollLeft;
+      const threshold = stepDistance * 0.35;
 
-    const cancelResume = () => {
-      if (!resumeTimeoutId) {
-        return;
-      }
-      window.clearTimeout(resumeTimeoutId);
-      resumeTimeoutId = 0;
-    };
-
-    const pauseAutoScroll = () => {
-      cancelResume();
-      lastTimestamp = 0;
-    };
-
-    const isAutoScrollPaused = () =>
-      reducedMotionQuery.matches || !isInViewport || document.hidden || isHovered || isFocused;
-
-    const shouldKeepTicking = () => !reducedMotionQuery.matches && isInViewport;
-
-    const requestTick = () => {
-      if (rafId || reducedMotionQuery.matches) {
-        return;
-      }
-      rafId = window.requestAnimationFrame(tick);
-    };
-
-    const tick = (timestamp) => {
-      rafId = 0;
-
-      if (!lastTimestamp) {
-        lastTimestamp = timestamp;
-      }
-
-      const deltaSeconds = (timestamp - lastTimestamp) / 1000;
-      lastTimestamp = timestamp;
-
-      if (!isAutoScrollPaused() && loopWidth > 0) {
-        offset = normalizeOffset(offset + autoSpeed * deltaSeconds);
-        applyTransform();
-      }
-
-      if (shouldKeepTicking()) {
-        requestTick();
-      }
-    };
-
-    const scheduleResume = () => {
-      cancelResume();
-      if (reducedMotionQuery.matches) {
-        return;
-      }
-      resumeTimeoutId = window.setTimeout(() => {
-        resumeTimeoutId = 0;
-        lastTimestamp = 0;
-        if (isInViewport) {
-          requestTick();
-        }
-      }, resumeDelayMs);
-    };
-
-    const nudgeBy = (distance) => {
-      if (!loopWidth) {
+      if (direction > 0 && currentScrollLeft >= maxScrollLeft - threshold) {
+        marquee.scrollTo({ left: 0, behavior: "smooth" });
         return;
       }
 
-      pauseAutoScroll();
-
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
-        rafId = 0;
+      if (direction < 0 && currentScrollLeft <= threshold) {
+        marquee.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+        return;
       }
 
-      lastTimestamp = 0;
-
-      offset = normalizeOffset(offset + distance);
-      applyTransform();
-
-      window.setTimeout(() => {
-        lastTimestamp = 0;
-
-        if (!reducedMotionQuery.matches && isInViewport) {
-          requestTick();
-        }
-      }, 220);
+      marquee.scrollBy({ left: stepDistance * direction, behavior: "smooth" });
     };
-
-    marquee.addEventListener("mouseenter", () => {
-      isHovered = true;
-      pauseAutoScroll();
-    });
-
-    marquee.addEventListener("mouseleave", () => {
-      isHovered = false;
-      scheduleResume();
-    });
-
-    marquee.addEventListener("focusin", () => {
-      isFocused = true;
-      pauseAutoScroll();
-    });
-
-    marquee.addEventListener("focusout", () => {
-      const activeElement = document.activeElement;
-      isFocused = Boolean(activeElement instanceof HTMLElement && marquee.contains(activeElement));
-      if (!isFocused) {
-        scheduleResume();
-      }
-    });
 
     controlButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -556,79 +412,12 @@
         if (!Number.isFinite(direction) || direction === 0) {
           return;
         }
-
-        debugPortfolio("gallery arrow clicked", direction, { loopWidth, offset });
-        const firstCard = group.querySelector(".heart-media-card");
-        const cardWidth = firstCard
-          ? firstCard.getBoundingClientRect().width
-          : marquee.clientWidth * 0.55;
-
-        const gapValue = parseFloat(
-          getComputedStyle(group).gap || "24"
-        );
-
-        const stepDistance = cardWidth + gapValue;
-        nudgeBy(stepDistance * direction);
+        scrollGalleryBy(direction);
       });
-    });
-
-    const viewportObserver = new IntersectionObserver(
-      (entries) => {
-        isInViewport = Boolean(entries[0]?.isIntersecting);
-        if (isInViewport) {
-          requestTick();
-          return;
-        }
-
-        pauseAutoScroll();
-        if (rafId) {
-          window.cancelAnimationFrame(rafId);
-          rafId = 0;
-        }
-      },
-      {
-        root: null,
-        threshold: 0,
-      }
-    );
-
-    viewportObserver.observe(marquee);
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        pauseAutoScroll();
-        if (rafId) {
-          window.cancelAnimationFrame(rafId);
-          rafId = 0;
-        }
-        return;
-      }
-
-      if (!reducedMotionQuery.matches && isInViewport) {
-        lastTimestamp = 0;
-        requestTick();
-      }
-    });
-
-    onMediaQueryChange(reducedMotionQuery, () => {
-      cancelResume();
-      lastTimestamp = 0;
-      if (reducedMotionQuery.matches) {
-        if (rafId) {
-          window.cancelAnimationFrame(rafId);
-          rafId = 0;
-        }
-        track.style.transform = "";
-        return;
-      }
-
-      updateBounds();
-      requestTick();
     });
 
     const updateImage = () => {
       const currentEntry = portfolioEntries[currentIndex];
-      debugPortfolio("current image href:", currentEntry.fullSrc);
       lightboxImage.src = currentEntry.fullSrc;
       lightboxImage.removeAttribute("srcset");
       lightboxImage.removeAttribute("sizes");
@@ -637,7 +426,6 @@
 
     const openLightbox = (index) => {
       currentIndex = index;
-      debugPortfolio("clicked index:", currentIndex);
       updateImage();
       lightbox.classList.add("active");
       lightbox.setAttribute("aria-hidden", "false");
@@ -652,13 +440,11 @@
 
     const showNextImage = () => {
       currentIndex = (currentIndex + 1) % portfolioEntries.length;
-      debugPortfolio("next clicked", currentIndex);
       updateImage();
     };
 
     const showPreviousImage = () => {
       currentIndex = (currentIndex - 1 + portfolioEntries.length) % portfolioEntries.length;
-      debugPortfolio("prev clicked", currentIndex);
       updateImage();
     };
 
@@ -678,6 +464,7 @@
     portfolioItems.forEach((trigger, index) => {
       trigger.addEventListener("click", (event) => {
         event.preventDefault();
+        event.stopPropagation();
         openLightbox(index);
       });
     });
@@ -739,19 +526,6 @@
         showPreviousImage();
       }
     });
-
-    window.addEventListener("resize", updateBounds);
-    window.addEventListener("load", updateBounds, { once: true });
-    track.querySelectorAll("img").forEach((image) => {
-      if (!image.complete) {
-        image.addEventListener("load", updateBounds, { once: true });
-      }
-    });
-
-    updateBounds();
-    if (!reducedMotionQuery.matches) {
-      requestTick();
-    }
   };
 
   if (document.readyState === "loading") {

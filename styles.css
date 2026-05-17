@@ -924,26 +924,29 @@ ul {
 .heart-marquee {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   contain: layout paint;
   --heart-marquee-gap: clamp(1rem, 2vw, 1.35rem);
-
   cursor: default;
   touch-action: auto;
+}
+
+.heart-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .heart-marquee-track {
   display: flex;
   align-items: stretch;
-  width: max-content;
+  gap: var(--heart-marquee-gap);
   margin: 0;
   padding: 0;
   list-style: none;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
+  transform: none !important;
 }
 
 .heart-marquee-group {
@@ -951,7 +954,6 @@ ul {
   align-items: stretch;
   gap: var(--heart-marquee-gap);
   flex: 0 0 auto;
-  width: max-content;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1033,15 +1035,9 @@ ul {
 
 @media (prefers-reduced-motion: reduce) {
   .heart-marquee {
-    overflow-x: auto;
-    overflow-y: hidden;
     mask-image: none;
     contain: none;
     scroll-snap-type: x proximity;
-  }
-
-  .heart-marquee-track {
-    transform: none !important;
   }
 }
 
