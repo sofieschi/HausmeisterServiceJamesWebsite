@@ -1208,7 +1208,9 @@ body.lightbox-open {
   inset: -12%;
   z-index: 0;
   background-image:
-    linear-gradient(180deg, rgba(250, 248, 246, 0.72), rgba(243, 239, 234, 0.82)),
+    linear-gradient(180deg,
+    rgba(35, 42, 56, 0.48),
+    rgba(24, 28, 38, 0.62)),
     url("assets/LandshutBanner.webp");
   background-size: cover;
   background-position: center center;
@@ -1239,7 +1241,10 @@ body.lightbox-open {
   font-weight: 500;
   letter-spacing: -0.01em;
   max-width: 24ch;
-  color: var(--color-text);
+  color: white;
+  text-shadow:
+  1px 1px 2px black,
+  0 0 0.2em #ff7a30;
 }
 
 .quote-statement::after {
