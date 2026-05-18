@@ -626,6 +626,7 @@
   const initServiceGalleryRotation = () => {
     const ROTATION_INTERVAL_MS = 5000;
     const galleries = Array.from(document.querySelectorAll(".leistung-gallery[data-gallery-images]"));
+    const supportsObserver = "IntersectionObserver" in window;
 
     galleries.forEach((gallery) => {
       const featureImage = gallery.querySelector(".gallery-feature-image");
@@ -667,6 +668,7 @@
 
       let currentIndex = 0;
       let intervalId = 0;
+      let isVisible = !supportsObserver;
       const dots = entries.map((_, index) => {
         const dot = document.createElement("span");
         dot.className = `gallery-indicator-dot${index === 0 ? " is-active" : ""}`;
@@ -711,13 +713,43 @@
       };
 
       const startRotation = () => {
+        if (!isVisible) {
+          return;
+        }
         stopRotation();
         intervalId = window.setInterval(showNext, ROTATION_INTERVAL_MS);
       };
 
       gallery.addEventListener("mouseenter", stopRotation);
       gallery.addEventListener("mouseleave", startRotation);
-      startRotation();
+
+      if (supportsObserver) {
+        const observer = new IntersectionObserver(
+          (entriesList) => {
+            entriesList.forEach((entry) => {
+              if (entry.target !== gallery) {
+                return;
+              }
+
+              isVisible = entry.isIntersecting;
+              if (isVisible) {
+                startRotation();
+              } else {
+                stopRotation();
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.2,
+          }
+        );
+
+        observer.observe(gallery);
+      } else {
+        startRotation();
+      }
     });
   };
 
