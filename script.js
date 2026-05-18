@@ -330,102 +330,44 @@
     });
   });
 
-  const initPortfolioExperience = () => {
-    const marquee = document.querySelector(".heart-marquee");
-    const track = marquee?.querySelector(".heart-marquee-track");
-    const group = track?.querySelector(".heart-marquee-group");
-    const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
-    const portfolioItems = Array.from(group?.querySelectorAll(".portfolio-link") || []);
+  const createLightboxController = () => {
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = lightbox?.querySelector(".lightbox-image");
     const closeButton = lightbox?.querySelector(".lightbox-close");
     const prevButton = lightbox?.querySelector(".lightbox-prev");
     const nextButton = lightbox?.querySelector(".lightbox-next");
 
-    if (!marquee || !track || !group || !portfolioItems.length || !lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
-      return;
+    if (!lightbox || !lightboxImage || !closeButton || !prevButton || !nextButton) {
+      return null;
     }
+
+    let entries = [];
     let currentIndex = 0;
+    let activeTrigger = null;
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 50;
 
-    const portfolioEntries = portfolioItems
-      .map((trigger, index) => {
-        const image = trigger.querySelector("img");
-        if (!image) {
-          return null;
-        }
-
-        const fullSrc = image.dataset.full || trigger.getAttribute("href") || image.currentSrc || image.src;
-        image.dataset.full = fullSrc;
-
-        return {
-          index,
-          trigger,
-          image,
-          fullSrc,
-          alt: image.alt || "",
-        };
-      })
-      .filter(Boolean);
-
-    if (!portfolioEntries.length) {
-      return;
-    }
-
-    const getStepDistance = () => {
-      const firstCard = group.querySelector(".heart-media-card");
-      const cardWidth = firstCard
-        ? firstCard.getBoundingClientRect().width
-        : marquee.clientWidth * 0.55;
-      const gapValue = Number.parseFloat(window.getComputedStyle(group).gap || "24") || 24;
-      return cardWidth + gapValue;
-    };
-
-    const getMaxScrollLeft = () => Math.max(0, marquee.scrollWidth - marquee.clientWidth);
-
-    const scrollGalleryBy = (direction) => {
-      const stepDistance = getStepDistance();
-      const maxScrollLeft = getMaxScrollLeft();
-      const currentScrollLeft = marquee.scrollLeft;
-      const threshold = stepDistance * 0.35;
-
-      if (direction > 0 && currentScrollLeft >= maxScrollLeft - threshold) {
-        marquee.scrollTo({ left: 0, behavior: "smooth" });
-        return;
-      }
-
-      if (direction < 0 && currentScrollLeft <= threshold) {
-        marquee.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
-        return;
-      }
-
-      marquee.scrollBy({ left: stepDistance * direction, behavior: "smooth" });
-    };
-
-    controlButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        const direction = Number.parseInt(button.dataset.marqueeStep || "0", 10);
-        if (!Number.isFinite(direction) || direction === 0) {
-          return;
-        }
-        scrollGalleryBy(direction);
-      });
-    });
-
     const updateImage = () => {
-      const currentEntry = portfolioEntries[currentIndex];
+      const currentEntry = entries[currentIndex];
+      if (!currentEntry) {
+        return;
+      }
+
       lightboxImage.src = currentEntry.fullSrc;
       lightboxImage.removeAttribute("srcset");
       lightboxImage.removeAttribute("sizes");
       lightboxImage.alt = currentEntry.alt;
     };
 
-    const openLightbox = (index) => {
-      currentIndex = index;
+    const openLightbox = (nextEntries, index = 0, trigger = null) => {
+      if (!Array.isArray(nextEntries) || !nextEntries.length) {
+        return;
+      }
+
+      entries = nextEntries;
+      currentIndex = ((index % entries.length) + entries.length) % entries.length;
+      activeTrigger = trigger instanceof HTMLElement ? trigger : null;
       updateImage();
       lightbox.classList.add("active");
       lightbox.setAttribute("aria-hidden", "false");
@@ -436,15 +378,27 @@
       lightbox.classList.remove("active");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.classList.remove("lightbox-open");
+      lightboxImage.removeAttribute("src");
+      lightboxImage.alt = "";
+      if (activeTrigger) {
+        activeTrigger.focus({ preventScroll: true });
+      }
+      activeTrigger = null;
     };
 
     const showNextImage = () => {
-      currentIndex = (currentIndex + 1) % portfolioEntries.length;
+      if (!entries.length) {
+        return;
+      }
+      currentIndex = (currentIndex + 1) % entries.length;
       updateImage();
     };
 
     const showPreviousImage = () => {
-      currentIndex = (currentIndex - 1 + portfolioEntries.length) % portfolioEntries.length;
+      if (!entries.length) {
+        return;
+      }
+      currentIndex = (currentIndex - 1 + entries.length) % entries.length;
       updateImage();
     };
 
@@ -460,14 +414,6 @@
         showPreviousImage();
       }
     };
-
-    portfolioItems.forEach((trigger, index) => {
-      trigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        openLightbox(index);
-      });
-    });
 
     prevButton.addEventListener("click", (event) => {
       event.preventDefault();
@@ -526,12 +472,271 @@
         showPreviousImage();
       }
     });
+
+    return {
+      open: openLightbox,
+    };
   };
 
+  const buildPortfolioEntries = (triggers) =>
+    triggers
+      .map((trigger) => {
+        const image = trigger.querySelector("img");
+        if (!image) {
+          return null;
+        }
+
+        const fullSrc =
+          image.dataset.full || trigger.getAttribute("href") || image.currentSrc || image.src;
+
+        return {
+          fullSrc,
+          alt: image.alt || "",
+        };
+      })
+      .filter(Boolean);
+
+  const initPortfolioExperience = (lightboxController) => {
+    const marquee = document.querySelector(".heart-marquee");
+    const track = marquee?.querySelector(".heart-marquee-track");
+    const group = track?.querySelector(".heart-marquee-group");
+    const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
+    const portfolioItems = Array.from(group?.querySelectorAll(".portfolio-link") || []);
+
+    if (!marquee || !track || !group || !portfolioItems.length) {
+      return;
+    }
+
+    const portfolioEntries = lightboxController ? buildPortfolioEntries(portfolioItems) : [];
+
+    const getStepDistance = () => {
+      const firstCard = group.querySelector(".heart-media-card");
+      const cardWidth = firstCard
+        ? firstCard.getBoundingClientRect().width
+        : marquee.clientWidth * 0.55;
+      const gapValue = Number.parseFloat(window.getComputedStyle(group).gap || "24") || 24;
+      return cardWidth + gapValue;
+    };
+
+    const getMaxScrollLeft = () => Math.max(0, marquee.scrollWidth - marquee.clientWidth);
+
+    const scrollGalleryBy = (direction) => {
+      const stepDistance = getStepDistance();
+      const maxScrollLeft = getMaxScrollLeft();
+      const currentScrollLeft = marquee.scrollLeft;
+      const threshold = stepDistance * 0.35;
+
+      if (direction > 0 && currentScrollLeft >= maxScrollLeft - threshold) {
+        marquee.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (direction < 0 && currentScrollLeft <= threshold) {
+        marquee.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+        return;
+      }
+
+      marquee.scrollBy({ left: stepDistance * direction, behavior: "smooth" });
+    };
+
+    controlButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const direction = Number.parseInt(button.dataset.marqueeStep || "0", 10);
+        if (!Number.isFinite(direction) || direction === 0) {
+          return;
+        }
+        scrollGalleryBy(direction);
+      });
+    });
+
+    if (!lightboxController || !portfolioEntries.length) {
+      return;
+    }
+
+    portfolioItems.forEach((trigger, index) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        lightboxController.open(portfolioEntries, index, trigger);
+      });
+    });
+  };
+
+  const initServiceGalleries = (lightboxController) => {
+    if (!lightboxController) {
+      return;
+    }
+
+    const galleries = Array.from(document.querySelectorAll(".leistung-gallery[data-gallery-images]"));
+    galleries.forEach((gallery) => {
+      const trigger = gallery.querySelector(".gallery-lightbox-trigger");
+      if (!trigger) {
+        return;
+      }
+
+      let entries = [];
+      const imagesJson = gallery.getAttribute("data-gallery-images") || "[]";
+      try {
+        const parsed = JSON.parse(imagesJson);
+        if (Array.isArray(parsed)) {
+          entries = parsed
+            .map((entry) => {
+              if (!entry || typeof entry.src !== "string" || !entry.src.trim()) {
+                return null;
+              }
+
+              return {
+                fullSrc: entry.src.trim(),
+                alt: typeof entry.alt === "string" ? entry.alt : "",
+              };
+            })
+            .filter(Boolean);
+        }
+      } catch (error) {
+        console.error("Invalid gallery data-gallery-images JSON", error, gallery);
+      }
+
+      if (!entries.length) {
+        const image = trigger.querySelector("img");
+        if (image) {
+          entries = [
+            {
+              fullSrc: image.currentSrc || image.src,
+              alt: image.alt || "",
+            },
+          ];
+        }
+      }
+
+      if (!entries.length) {
+        return;
+      }
+
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const startIndex = Number.parseInt(trigger.getAttribute("data-gallery-open") || "0", 10);
+        lightboxController.open(entries, Number.isFinite(startIndex) ? startIndex : 0, trigger);
+      });
+    });
+  };
+
+  const initServiceGalleryRotation = () => {
+    const ROTATION_INTERVAL_MS = 5000;
+    const galleries = Array.from(document.querySelectorAll(".leistung-gallery[data-gallery-images]"));
+
+    galleries.forEach((gallery) => {
+      const featureImage = gallery.querySelector(".gallery-feature-image");
+      const indicator = gallery.querySelector(".gallery-indicator");
+      if (!(featureImage instanceof HTMLImageElement) || !(indicator instanceof HTMLElement)) {
+        return;
+      }
+
+      let entries = [];
+      try {
+        const parsed = JSON.parse(gallery.getAttribute("data-gallery-images") || "[]");
+        if (Array.isArray(parsed)) {
+          entries = parsed
+            .map((entry) => {
+              if (!entry || typeof entry.src !== "string" || !entry.src.trim()) {
+                return null;
+              }
+
+              return {
+                src: entry.src.trim(),
+                alt: typeof entry.alt === "string" ? entry.alt : "",
+              };
+            })
+            .filter(Boolean);
+        }
+      } catch (error) {
+        console.error("Invalid gallery rotation data-gallery-images JSON", error, gallery);
+      }
+
+      if (entries.length <= 1) {
+        indicator.replaceChildren();
+        if (entries.length === 1) {
+          const dot = document.createElement("span");
+          dot.className = "gallery-indicator-dot is-active";
+          indicator.append(dot);
+        }
+        return;
+      }
+
+      let currentIndex = 0;
+      let intervalId = 0;
+      const dots = entries.map((_, index) => {
+        const dot = document.createElement("span");
+        dot.className = `gallery-indicator-dot${index === 0 ? " is-active" : ""}`;
+        return dot;
+      });
+
+      indicator.replaceChildren(...dots);
+
+      const updateDots = (activeIndex) => {
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("is-active", index === activeIndex);
+        });
+      };
+
+      const renderIndex = (index) => {
+        const entry = entries[index];
+        if (!entry) {
+          return;
+        }
+
+        featureImage.classList.add("is-rotating");
+        window.setTimeout(() => {
+          featureImage.removeAttribute("srcset");
+          featureImage.removeAttribute("sizes");
+          featureImage.src = entry.src;
+          featureImage.alt = entry.alt;
+          updateDots(index);
+          featureImage.classList.remove("is-rotating");
+        }, 160);
+      };
+
+      const showNext = () => {
+        currentIndex = (currentIndex + 1) % entries.length;
+        renderIndex(currentIndex);
+      };
+
+      const stopRotation = () => {
+        if (intervalId) {
+          window.clearInterval(intervalId);
+          intervalId = 0;
+        }
+      };
+
+      const startRotation = () => {
+        stopRotation();
+        intervalId = window.setInterval(showNext, ROTATION_INTERVAL_MS);
+      };
+
+      gallery.addEventListener("mouseenter", stopRotation);
+      gallery.addEventListener("mouseleave", startRotation);
+      startRotation();
+    });
+  };
+
+  const lightboxController = createLightboxController();
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initPortfolioExperience, { once: true });
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        initPortfolioExperience(lightboxController);
+        initServiceGalleries(lightboxController);
+        initServiceGalleryRotation();
+      },
+      { once: true }
+    );
   } else {
-    initPortfolioExperience();
+    initPortfolioExperience(lightboxController);
+    initServiceGalleries(lightboxController);
+    initServiceGalleryRotation();
   }
 
   const form = document.getElementById("contact-form");
