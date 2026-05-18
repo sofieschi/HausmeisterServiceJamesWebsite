@@ -286,7 +286,7 @@
 
     const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
     const isSmallScreen = window.matchMedia(MEDIA_PARALLAX_DISABLED).matches;
-    if (reducedMotionQuery.matches || isSmallScreen) {
+    if (reducedMotionQuery.matches) {
       quoteSection.style.setProperty("--quote-parallax-y", "0px");
       return;
     }
