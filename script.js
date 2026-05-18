@@ -261,7 +261,7 @@
       }
 
       const offset = getScrollY() * compensation;
-      hero.style.setProperty("--hero-parallax-y", `${offset.toFixed(2)}px`);
+      hero.style.setProperty("--hero-parallax-y", `${offset.toFixed(3)}px`);
     };
 
     const requestUpdate = () => {
@@ -277,6 +277,51 @@
   };
 
   initHeroParallax();
+
+  const initQuoteParallax = () => {
+    const quoteSection = document.querySelector(".quote-section");
+    if (!quoteSection) {
+      return;
+    }
+
+    const reducedMotionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
+    const isSmallScreen = window.matchMedia(MEDIA_PARALLAX_DISABLED).matches;
+    if (reducedMotionQuery.matches || isSmallScreen) {
+      quoteSection.style.setProperty("--quote-parallax-y", "0px");
+      return;
+    }
+
+    const maxOffset = 400;
+    let rafId = 0;
+
+    const updateParallax = () => {
+      rafId = 0;
+      const rect = quoteSection.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+        return;
+      }
+
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const distanceFromCenter = sectionCenter - viewportCenter;
+      const normalized = Math.max(-1, Math.min(1, distanceFromCenter / window.innerHeight));
+      const offset = normalized * -maxOffset;
+      quoteSection.style.setProperty("--quote-parallax-y", `${offset.toFixed(2)}px`);
+    };
+
+    const requestUpdate = () => {
+      if (rafId) {
+        return;
+      }
+      rafId = window.requestAnimationFrame(updateParallax);
+    };
+
+    requestUpdate();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+  };
+
+  initQuoteParallax();
 
   const accordions = document.querySelectorAll("[data-accordion]");
   accordions.forEach((accordion) => {

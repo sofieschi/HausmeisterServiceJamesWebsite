@@ -1192,11 +1192,40 @@ body.lightbox-open {
   letter-spacing: 0.03em;
 }
 
+/* Quote Sektion  */
+
 .quote-section {
-  background: linear-gradient(180deg, #faf8f6 0%, #f3efea 100%);
+  --quote-parallax-y: 0px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f3efea;
+}
+
+.quote-section::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  background-image:
+    linear-gradient(180deg, rgba(250, 248, 246, 0.72), rgba(243, 239, 234, 0.82)),
+    url("assets/LandshutBanner.webp");
+  background-size: cover;
+  background-position: center center;
+  opacity: 1;
+  transform: translate3d(0, var(--quote-parallax-y), 0) scale(1.18);
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.quote-section::after {
+  content: none;
 }
 
 .quote-section .container {
+  position: relative;
+  z-index: 1;
   min-height: clamp(14rem, 30vh, 22rem);
   display: grid;
   place-items: center;
@@ -2865,6 +2894,12 @@ body.lightbox-open {
   .hero.parallax-enabled::before {
     background-attachment: scroll;
   }
+
+  .quote-section::before {
+    opacity: 0.12;
+    transform: translate3d(0, 0, 0) scale(1.03);
+    will-change: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2901,6 +2936,11 @@ body.lightbox-open {
   .hero::before {
     transform: none !important;
     background-attachment: scroll !important;
+  }
+
+  .quote-section::before {
+    transform: none !important;
+    will-change: auto !important;
   }
 
   .nav-logo {
