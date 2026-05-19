@@ -2905,7 +2905,7 @@ body.lightbox-open {
 
   .quote-section::before {
     opacity: 1;
-    transform: translate3d(0, var(--quote-parallax-y), 0) scale(1.08);
+    transform: translate3d(0, var(--quote-parallax-y), 0) scale(1.5);
     will-change: auto;
   }
 }

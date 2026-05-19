@@ -291,7 +291,7 @@
       return;
     }
 
-    const maxOffset = 400;
+    const maxOffset = isSmallScreen ? 44 : 120;
     let rafId = 0;
 
     const updateParallax = () => {
