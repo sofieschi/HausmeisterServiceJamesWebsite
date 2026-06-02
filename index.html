@@ -96,7 +96,7 @@
   }
   </script>
   
-  <link rel="stylesheet" href="styles.css?v=20260602-nav-hover-pill" />
+  <link rel="stylesheet" href="styles.css?v=20260602-mobile-header-hero" />
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -117,11 +117,47 @@
       </a>
 
       <div class="header-right nav-anim">
-        <nav id="primary-nav" class="primary-nav" aria-label="Hauptnavigation">
-          <a href="/leistungen.html">Leistungen</a>
-          <a href="#ueber-uns">Über uns</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+          <nav id="primary-nav" class="primary-nav" aria-label="Hauptnavigation">
+            <div class="desktop-nav-links">
+              <a href="/leistungen.html">Leistungen</a>
+              <a href="#ueber-uns">Über uns</a>
+              <a href="#faq">FAQ</a>
+            </div>
+            <div class="mobile-nav-drilldown">
+              <div class="mobile-nav-track">
+                <div class="mobile-nav-view mobile-nav-view--main">
+                  <button class="mobile-services-toggle" type="button" aria-expanded="false"
+                    aria-controls="mobile-services-view">
+                    <span>Leistungen</span>
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="m6 4 4 4-4 4" />
+                    </svg>
+                  </button>
+                  <a href="#ueber-uns">Über uns</a>
+                  <a href="#faq">FAQ</a>
+                  <a class="button mobile-nav-cta" href="#kontakt">Jetzt anfragen</a>
+                </div>
+                <div class="mobile-nav-view mobile-nav-view--services" id="mobile-services-view"
+                  aria-hidden="true" inert>
+                  <button class="mobile-services-back" type="button">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="m10 4-4 4 4 4" />
+                    </svg>
+                    <span>Zurück</span>
+                  </button>
+                  <a class="mobile-services-all" href="/leistungen.html">Alle Leistungen anzeigen</a>
+                  <a href="/leistungen.html#hausmeisterdienste">Objektbetreuung</a>
+                  <a href="/leistungen.html#gartenpflege">Gartenpflege</a>
+                  <a href="/leistungen.html#kleinreparaturen">Kleinreparaturen</a>
+                  <a href="/leistungen.html#winterdienst">Winterdienst &amp; Außenreinigung</a>
+                  <a href="/leistungen.html#moebelmontage">Möbelmontage</a>
+                  <a href="/leistungen.html#umzuege-entruempelung">Umzüge &amp; Entrümpelung</a>
+                  <a href="/leistungen.html#glasreinigung">Fenster-, Glas- &amp; Solaranlagenreinigung</a>
+                  <a href="/leistungen.html#rohrreinigung">Rohrreinigung</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         <div class="header-utilities">
           <a class="button header-cta" href="#kontakt">Jetzt anfragen</a>
           <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="primary-nav"
@@ -1151,7 +1187,7 @@
       <button class="lightbox-next" type="button" aria-label="Nächstes Bild">›</button>
     </div>
 
-    <script src="script.js?v=20260602-nav-hover-pill-2"></script>
+    <script src="script.js?v=20260602-mobile-nav-structure-fix"></script>
   </body>
 
 </html>

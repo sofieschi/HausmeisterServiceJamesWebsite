@@ -9,7 +9,7 @@
       content="Datenschutzerklärung von Hausmeisterservice James GbR für die Website und Kontaktanfragen aus Landshut und Umgebung."
     />
     <link rel="icon" href="assets/favicon.ico" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260602-mobile-header-hero" />
   </head>
   <body>
     <header class="site-header" id="top">
@@ -23,6 +23,50 @@
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html" aria-current="page">Datenschutz</a>
         </nav>
+        <div class="legal-mobile-menu">
+            <nav id="primary-nav" class="primary-nav" aria-label="Mobile Seitennavigation">
+              <div class="mobile-nav-drilldown">
+                <div class="mobile-nav-track">
+                  <div class="mobile-nav-view mobile-nav-view--main">
+                    <button class="mobile-services-toggle" type="button" aria-expanded="false"
+                      aria-controls="mobile-services-view">
+                      <span>Leistungen</span>
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="m6 4 4 4-4 4" />
+                      </svg>
+                    </button>
+                    <a href="/index.html#ueber-uns">Über uns</a>
+                    <a href="/index.html#faq">FAQ</a>
+                    <a class="button mobile-nav-cta" href="/index.html#kontakt">Jetzt anfragen</a>
+                  </div>
+                  <div class="mobile-nav-view mobile-nav-view--services" id="mobile-services-view"
+                    aria-hidden="true" inert>
+                    <button class="mobile-services-back" type="button">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="m10 4-4 4 4 4" />
+                      </svg>
+                      <span>Zurück</span>
+                    </button>
+                    <a class="mobile-services-all" href="/leistungen.html">Alle Leistungen anzeigen</a>
+                    <a href="/leistungen.html#hausmeisterdienste">Objektbetreuung</a>
+                    <a href="/leistungen.html#gartenpflege">Gartenpflege</a>
+                    <a href="/leistungen.html#kleinreparaturen">Kleinreparaturen</a>
+                    <a href="/leistungen.html#winterdienst">Winterdienst &amp; Außenreinigung</a>
+                    <a href="/leistungen.html#moebelmontage">Möbelmontage</a>
+                    <a href="/leistungen.html#umzuege-entruempelung">Umzüge &amp; Entrümpelung</a>
+                    <a href="/leistungen.html#glasreinigung">Fenster-, Glas- &amp; Solaranlagenreinigung</a>
+                    <a href="/leistungen.html#rohrreinigung">Rohrreinigung</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="primary-nav"
+            aria-expanded="false">
+            <span class="menu-toggle-line" aria-hidden="true"></span>
+            <span class="menu-toggle-line" aria-hidden="true"></span>
+            <span class="menu-toggle-line" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -187,6 +231,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260602-mobile-nav-structure-fix"></script>
   </body>
 </html>

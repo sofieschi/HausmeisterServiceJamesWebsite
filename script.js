@@ -80,15 +80,60 @@
   const primaryNav = document.getElementById("primary-nav");
 
   if (menuButton && primaryNav) {
+    const servicesToggle = primaryNav.querySelector(".mobile-services-toggle");
+    const servicesBack = primaryNav.querySelector(".mobile-services-back");
+    const mainView = primaryNav.querySelector(".mobile-nav-view--main");
+    const servicesView = primaryNav.querySelector(".mobile-nav-view--services");
+    let mobileMenuView = "main";
+
+    const setMobileMenuView = (view) => {
+      mobileMenuView = view === "services" ? "services" : "main";
+      const showServices = mobileMenuView === "services";
+
+      primaryNav.dataset.mobileView = mobileMenuView;
+      servicesToggle?.setAttribute("aria-expanded", showServices ? "true" : "false");
+
+      if (mainView) {
+        mainView.setAttribute("aria-hidden", showServices ? "true" : "false");
+        mainView.inert = showServices;
+      }
+
+      if (servicesView) {
+        servicesView.setAttribute("aria-hidden", showServices ? "false" : "true");
+        servicesView.inert = !showServices;
+      }
+    };
+
     const setMenuState = (isOpen) => {
       primaryNav.classList.toggle("is-open", isOpen);
       menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      menuButton.setAttribute("aria-label", isOpen ? "Menü schließen" : "Menü öffnen");
+      document.body.classList.toggle("mobile-nav-open", isOpen && !isDesktopNav());
+
+      if (!isOpen) {
+        setMobileMenuView("main");
+      }
     };
+
+    setMobileMenuView("main");
 
     menuButton.addEventListener("click", () => {
       const isOpen = primaryNav.classList.contains("is-open");
       setMenuState(!isOpen);
     });
+
+    if (servicesToggle) {
+      servicesToggle.addEventListener("click", () => {
+        setMobileMenuView("services");
+      });
+    }
+
+    if (servicesBack) {
+      servicesBack.addEventListener("click", () => {
+        setMobileMenuView("main");
+        servicesToggle?.focus();
+      });
+    }
 
     primaryNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
@@ -127,7 +172,7 @@
       return;
     }
 
-    const navLinks = Array.from(primaryNav.querySelectorAll("a"));
+    const navLinks = Array.from(primaryNav.querySelectorAll(".desktop-nav-links > a"));
     if (!navLinks.length) {
       return;
     }
