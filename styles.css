@@ -3398,7 +3398,9 @@ body.lightbox-open {
   }
 
   .primary-nav {
-    position: static;
+    --nav-pill-x: 0px;
+    --nav-pill-width: 0px;
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -3419,7 +3421,32 @@ body.lightbox-open {
     justify-self: center;
   }
 
+  .primary-nav::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--nav-pill-width);
+    z-index: 0;
+    pointer-events: none;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 122, 48, 0.9);
+    box-shadow: 0 8px 18px rgba(255, 122, 48, 0.22);
+    opacity: 0;
+    transform: translate3d(var(--nav-pill-x), 0, 0);
+    transition:
+      width 260ms var(--motion-snappy),
+      opacity 180ms ease,
+      transform 260ms var(--motion-snappy);
+    will-change: width, transform;
+  }
+
+  .primary-nav.has-hover-pill::before {
+    opacity: 1;
+  }
+
   .primary-nav a {
+    position: relative;
+    z-index: 1;
     width: auto;
     padding: 0.58rem 0.72rem;
     border-radius: var(--radius-pill);
@@ -3437,9 +3464,9 @@ body.lightbox-open {
 
   .primary-nav a:hover,
   .primary-nav a:focus-visible {
-    color: var(--color-accent);
-    background: rgba(255, 255, 255, 0.24);
-    transform: translate3d(0, -1px, 0);
+    color: #fff;
+    background: transparent;
+    transform: none;
   }
 
   .site-header--scrolled .primary-nav a {
@@ -3449,8 +3476,8 @@ body.lightbox-open {
 
   .site-header--scrolled .primary-nav a:hover,
   .site-header--scrolled .primary-nav a:focus-visible {
-    color: var(--color-accent);
-    background: rgba(255, 122, 48, 0.08);
+    color: #fff;
+    background: transparent;
   }
 
   .header-cta {

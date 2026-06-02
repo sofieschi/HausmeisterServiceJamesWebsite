@@ -122,6 +122,70 @@
     });
   }
 
+  const initDesktopNavHoverPill = () => {
+    if (!primaryNav) {
+      return;
+    }
+
+    const navLinks = Array.from(primaryNav.querySelectorAll("a"));
+    if (!navLinks.length) {
+      return;
+    }
+
+    let activeLink = null;
+
+    const hidePill = () => {
+      activeLink = null;
+      primaryNav.classList.remove("has-hover-pill");
+    };
+
+    const movePillTo = (link) => {
+      if (!isDesktopNav()) {
+        hidePill();
+        return;
+      }
+
+      activeLink = link;
+      primaryNav.style.setProperty("--nav-pill-x", `${link.offsetLeft}px`);
+      primaryNav.style.setProperty("--nav-pill-width", `${link.offsetWidth}px`);
+      primaryNav.classList.add("has-hover-pill");
+    };
+
+    navLinks.forEach((link) => {
+      link.addEventListener("pointerenter", () => movePillTo(link));
+      link.addEventListener("mouseenter", () => movePillTo(link));
+      link.addEventListener("focus", () => movePillTo(link));
+    });
+
+    const handleNavLeave = () => {
+      if (!primaryNav.contains(document.activeElement)) {
+        hidePill();
+      }
+    };
+
+    primaryNav.addEventListener("pointerleave", handleNavLeave);
+    primaryNav.addEventListener("mouseleave", handleNavLeave);
+
+    primaryNav.addEventListener("focusout", () => {
+      window.requestAnimationFrame(() => {
+        if (!primaryNav.contains(document.activeElement)) {
+          hidePill();
+        }
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (activeLink && isDesktopNav()) {
+        movePillTo(activeLink);
+        return;
+      }
+
+      hidePill();
+    });
+  };
+
+  initDesktopNavHoverPill();
+
   const initReveal = () => {
     const revealElements = Array.from(document.querySelectorAll(".reveal"));
     if (!revealElements.length) {
