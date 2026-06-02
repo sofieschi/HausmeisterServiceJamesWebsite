@@ -42,6 +42,7 @@
       const currentScrollY = getScrollY();
       const shouldCompact = currentScrollY > 18;
       header.classList.toggle("is-scrolled", shouldCompact);
+      header.classList.toggle("site-header--scrolled", currentScrollY > 40);
 
       if (currentScrollY <= 10) {
         header.classList.remove("is-topbar-hidden");
