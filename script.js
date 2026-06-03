@@ -401,7 +401,7 @@
       return;
     }
 
-    const maxOffset = isSmallScreen ? 44 : 120;
+    const maxOffset = isSmallScreen ? 80 : 240;
     let rafId = 0;
 
     const updateParallax = () => {
@@ -652,59 +652,14 @@
       .filter(Boolean);
 
   const initPortfolioExperience = (lightboxController) => {
-    const marquee = document.querySelector(".heart-marquee");
-    const track = marquee?.querySelector(".heart-marquee-track");
-    const group = track?.querySelector(".heart-marquee-group");
-    const controlButtons = Array.from(document.querySelectorAll(".heart-marquee-button"));
-    const portfolioItems = Array.from(group?.querySelectorAll(".portfolio-link") || []);
+    const gallery = document.querySelector(".work-gallery-grid");
+    const portfolioItems = Array.from(gallery?.querySelectorAll(".portfolio-link") || []);
 
-    if (!marquee || !track || !group || !portfolioItems.length) {
+    if (!gallery || !portfolioItems.length) {
       return;
     }
 
     const portfolioEntries = lightboxController ? buildPortfolioEntries(portfolioItems) : [];
-
-    const getStepDistance = () => {
-      const firstCard = group.querySelector(".heart-media-card");
-      const cardWidth = firstCard
-        ? firstCard.getBoundingClientRect().width
-        : marquee.clientWidth * 0.55;
-      const gapValue = Number.parseFloat(window.getComputedStyle(group).gap || "24") || 24;
-      return cardWidth + gapValue;
-    };
-
-    const getMaxScrollLeft = () => Math.max(0, marquee.scrollWidth - marquee.clientWidth);
-
-    const scrollGalleryBy = (direction) => {
-      const stepDistance = getStepDistance();
-      const maxScrollLeft = getMaxScrollLeft();
-      const currentScrollLeft = marquee.scrollLeft;
-      const threshold = stepDistance * 0.35;
-
-      if (direction > 0 && currentScrollLeft >= maxScrollLeft - threshold) {
-        marquee.scrollTo({ left: 0, behavior: "smooth" });
-        return;
-      }
-
-      if (direction < 0 && currentScrollLeft <= threshold) {
-        marquee.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
-        return;
-      }
-
-      marquee.scrollBy({ left: stepDistance * direction, behavior: "smooth" });
-    };
-
-    controlButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        const direction = Number.parseInt(button.dataset.marqueeStep || "0", 10);
-        if (!Number.isFinite(direction) || direction === 0) {
-          return;
-        }
-        scrollGalleryBy(direction);
-      });
-    });
 
     if (!lightboxController || !portfolioEntries.length) {
       return;
