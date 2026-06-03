@@ -684,6 +684,7 @@
       return;
     }
 
+    const galleryEntries = new WeakMap();
     const galleries = Array.from(document.querySelectorAll(".leistung-gallery[data-gallery-images]"));
     galleries.forEach((gallery) => {
       const trigger = gallery.querySelector(".gallery-lightbox-trigger");
@@ -729,12 +730,29 @@
         return;
       }
 
-      trigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        const startIndex = Number.parseInt(trigger.getAttribute("data-gallery-open") || "0", 10);
-        lightboxController.open(entries, Number.isFinite(startIndex) ? startIndex : 0, trigger);
-      });
+      galleryEntries.set(gallery, entries);
+    });
+
+    document.addEventListener("click", (event) => {
+      const trigger = event.target instanceof Element
+        ? event.target.closest(".gallery-lightbox-trigger")
+        : null;
+      const gallery = trigger?.closest(".leistung-gallery[data-gallery-images]");
+
+      if (!(trigger instanceof HTMLElement) || !(gallery instanceof HTMLElement)) {
+        return;
+      }
+
+      const entries = galleryEntries.get(gallery);
+      if (!entries?.length) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const startIndex = Number.parseInt(trigger.getAttribute("data-gallery-open") || "0", 10);
+      lightboxController.open(entries, Number.isFinite(startIndex) ? startIndex : 0, trigger);
     });
   };
 
