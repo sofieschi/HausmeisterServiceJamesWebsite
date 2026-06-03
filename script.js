@@ -32,7 +32,12 @@
     if (!header) {
       return;
     }
-    const heroSection = document.querySelector(".hero");
+    const hasPageHero = document.body.classList.contains("has-page-hero");
+    if (hasPageHero) {
+      header.classList.add("site-header--hero");
+    }
+
+    const heroSection = document.querySelector(".hero, .page-intro");
 
     header.classList.add("is-initializing");
 

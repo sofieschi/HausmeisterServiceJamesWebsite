@@ -1815,35 +1815,71 @@ body.lightbox-open {
    LEISTUNGEN DETAIL PAGE
 ========================= */
 .page-intro {
-  background: linear-gradient(180deg, #f7f3ef 0%, #efe8e2 100%);
+  min-height: clamp(28rem, 62vh, 42rem);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background-image:
+    linear-gradient(90deg, rgba(10, 14, 22, 0.72) 0%, rgba(10, 14, 22, 0.52) 44%, rgba(10, 14, 22, 0.34) 100%),
+    url("assets/arbeitsalltag/james_gartenpflege.webp");
+  background-position: center;
+  background-size: cover;
+  color: #fff;
 }
 
 .page-intro-inner {
   display: grid;
   gap: 0.9rem;
+  max-width: 52rem;
+  margin-inline: auto;
   text-align: center;
+}
+
+.page-intro .eyebrow {
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .page-intro-text {
   margin: 0 auto;
   max-width: 42rem;
-  color: var(--color-muted);
-  font-size: clamp(1rem, 1.35vw, 1.14rem);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+  line-height: 1.7;
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.42);
 }
 
 .leistung-detail-section {
   position: relative;
   scroll-margin-top: calc(var(--header-height) + var(--topbar-height) + 1rem);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 122, 48, 0.055), transparent 34%),
+    linear-gradient(180deg, #f8f6f3 0%, #eee9e3 100%);
+}
+
+.leistung-detail-section.section-alt {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(70, 92, 136, 0.07), transparent 34%),
+    linear-gradient(180deg, #efe9e3 0%, #f8f6f3 100%);
 }
 
 .leistung-detail-grid {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: clamp(1.6rem, 3.4vw, 4rem);
   align-items: center;
+  padding: clamp(1.05rem, 2.4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: clamp(1.5rem, 3vw, 2.25rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.68));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.085);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .leistung-text {
-  max-width: 38rem;
+  max-width: 44rem;
+  padding: clamp(0.4rem, 1.4vw, 1.25rem);
 }
 
 .leistung-text .eyebrow {
@@ -1858,6 +1894,17 @@ body.lightbox-open {
   margin-bottom: 0;
 }
 
+.leistung-text ul {
+  display: grid;
+  gap: 0.68rem;
+  margin-block: 1.1rem 0;
+  padding-left: 1.15rem;
+}
+
+.leistung-text li {
+  padding-left: 0.15rem;
+}
+
 .leistung-images {
   position: relative;
 }
@@ -1870,9 +1917,9 @@ body.lightbox-open {
 .gallery-item {
   margin: 0;
   overflow: hidden;
-  border-radius: calc(var(--radius) + 2px);
-  border: 1px solid var(--color-panel-border);
-  box-shadow: var(--color-panel-shadow);
+  border-radius: clamp(1.5rem, 2.4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.12);
   background: linear-gradient(180deg, rgba(70, 92, 136, 0.1), rgba(70, 92, 136, 0.04));
   transition: transform 620ms var(--anim-ease), box-shadow 620ms var(--anim-ease),
     border-color 620ms var(--anim-ease);
@@ -1897,8 +1944,8 @@ body.lightbox-open {
 
 .gallery-feature-image {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: clamp(22rem, 34vw, 34rem);
+  object-fit: cover;
   object-position: center;
   transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
@@ -1949,13 +1996,13 @@ body.lightbox-open {
 
 .leistung-images img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: clamp(22rem, 34vw, 34rem);
+  object-fit: cover;
   display: block;
 }
 
 .leistung-images .gallery-feature-image {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   min-height: 0;
 }
@@ -1967,9 +2014,14 @@ body.lightbox-open {
 
 .leistung-gallery .gallery-item:hover,
 .leistung-gallery .gallery-item:focus-within {
-  transform: translateY(-2px);
-  box-shadow: var(--color-panel-shadow-hover);
-  border-color: rgba(70, 92, 136, 0.34);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 72px rgba(0, 0, 0, 0.16);
+  border-color: rgba(255, 122, 48, 0.28);
+}
+
+.leistung-gallery .gallery-item:hover .gallery-feature-image,
+.leistung-gallery .gallery-item:focus-within .gallery-feature-image {
+  transform: translate3d(0, 0, 0) scale(1.035);
 }
 
 /* =========================
@@ -2886,7 +2938,8 @@ body.lightbox-open {
     --topbar-height: 3.2rem;
   }
 
-  .site-header--hero {
+  .site-header--hero,
+  body.has-page-hero .site-header {
     --topbar-height: 0px;
     position: fixed;
     inset: 0 0 auto;
@@ -2898,7 +2951,8 @@ body.lightbox-open {
     -webkit-backdrop-filter: blur(10px);
   }
 
-  .site-header--hero.site-header--scrolled {
+  .site-header--hero.site-header--scrolled,
+  body.has-page-hero .site-header.site-header--scrolled {
     background: rgba(255, 255, 255, 0.78);
     border-bottom-color: rgba(15, 23, 42, 0.06);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
@@ -2906,30 +2960,36 @@ body.lightbox-open {
     -webkit-backdrop-filter: blur(18px);
   }
 
-  .site-header--hero .header-topbar {
+  .site-header--hero .header-topbar,
+  body.has-page-hero .site-header .header-topbar {
     display: none;
   }
 
-  .site-header--hero .header-inner {
+  .site-header--hero .header-inner,
+  body.has-page-hero .site-header .header-inner {
     min-height: 76px;
   }
 
-  .site-header--hero.is-scrolled .header-inner {
+  .site-header--hero.is-scrolled .header-inner,
+  body.has-page-hero .site-header.is-scrolled .header-inner {
     min-height: 72px;
   }
 
-  .site-header--hero:not(.site-header--scrolled) .brand-logo {
+  .site-header--hero:not(.site-header--scrolled) .brand-logo,
+  body.has-page-hero .site-header:not(.site-header--scrolled) .brand-logo {
     filter:
       brightness(0) invert(1)
       drop-shadow(0 2px 8px rgba(0, 0, 0, 0.26));
   }
 
-  body.mobile-nav-open .site-header--hero {
+  body.mobile-nav-open .site-header--hero,
+  body.has-page-hero.mobile-nav-open .site-header {
     background: transparent;
     box-shadow: none;
   }
 
-  body.mobile-nav-open .site-header--hero .brand-logo {
+  body.mobile-nav-open .site-header--hero .brand-logo,
+  body.has-page-hero.mobile-nav-open .site-header .brand-logo {
     filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.08));
   }
 
@@ -3289,6 +3349,38 @@ body.lightbox-open {
     padding-block: var(--section-space-mobile);
   }
 
+  .page-intro {
+    min-height: clamp(22rem, 52vh, 31rem);
+  }
+
+  .page-intro-inner {
+    text-align: left;
+  }
+
+  .page-intro-text {
+    margin-inline: 0;
+  }
+
+  .leistung-detail-grid {
+    padding: clamp(0.85rem, 4vw, 1.2rem);
+    border-radius: 1.35rem;
+  }
+
+  .leistung-text {
+    order: 2;
+    padding: 0.35rem 0.15rem 0.15rem;
+  }
+
+  .leistung-images {
+    order: 1;
+  }
+
+  .leistung-images img,
+  .leistung-images .gallery-feature-image {
+    height: clamp(16rem, 58vw, 22rem);
+    object-fit: cover;
+  }
+
   .services-grid {
     gap: 1.5rem;
   }
@@ -3566,7 +3658,11 @@ body.lightbox-open {
   }
 
   .leistung-detail-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .leistung-detail-section:nth-of-type(odd) .leistung-images {
+    order: -1;
   }
 
   .profile-card {
@@ -3607,7 +3703,8 @@ body.lightbox-open {
     --container-inline-size: min(calc(100% - var(--site-padding-total)), var(--container-limit));
   }
 
-  .site-header--hero {
+  .site-header--hero,
+  body.has-page-hero .site-header {
     position: fixed;
     inset: 0 0 auto;
     width: 100%;
@@ -3618,7 +3715,8 @@ body.lightbox-open {
     border-bottom-color: transparent;
   }
 
-  .site-header--hero + main .hero {
+  .site-header--hero + main .hero,
+  body.has-page-hero .site-header + main .page-intro {
     margin-top: 0;
   }
 
@@ -3626,7 +3724,8 @@ body.lightbox-open {
     padding-top: calc(var(--topbar-height) + var(--header-height) + clamp(2rem, 4vw, 3rem));
   }
 
-  .site-header--hero:not(.is-scrolled) .header-topbar {
+  .site-header--hero:not(.is-scrolled) .header-topbar,
+  body.has-page-hero .site-header:not(.is-scrolled) .header-topbar {
     background: rgba(247, 242, 238, 0.22);
     border-bottom-color: rgba(255, 255, 255, 0.08);
   }
@@ -3649,6 +3748,35 @@ body.lightbox-open {
     --container-inline-size: min(calc(100% - var(--site-padding-total)), var(--container-limit));
   }
 
+  .page-intro-inner {
+    text-align: left;
+  }
+
+  .page-intro-text {
+    margin-inline: 0;
+  }
+
+  .leistung-detail-grid {
+    min-height: clamp(30rem, 42vw, 42rem);
+  }
+
+  .leistung-images {
+    align-self: stretch;
+  }
+
+  .leistung-gallery,
+  .gallery-item,
+  .gallery-item-featured,
+  .gallery-lightbox-trigger {
+    height: 100%;
+  }
+
+  .leistung-images img,
+  .leistung-images .gallery-feature-image {
+    height: 100%;
+    min-height: clamp(27rem, 36vw, 38rem);
+  }
+
   body.home-page h1 {
     font-size: clamp(3.4rem, 4.9vw, 6rem);
     max-width: 13ch;
@@ -3659,15 +3787,18 @@ body.lightbox-open {
     margin-bottom: 1.15rem;
   }
 
-  .site-header--hero .header-topbar-inner {
+  .site-header--hero .header-topbar-inner,
+  body.has-page-hero .site-header .header-topbar-inner {
     font-size: 0.86rem;
   }
 
-  .site-header--hero .primary-nav a {
+  .site-header--hero .primary-nav a,
+  body.has-page-hero .site-header .primary-nav a {
     font-size: 1rem;
   }
 
-  .site-header--hero .header-cta {
+  .site-header--hero .header-cta,
+  body.has-page-hero .site-header .header-cta {
     padding: 0.72rem 1.08rem;
     font-size: 0.96rem;
   }
@@ -3713,7 +3844,8 @@ body.lightbox-open {
     transform: translate3d(0, -1px, 0);
   }
 
-  .site-header--hero .brand-text {
+  .site-header--hero .brand-text,
+  body.has-page-hero .site-header .brand-text {
     color: rgba(255, 255, 255, 0.94);
     text-shadow:
       0 1px 8px rgba(0, 0, 0, 0.38),
@@ -3721,18 +3853,21 @@ body.lightbox-open {
     transition: color 260ms var(--motion-snappy), text-shadow 260ms var(--motion-snappy);
   }
 
-  .site-header--hero .brand-logo {
+  .site-header--hero .brand-logo,
+  body.has-page-hero .site-header .brand-logo {
     filter:
       brightness(0) invert(1)
       drop-shadow(0 2px 8px rgba(0, 0, 0, 0.26));
   }
 
-  .site-header--hero.site-header--scrolled .brand-text {
+  .site-header--hero.site-header--scrolled .brand-text,
+  body.has-page-hero .site-header.site-header--scrolled .brand-text {
     color: var(--color-navbar-dark);
     text-shadow: none;
   }
 
-  .site-header--hero.site-header--scrolled .brand-logo {
+  .site-header--hero.site-header--scrolled .brand-logo,
+  body.has-page-hero .site-header.site-header--scrolled .brand-logo {
     filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.08));
   }
 

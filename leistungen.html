@@ -18,10 +18,10 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260603-service-card-proportions" />
+  <link rel="stylesheet" href="styles.css?v=20260603-gallery-image-fix" />
 </head>
 
-<body>
+<body class="has-page-hero">
   <header class="site-header" id="top">
     <div class="header-topbar" aria-label="Kontaktinformationen">
       <div class="container header-topbar-inner">
@@ -41,8 +41,6 @@
           <nav id="primary-nav" class="primary-nav" aria-label="Hauptnavigation">
             <div class="desktop-nav-links">
               <a href="/index.html">Startseite</a>
-              <a href="/index.html#ueber-uns">Über uns</a>
-              <a href="/index.html#kontakt">Anfrage</a>
             </div>
             <div class="mobile-nav-drilldown">
               <div class="mobile-nav-track">
@@ -95,7 +93,7 @@
   <main>
     <section class="section page-intro full-bleed" aria-labelledby="leistungen-intro-title">
       <div class="container container-narrow page-intro-inner">
-        <p class="eyebrow reveal">Detaillierte Leistungsübersicht</p>
+        <p class="eyebrow reveal" id="leistungen-intro-title">Detaillierte Leistungsübersicht</p>
         <!--
         <h1 class="reveal" id="leistungen-intro-title" data-reveal-delay="80">Leistungen</h1>
         -->
@@ -229,13 +227,13 @@
         </div>
         <div class="leistung-images reveal" data-reveal-delay="80">
           <div class="leistung-gallery" data-gallery="rohrreinigung" data-gallery-images='[
-            {"src":"assets/services/rohrreinigung.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"}
+            {"src":"assets/services/rohrreinigung-1920.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"}
           ]'>
             <figure class="gallery-item gallery-item-featured">
               <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
                 aria-label="Galerie zur Rohrreinigung öffnen">
-                <img class="gallery-feature-image" src="assets/services/rohrreinigung.webp"
-                  srcset="assets/services/rohrreinigung.webp 640w, assets/services/rohrreinigung.webp 960w, assets/services/rohrreinigung.webp 1280w"
+                <img class="gallery-feature-image" src="assets/services/rohrreinigung-1280.webp"
+                  srcset="assets/services/rohrreinigung-640.webp 640w, assets/services/rohrreinigung-1280.webp 1280w, assets/services/rohrreinigung-1920.webp 1920w"
                   sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
                   alt="Rohrreinigung und Hilfe bei Verstopfungen" />
               </button>
@@ -352,13 +350,14 @@
         </div>
         <div class="leistung-images reveal" data-reveal-delay="80">
           <div class="leistung-gallery" data-gallery="moebelmontage" data-gallery-images='[
-          {"src":"assets/bewertungen/simonBewertung.webp","alt":"TV-Wandhalterung Montage beim Kunden"},
-          {"src":"assets/services/moebelmontage-1280.webp","alt":"Fachgerechte Montagearbeiten in einem Innenraum"}
+          {"src":"assets/services/montagearbeiten-1920.webp","alt":"TV-Wandhalterung Montage beim Kunden"},
+          {"src":"assets/services/montagearbeiten-1280.webp","alt":"Fachgerechte Montagearbeiten in einem Innenraum"}
           ]'>
             <figure class="gallery-item gallery-item-featured">
               <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
                 aria-label="Galerie zu Montagearbeiten öffnen">
-                <img class="gallery-feature-image" src="assets/bewertungen/simonBewertung.webp"
+                <img class="gallery-feature-image" src="assets/services/montagearbeiten-1280.webp"
+                  srcset="assets/services/montagearbeiten-640.webp 640w, assets/services/montagearbeiten-1280.webp 1280w, assets/services/montagearbeiten-1920.webp 1920w"
                   sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
                   alt="Fachgerechte Montagearbeiten in einem Innenraum" />
               </button>
@@ -391,8 +390,8 @@
             <figure class="gallery-item gallery-item-featured">
               <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
                 aria-label="Galerie zu Kleinreparaturen öffnen">
-                <img class="gallery-feature-image" src="assets/services/reparaturen-960.webp"
-                  srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-960.webp 960w, assets/services/reparaturen-1280.webp 1280w"
+                <img class="gallery-feature-image" src="assets/services/reparaturen-1280.webp"
+                  srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-1280.webp 1280w, assets/services/reparaturen-1920.webp 1920w"
                   sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
                   alt="Kleinreparatur und Instandhaltungsarbeit an einem Gebäude" />
               </button>
@@ -421,7 +420,7 @@
         <div class="leistung-images reveal" data-reveal-delay="80">
           <div class="leistung-gallery" data-gallery="umzuege-entruempelung" data-gallery-images='[
             {"src":"assets/services/umzug-1280.webp","alt":"Unterstützung bei einem Umzug mit Transport- und Tragearbeiten"},
-            {"src":"assets/services/entruempelung-1280.webp","alt":"Geordnete Entrümpelung und Räumung vor Ort"}
+            {"src":"assets/services/umzug.webp","alt":"Geordnete Entrümpelung und Räumung vor Ort"}
           ]'>
             <figure class="gallery-item gallery-item-featured">
               <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
@@ -472,6 +471,7 @@
       </div>
     </section>
 
+    <!-- Optional service: currently not linked from the homepage service cards or primary navigation. -->
     <section class="section section-alt leistung-detail-section" id="notdienst">
       <div class="container leistung-detail-grid">
         <div class="leistung-text reveal">
@@ -531,7 +531,7 @@
     <button class="lightbox-next" type="button" aria-label="Nächstes Bild">›</button>
   </div>
 
-  <script src="script.js?v=20260602-mobile-nav-structure-fix"></script>
+  <script src="script.js?v=20260603-gallery-image-fix"></script>
 </body>
 
 </html>
