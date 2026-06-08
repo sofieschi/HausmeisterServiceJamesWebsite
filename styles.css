@@ -2025,6 +2025,401 @@ body.lightbox-open {
 }
 
 /* =========================
+   HAUSVERWALTUNGEN PAGE
+========================= */
+.hausverwaltung-hero {
+  min-height: clamp(30rem, 62vh, 42rem);
+  background-image:
+    linear-gradient(90deg, rgba(8, 12, 20, 0.78) 0%, rgba(8, 12, 20, 0.58) 46%, rgba(8, 12, 20, 0.32) 100%),
+    url("assets/services/wohnungen-1280.webp");
+  background-position: center;
+}
+
+.hausverwaltung-hero-inner {
+  display: grid;
+  gap: 1rem;
+  max-width: 58rem;
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.hausverwaltung-hero .page-intro-text {
+  margin-inline: auto;
+  max-width: 54rem;
+}
+
+.hausverwaltung-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.55rem;
+}
+
+.hausverwaltung-intro,
+.hausverwaltung-matrix-section,
+.hausverwaltung-benefits-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(255, 122, 48, 0.055), transparent 32%),
+    linear-gradient(180deg, #f8f6f3 0%, #efe9e3 100%);
+}
+
+.hausverwaltung-tech-section,
+.hausverwaltung-note-section,
+.hausverwaltung-cta-section {
+  background:
+    radial-gradient(circle at 92% 14%, rgba(70, 92, 136, 0.07), transparent 34%),
+    linear-gradient(180deg, #eee8e2 0%, #f8f6f3 100%);
+}
+
+.hausverwaltung-intro-grid,
+.hausverwaltung-benefits-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+.hausverwaltung-copy {
+  max-width: 48rem;
+}
+
+.hausverwaltung-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.hausverwaltung-proof-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hausverwaltung-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.hausverwaltung-proof-card,
+.hausverwaltung-feature-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  min-height: 100%;
+  padding: clamp(1.1rem, 2vw, 1.45rem);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 260ms var(--motion-snappy),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+.hausverwaltung-proof-card:hover,
+.hausverwaltung-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 122, 48, 0.24);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.hausverwaltung-proof-card span {
+  width: fit-content;
+  padding: 0.32rem 0.62rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 122, 48, 0.1);
+  color: var(--color-accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.hausverwaltung-proof-card strong,
+.hausverwaltung-feature-card h3 {
+  font-size: clamp(1.05rem, 1.3vw, 1.24rem);
+  line-height: 1.25;
+}
+
+.hausverwaltung-proof-card p,
+.hausverwaltung-feature-card p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.hausverwaltung-section-heading {
+  max-width: 54rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.5rem);
+  text-align: left;
+}
+
+.hausverwaltung-section-heading p:last-child {
+  margin-bottom: 0;
+}
+
+.hausverwaltung-matrix {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: clamp(1.35rem, 2vw, 1.9rem);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.09);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hausverwaltung-matrix-head,
+.hausverwaltung-matrix-row {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.72fr) minmax(0, 1.7fr) minmax(10rem, 0.58fr);
+}
+
+.hausverwaltung-matrix-head {
+  background: linear-gradient(135deg, rgba(70, 92, 136, 0.96), rgba(31, 41, 55, 0.96));
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hausverwaltung-matrix-head > div,
+.hausverwaltung-matrix-cell {
+  padding: clamp(1rem, 1.8vw, 1.45rem);
+}
+
+.hausverwaltung-matrix-row {
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  transition: background-color 220ms ease;
+}
+
+.hausverwaltung-matrix-row:hover {
+  background: rgba(255, 122, 48, 0.045);
+}
+
+.hausverwaltung-matrix-cell + .hausverwaltung-matrix-cell {
+  border-left: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.hausverwaltung-matrix-area h3 {
+  margin: 0;
+  color: var(--color-navbar-dark);
+  font-size: clamp(1.08rem, 1.4vw, 1.28rem);
+}
+
+.hausverwaltung-matrix-services ul {
+  display: grid;
+  gap: 0.48rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.55;
+}
+
+.hausverwaltung-availability {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8.5rem;
+  padding: 0.48rem 0.72rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 122, 48, 0.1);
+  color: var(--color-accent-hover);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.hausverwaltung-feature-icon,
+.hausverwaltung-benefit span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 999px;
+  background: rgba(255, 122, 48, 0.1);
+  color: var(--color-accent);
+}
+
+.hausverwaltung-feature-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hausverwaltung-benefits-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.hausverwaltung-benefit {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.055);
+}
+
+.hausverwaltung-benefit span {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+}
+
+.hausverwaltung-benefit span::before {
+  content: "";
+  width: 0.72rem;
+  height: 0.4rem;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.hausverwaltung-benefit p {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.hausverwaltung-note {
+  display: grid;
+  gap: 0.35rem;
+  padding: clamp(1.25rem, 2.4vw, 1.8rem);
+  border: 1px solid rgba(255, 122, 48, 0.2);
+  border-radius: var(--radius-card);
+  background:
+    radial-gradient(circle at 5% 20%, rgba(255, 122, 48, 0.12), transparent 30%),
+    rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-card);
+}
+
+.hausverwaltung-note strong {
+  color: var(--color-accent-hover);
+  font-size: 1.05rem;
+}
+
+.hausverwaltung-note p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.hausverwaltung-cta {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: clamp(2rem, 4vw, 3.4rem);
+  border-radius: clamp(1.5rem, 3vw, 2.35rem);
+  background:
+    linear-gradient(135deg, rgba(70, 92, 136, 0.96), rgba(31, 41, 55, 0.96)),
+    #465c88;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 26px 72px rgba(0, 0, 0, 0.14);
+}
+
+.hausverwaltung-cta .eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hausverwaltung-cta h2 {
+  max-width: 48rem;
+  color: inherit;
+}
+
+.hausverwaltung-cta p {
+  max-width: 48rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 68rem) {
+  .hausverwaltung-intro-grid,
+  .hausverwaltung-benefits-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hausverwaltung-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 56.24rem) {
+  .hausverwaltung-hero {
+    min-height: clamp(26rem, 54vh, 34rem);
+  }
+
+  .hausverwaltung-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .hausverwaltung-matrix {
+    display: grid;
+    gap: 1rem;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hausverwaltung-matrix-head {
+    display: none;
+  }
+
+  .hausverwaltung-matrix-row {
+    display: grid;
+    gap: 1rem;
+    padding: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    border-radius: 1.35rem;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: var(--shadow-card);
+  }
+
+  .hausverwaltung-matrix-cell,
+  .hausverwaltung-matrix-head > div {
+    padding: 0;
+  }
+
+  .hausverwaltung-matrix-cell + .hausverwaltung-matrix-cell {
+    border-left: 0;
+  }
+
+  .hausverwaltung-matrix-cell::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--color-accent-hover);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hausverwaltung-availability {
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .hausverwaltung-benefits-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
    ABOUT / VALUES
 ========================= */
 .about-layout {
