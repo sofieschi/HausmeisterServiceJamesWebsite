@@ -2953,11 +2953,11 @@ body.lightbox-open {
 
   .site-header--hero.site-header--scrolled,
   body.has-page-hero .site-header.site-header--scrolled {
-    background: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.86);
     border-bottom-color: rgba(15, 23, 42, 0.06);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
   }
 
   .site-header--hero .header-topbar,
@@ -3373,12 +3373,21 @@ body.lightbox-open {
 
   .leistung-images {
     order: 1;
+    align-self: auto;
+  }
+
+  .leistung-gallery,
+  .gallery-item,
+  .gallery-item-featured,
+  .gallery-lightbox-trigger {
+    height: auto;
   }
 
   .leistung-images img,
   .leistung-images .gallery-feature-image {
-    height: clamp(16rem, 58vw, 22rem);
-    object-fit: cover;
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
   }
 
   .services-grid {
@@ -3738,10 +3747,16 @@ body.lightbox-open {
   }
 
   .site-header.site-header--scrolled {
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.86);
+    border-bottom-color: rgba(15, 23, 42, 0.06);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  body.has-page-hero .site-header.site-header--scrolled {
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom-color: rgba(15, 23, 42, 0.07);
   }
 
   body.home-page {
