@@ -907,6 +907,9 @@
   const form = document.getElementById("contact-form");
 
   if (form) {
+    // Time-based spam protection: legitimate visitors rarely submit immediately after page load.
+    const formLoadedAt = Date.now();
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const submitButton = form.querySelector('button[type="submit"]');
@@ -920,8 +923,20 @@
         email: form.email.value,
         telefon: form.telefon.value,
         nachricht: form.nachricht.value,
+        submittedAt: String(formLoadedAt),
+        // Honeypot field: should stay empty for real visitors.
         website: form.website ? form.website.value : "",
       };
+
+      const elapsedSeconds = (Date.now() - formLoadedAt) / 1000;
+
+      if (elapsedSeconds < 3) {
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+
+        return;
+      }
 
       try {
         const response = await fetch("/api/contact", {

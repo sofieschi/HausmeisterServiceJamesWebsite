@@ -8,9 +8,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, telefon, nachricht, website } = req.body;
+    const { name, email, telefon, nachricht, website, submittedAt } = req.body || {};
 
-    if (website) {
+    // Honeypot spam protection: real visitors never see or fill this field.
+    if (website && website.trim() !== "") {
+      return res.status(200).json({ success: true });
+    }
+
+    const submittedAtMs = Number(submittedAt);
+    const secondsSinceLoad = (Date.now() - submittedAtMs) / 1000;
+
+    // Time-based spam protection: silently accept unrealistically fast submissions without sending mail.
+    if (!Number.isFinite(submittedAtMs) || secondsSinceLoad < 3) {
       return res.status(200).json({ success: true });
     }
 
