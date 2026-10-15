@@ -879,12 +879,6 @@ ul {
   max-height: 25rem;
 }
 
-#kontakt .contact-form,
-#kontakt .contact-card {
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
-  border-color: rgba(255, 255, 255, 0.42);
-}
-
 /* Contact WhatsApp Button */
 
 .contact-whatsapp-button {
@@ -2995,6 +2989,7 @@ body.lightbox-open {
 }
 
 .step-card {
+  --reveal-duration: 650ms;
   height: 100%;
   display: grid;
   align-content: start;
@@ -3002,16 +2997,14 @@ body.lightbox-open {
 }
 
 .step-number {
-  margin: 0;
-  width: fit-content;
-  padding: 0.25rem 0.6rem;
-  border: 1px solid rgba(70, 92, 136, 0.35);
-  border-radius: 999px;
-  background: rgba(70, 92, 136, 0.1);
-  color: var(--color-secondary);
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+  margin: 0 0 0.65rem;
+  padding: 0;
+  color: var(--color-accent);
+  font-size: clamp(2.1rem, 3vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 /* =========================
@@ -3088,18 +3081,31 @@ body.lightbox-open {
 }
 
 .contact-layout {
-  gap: clamp(1rem, 2vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
 }
 
 .contact-form {
+  position: relative;
   display: grid;
-  gap: 1rem;
-  background: rgba(255, 255, 255, 0.65);
+  min-width: 0;
+  gap: 1.15rem;
+  background: var(--color-surface-strong);
   border: 1px solid var(--color-panel-border);
   border-radius: var(--radius);
-  padding: clamp(1rem, 2.2vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 2.75rem);
   box-shadow: var(--color-panel-shadow);
-  backdrop-filter: blur(12px);
+}
+
+.contact-form-header {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.contact-form-header h2 {
+  color: var(--color-navbar-dark);
 }
 
 .contact-form h2 {
@@ -3107,16 +3113,17 @@ body.lightbox-open {
 }
 
 .contact-intro {
-  margin: 0 0 0.46rem;
-  font-size: 0.93rem;
+  margin: 0;
+  font-size: 0.8rem;
   line-height: 1.5;
 }
 
 .contact-reassurance {
-  margin: -0.08rem 0 0.16rem;
-  font-size: 0.91rem;
-  line-height: 1.48;
-  color: rgba(0, 0, 0, 0.76);
+  max-width: 44ch;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-muted);
 }
 
 .contact-trust-points {
@@ -3165,6 +3172,7 @@ body.lightbox-open {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 600;
+  color: var(--color-navbar-dark);
   line-height: 1.35;
 }
 
@@ -3175,12 +3183,13 @@ body.lightbox-open {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 11px;
-  padding: 0.72rem 0.84rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  padding: 0.85rem 0.95rem;
   font: inherit;
+  font-size: 1rem;
   color: var(--color-text);
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-surface);
   transition: border-color 420ms var(--anim-ease), box-shadow 420ms var(--anim-ease),
     background-color 420ms var(--anim-ease);
 }
@@ -3203,9 +3212,9 @@ body.lightbox-open {
 
 .contact-form input:focus-visible,
 .contact-form textarea:focus-visible {
-  border-color: rgba(255, 122, 48, 0.66);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(255, 122, 48, 0.14);
+  border-color: var(--color-secondary);
+  background: var(--color-surface-strong);
+  box-shadow: 0 0 0 3px rgba(44, 176, 222, 0.12);
 }
 
 .hp-field {
@@ -3244,12 +3253,84 @@ body.lightbox-open {
   color: #a53e1a;
 }
 
-.contact-card p {
-  margin-bottom: 0.7rem;
+.contact-card {
+  min-width: 0;
+  padding: clamp(1.35rem, 3vw, 2.75rem);
+  background: var(--color-surface-strong);
+  box-shadow: var(--color-panel-shadow);
+  backdrop-filter: none;
 }
 
-.contact-card p:last-child {
-  margin-bottom: 0;
+.contact-card.card:hover,
+.contact-card.card:focus-within {
+  transform: none;
+}
+
+.contact-card h3 {
+  margin: 0 0 1.5rem;
+  color: var(--color-navbar-dark);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  letter-spacing: -0.025em;
+}
+
+.contact-details {
+  display: grid;
+  gap: 1.15rem;
+  margin: 0;
+}
+
+.contact-detail {
+  min-width: 0;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.contact-detail:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.contact-detail dt {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.contact-detail svg {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: var(--color-secondary);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-detail dd {
+  margin: 0.4rem 0 0 1.9rem;
+  color: var(--color-navbar-dark);
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.contact-detail a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 220ms ease;
+}
+
+.contact-detail a:hover,
+.contact-detail a:focus-visible {
+  color: var(--color-accent-hover);
+}
+
+.contact-card .contact-whatsapp-button {
+  margin-top: 1.75rem;
 }
 
 .sr-only {
@@ -3390,6 +3471,145 @@ body.lightbox-open {
   border-top: 1px solid var(--color-line);
   padding: 0.82rem 0 1.1rem;
   color: var(--color-muted);
+}
+
+/* Homepage footer: a quiet, contrasting close to the white content cards. */
+.site-footer--home {
+  background: var(--color-navbar-dark);
+  border-top: 0;
+  color: var(--color-surface-strong);
+}
+
+.site-footer--home .footer-inner {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.75fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.footer-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-brand-link img {
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: auto;
+}
+
+.site-footer--home .footer-title {
+  max-width: 25ch;
+  margin: 0;
+  color: inherit;
+  font-size: 1.15rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.site-footer--home .footer-copy {
+  max-width: 32ch;
+  margin-top: 1.1rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.footer-heading {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--color-secondary);
+}
+
+.footer-navigation,
+.footer-contact-group {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.site-footer--home a:not(.footer-brand-link) {
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 240ms ease;
+}
+
+.site-footer--home a:hover,
+.site-footer--home a:focus-visible {
+  color: var(--color-accent);
+}
+
+.site-footer--home a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 5px;
+}
+
+.footer-contact-group p {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.site-footer--home .footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  padding-block: 1.4rem;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.site-footer--home .footer-links {
+  gap: 1.4rem;
+}
+
+.footer-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-top-link svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 56.24rem) {
+  .site-footer--home .footer-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .site-footer--home .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 35rem) {
+  .site-footer--home .footer-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-footer--home .footer-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 .legal-main {
@@ -4071,8 +4291,8 @@ body.lightbox-open {
   }
 
   .contact-form {
-    gap: 1rem;
-    padding: 1rem;
+    gap: 1.1rem;
+    padding: 1.35rem;
   }
 
   .profile-card {
@@ -4610,7 +4830,7 @@ body.lightbox-open {
   }
 
   .contact-layout {
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   }
 
   .footer-inner {
