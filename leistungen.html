@@ -19,9 +19,10 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="stylesheet" href="styles.css?v=20260608-hausverwaltungen-page" />
+  <link rel="stylesheet" href="leistungen.css?v=20261015" />
 </head>
 
-<body class="has-page-hero">
+<body class="has-page-hero leistungen-page">
   <header class="site-header" id="top">
     <div class="header-topbar" aria-label="Kontaktinformationen">
       <div class="container header-topbar-inner">
@@ -95,422 +96,422 @@
 
   <main>
     <section class="section page-intro full-bleed" aria-labelledby="leistungen-intro-title">
-      <div class="container container-narrow page-intro-inner">
-        <p class="eyebrow reveal" id="leistungen-intro-title">Detaillierte Leistungsübersicht</p>
-        <!--
-        <h1 class="reveal" id="leistungen-intro-title" data-reveal-delay="80">Leistungen</h1>
-        -->
+      <div class="container page-intro-inner">
+        <p class="eyebrow reveal">Detaillierte Leistungsübersicht</p>
+        <h1 class="reveal" id="leistungen-intro-title">Leistungen</h1>
         <p class="page-intro-text reveal" data-reveal-delay="140">
           Auf dieser Seite bekommen Sie einen detaillierten Einblick in unser Leistungsangebot.
         </p>
+        <a class="button reveal" href="/index.html#kontakt" data-reveal-delay="220">Arbeit anfragen</a>
       </div>
     </section>
 
-    <section class="section leistung-detail-section" id="hausmeisterdienste">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Objektbetreuung</p>
-          <h2>Hausmeisterdienste &amp; Objektbetreuung</h2>
-          <p>
-            Wir übernehmen die laufende Betreuung Ihrer Immobilie mit einem klaren Blick für Ordnung, Funktion und
-            Zuverlässigkeit. Regelmäßige Kontrollgänge, abgestimmte Routinen und eine saubere Kommunikation sorgen
-            dafür, dass kleinere Themen früh erkannt und alltägliche Abläufe verlässlich begleitet werden.
-          </p>
-          <p>
-            Gerade bei Wohnanlagen, Mehrfamilienhäusern und kleineren Gewerbeobjekten ist eine kontinuierliche
-            Präsenz entscheidend. Wir kümmern uns pragmatisch um wiederkehrende Aufgaben und bleiben für Sie
-            ansprechbar, wenn im Objekt schnell gehandelt werden muss.
-          </p>
-          <ul>
-            <li><strong>Werterhalt:</strong> Durch regelmäßige Wartung und proaktive Pflege vermeiden wir teure Folgeschäden.</li>
-            <li><strong>Full-Service:</strong> Ein fester Ansprechpartner für alle Belange rund um die Immobilie.</li>
-            <li><strong>Schnelle Reaktionszeiten:</strong> Dank digitaler Vernetzung sind wir bei Notfällen oder Mängeln sofort im Bilde.</li>
-            <li><strong>Transparenz:</strong> Digitale Leistungsnachweise geben Ihnen die Sicherheit, dass alles erledigt wurde.</li>
-            <li><strong>Sicherheit:</strong> Wir achten strikt auf die Einhaltung der Verkehrssicherungspflichten (z. B. Beleuchtung, Gehwege).</li>
-          </ul>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="hausmeisterdienste" data-gallery-images='[
-            {"src":"assets/services/wohnungen-1280.webp","alt":"Hausmeister bei der laufenden Betreuung einer Immobilie"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zur Objektbetreuung öffnen">
-                <img class="gallery-feature-image" src="assets/services/wohnungen-960.webp"
-                  srcset="assets/services/wohnungen-640.webp 640w, assets/services/wohnungen-960.webp 960w, assets/services/wohnungen-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="eager" decoding="async"
-                  alt="Hausmeister bei der laufenden Betreuung einer Immobilie" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+    <div class="container leistungen-catalogue">
+      <section class="leistung-detail-section" id="hausmeisterdienste" aria-labelledby="hausmeisterdienste-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="hausmeisterdienste" data-gallery-images='[
+              {"src":"assets/services/wohnungen-1280.webp","alt":"Hausmeister bei der laufenden Betreuung einer Immobilie"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zur Objektbetreuung öffnen">
+                  <img class="gallery-feature-image" src="assets/services/wohnungen-960.webp"
+                    srcset="assets/services/wohnungen-640.webp 640w, assets/services/wohnungen-960.webp 960w, assets/services/wohnungen-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="eager" decoding="async"
+                    alt="Hausmeister bei der laufenden Betreuung einer Immobilie" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Objektbetreuung</p>
+            <h2 id="hausmeisterdienste-title">Hausmeisterdienste &amp; Objektbetreuung</h2>
+            <p>
+              Wir übernehmen die laufende Betreuung Ihrer Immobilie mit einem klaren Blick für Ordnung, Funktion und
+              Zuverlässigkeit. Regelmäßige Kontrollgänge, abgestimmte Routinen und eine saubere Kommunikation sorgen
+              dafür, dass kleinere Themen früh erkannt und alltägliche Abläufe verlässlich begleitet werden.
+            </p>
+            <p>
+              Gerade bei Wohnanlagen, Mehrfamilienhäusern und kleineren Gewerbeobjekten ist eine kontinuierliche
+              Präsenz entscheidend. Wir kümmern uns pragmatisch um wiederkehrende Aufgaben und bleiben für Sie
+              ansprechbar, wenn im Objekt schnell gehandelt werden muss.
+            </p>
+            <ul>
+              <li><strong>Werterhalt:</strong> Durch regelmäßige Wartung und proaktive Pflege vermeiden wir teure Folgeschäden.</li>
+              <li><strong>Full-Service:</strong> Ein fester Ansprechpartner für alle Belange rund um die Immobilie.</li>
+              <li><strong>Schnelle Reaktionszeiten:</strong> Dank digitaler Vernetzung sind wir bei Notfällen oder Mängeln sofort im Bilde.</li>
+              <li><strong>Transparenz:</strong> Digitale Leistungsnachweise geben Ihnen die Sicherheit, dass alles erledigt wurde.</li>
+              <li><strong>Sicherheit:</strong> Wir achten strikt auf die Einhaltung der Verkehrssicherungspflichten (z. B. Beleuchtung, Gehwege).</li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-alt leistung-detail-section" id="gartenpflege">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Außenanlagen</p>
-          <h2>Garten- und Grünanlagenpflege</h2>
-          <p>
-            Der eigene Garten ist für viele Menschen die Wohlfühloase. Wir kümmern uns für Sie um Rasenflächen, Beete,
-            Hecken und allgemeine Grünpflege mit dem Blick fürs Detail und mit Rücksicht auf die Nachbarschaft. 
-          </p>
-          <p>
-            Dabei arbeiten wir nicht nach Schema F, sondern stimmen Pflegeintervalle und saisonale Maßnahmen auf die
-            tatsächlichen Anforderungen Ihrer Anlage ab. So bleibt der Aufwand überschaubar und das Erscheinungsbild
-            jederzeit gepflegt.
-          </p>
-          <p>
-            Niemand möchte am wohlverdienten Feierabend oder am Wochenende durch dröhnende Benzinmotoren gestört
-            werden. Deshalb setzen wir konsequent auf die STIHL Akku-Technologie:
-          </p>
-          <ul>
-            <li>
-              <strong>Kein Lärmstress:</strong> Unsere Geräte sind so leise, dass die Gartenpflege weder Sie noch Ihre Nachbarn stört.
-              Ideal für dicht bebaute Wohngebiete und private Gärten.
-            </li>
-            <li>
-              <strong>Saubere Luft:</strong> Wir arbeiten zu 100% abgasfrei. Gut für Ihre Gesundheit und die Umwelt.
-            </li>
-            <li>
-              <strong>Höchste Qualität:</strong> Die Präzision der STIHL Profi-Geräte sorgt für ein erstklassiges Schnittbild, das man
-              sieht.
-            </li>
-          </ul>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="gartenpflege" data-gallery-images='[
-            {"src":"assets/arbeitsalltag/IMG_2423.webp","alt":"Gepflegte Garten- und Grünanlage an einem Objekt"},
-            {"src":"assets/arbeitsalltag/james_rasen-1920.webp","alt":"Präzise Gartenpflege mit Akku-Technik"},
-            {"src":"assets/arbeitsalltag/werkzeug_rasen-1920.webp","alt":"Professionelle Geräte für eine gepflegte Außenanlage"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zur Gartenpflege öffnen">
-                <img class="gallery-feature-image" src="assets/services/garten-960.webp"
-                  srcset="assets/services/garten-640.webp 640w, assets/services/garten-960.webp 960w, assets/services/garten-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Gepflegte Garten- und Grünanlage an einem Objekt" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="gartenpflege" aria-labelledby="gartenpflege-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="gartenpflege" data-gallery-images='[
+              {"src":"assets/arbeitsalltag/IMG_2423.webp","alt":"Gepflegte Garten- und Grünanlage an einem Objekt"},
+              {"src":"assets/arbeitsalltag/james_rasen-1920.webp","alt":"Präzise Gartenpflege mit Akku-Technik"},
+              {"src":"assets/arbeitsalltag/werkzeug_rasen-1920.webp","alt":"Professionelle Geräte für eine gepflegte Außenanlage"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zur Gartenpflege öffnen">
+                  <img class="gallery-feature-image" src="assets/services/garten-960.webp"
+                    srcset="assets/services/garten-640.webp 640w, assets/services/garten-960.webp 960w, assets/services/garten-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Gepflegte Garten- und Grünanlage an einem Objekt" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Außenanlagen</p>
+            <h2 id="gartenpflege-title">Garten- und Grünanlagenpflege</h2>
+            <p>
+              Der eigene Garten ist für viele Menschen die Wohlfühloase. Wir kümmern uns für Sie um Rasenflächen, Beete,
+              Hecken und allgemeine Grünpflege mit dem Blick fürs Detail und mit Rücksicht auf die Nachbarschaft.
+            </p>
+            <p>
+              Dabei arbeiten wir nicht nach Schema F, sondern stimmen Pflegeintervalle und saisonale Maßnahmen auf die
+              tatsächlichen Anforderungen Ihrer Anlage ab. So bleibt der Aufwand überschaubar und das Erscheinungsbild
+              jederzeit gepflegt.
+            </p>
+            <p>
+              Niemand möchte am wohlverdienten Feierabend oder am Wochenende durch dröhnende Benzinmotoren gestört
+              werden. Deshalb setzen wir konsequent auf die STIHL Akku-Technologie:
+            </p>
+            <ul>
+              <li>
+                <strong>Kein Lärmstress:</strong> Unsere Geräte sind so leise, dass die Gartenpflege weder Sie noch Ihre Nachbarn stört.
+                Ideal für dicht bebaute Wohngebiete und private Gärten.
+              </li>
+              <li>
+                <strong>Saubere Luft:</strong> Wir arbeiten zu 100% abgasfrei. Gut für Ihre Gesundheit und die Umwelt.
+              </li>
+              <li>
+                <strong>Höchste Qualität:</strong> Die Präzision der STIHL Profi-Geräte sorgt für ein erstklassiges Schnittbild, das man
+                sieht.
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section leistung-detail-section" id="rohrreinigung">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Schnelle Hilfe im Alltag</p>
-          <h2>Rohrreinigung</h2>
-          <p>
-            Ein verstopfter Abfluss ist mehr als nur ein ärgerliches Hindernis, denn er erfordert schnelles und
-            fachgerechtes Handeln. Wir bieten Ihnen eine professionelle Rohrreinigung, die über das einfache
-            „Durchstechen“ hinausgeht. Mit modernster Technik von Marktführern sorgen wir dafür, dass Ihre
-            Leitungen in Küche, Bad und Keller dauerhaft frei bleiben.
-          </p>
-          <ul>
-            <li>
-              <strong>Exakte Diagnose per Kamera:</strong> Bevor wir starten, schauen wir genau hin. Mit unserer hochauflösenden
-              Rothenberger Inspektionskamera lokalisieren wir die Verstopfung exakt und dokumentieren den Zustand
-              Ihrer Rohre. So wissen Sie genau, was das Problem ist. Das heißt es gibt kein Rätselraten.
-            </li>
-            <li>
-              <strong>Kraftvolle Reinigung: </strong>Für die Beseitigung nutzen wir die R600 VarioClean Spirale. Diese Profi-Maschine
-              arbeitet materialschonend, aber extrem effektiv gegen jede Art von Blockade.
-            </li>
-            <li>
-              <strong>Sauberkeits-Garantie: </strong>Wir wissen, dass niemand Schmutz im Haus haben möchte. Deshalb arbeiten wir
-              besonders vorsichtig und achten penibel darauf, Ihren Wohnbereich sauber zu hinterlassen.
-            </li>
-          </ul>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="rohrreinigung" data-gallery-images='[
-            {"src":"assets/arbeitsalltag/werkzeug_rohrreinigung.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-            {"src":"assets/services/rohrreinigung-1920.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-            {"src":"assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-            {"src":"assets/arbeitsalltag/werkzeug_kamera-2.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"}
+      <section class="leistung-detail-section" id="rohrreinigung" aria-labelledby="rohrreinigung-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="rohrreinigung" data-gallery-images='[
+              {"src":"assets/arbeitsalltag/werkzeug_rohrreinigung.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
+              {"src":"assets/services/rohrreinigung-1920.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
+              {"src":"assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
+              {"src":"assets/arbeitsalltag/werkzeug_kamera-2.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"}
 
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zur Rohrreinigung öffnen">
-                <img class="gallery-feature-image" src="assets/services/rohrreinigung-1280.webp"
-                  srcset="assets/services/rohrreinigung-640.webp 640w, assets/services/rohrreinigung-1280.webp 1280w, assets/services/rohrreinigung-1920.webp 1920w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Rohrreinigung und Hilfe bei Verstopfungen" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zur Rohrreinigung öffnen">
+                  <img class="gallery-feature-image" src="assets/services/rohrreinigung-1280.webp"
+                    srcset="assets/services/rohrreinigung-640.webp 640w, assets/services/rohrreinigung-1280.webp 1280w, assets/services/rohrreinigung-1920.webp 1920w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Rohrreinigung und Hilfe bei Verstopfungen" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Schnelle Hilfe im Alltag</p>
+            <h2 id="rohrreinigung-title">Rohrreinigung</h2>
+            <p>
+              Ein verstopfter Abfluss ist mehr als nur ein ärgerliches Hindernis, denn er erfordert schnelles und
+              fachgerechtes Handeln. Wir bieten Ihnen eine professionelle Rohrreinigung, die über das einfache
+              „Durchstechen“ hinausgeht. Mit modernster Technik von Marktführern sorgen wir dafür, dass Ihre
+              Leitungen in Küche, Bad und Keller dauerhaft frei bleiben.
+            </p>
+            <ul>
+              <li>
+                <strong>Exakte Diagnose per Kamera:</strong> Bevor wir starten, schauen wir genau hin. Mit unserer hochauflösenden
+                Rothenberger Inspektionskamera lokalisieren wir die Verstopfung exakt und dokumentieren den Zustand
+                Ihrer Rohre. So wissen Sie genau, was das Problem ist. Das heißt es gibt kein Rätselraten.
+              </li>
+              <li>
+                <strong>Kraftvolle Reinigung: </strong>Für die Beseitigung nutzen wir die R600 VarioClean Spirale. Diese Profi-Maschine
+                arbeitet materialschonend, aber extrem effektiv gegen jede Art von Blockade.
+              </li>
+              <li>
+                <strong>Sauberkeits-Garantie: </strong>Wir wissen, dass niemand Schmutz im Haus haben möchte. Deshalb arbeiten wir
+                besonders vorsichtig und achten penibel darauf, Ihren Wohnbereich sauber zu hinterlassen.
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-alt leistung-detail-section" id="glasreinigung">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Sauberkeit &amp; Werterhalt</p>
-          <h2>Fenster- &amp; Glasreinigung inkl. Solarpanels</h2>
-          <p>
-            Kristallklare Sicht ohne Chemie: die Kraft von Reinwasser.
-          </p>
-          <p>
-            Wir heben die Glasreinigung auf ein neues Level: Mit der innovativen Reinwasser-Technologie reinigen wir 
-            Ihre Fenster, Glasfassaden und Solarpanels gründlich, ökologisch und absolut streifenfrei.
-          </p>
-          <p>Unsere Geheimwaffe: Die HydroPower RO Umkehrosmoseanlage</p>
-          <p>
-            Statt mit herkömmlichen Reinigungsmitteln und Leitungswasser zu arbeiten, nutzen wir entmineralisiertes
-            „Reinwasser“. Das bietet Ihnen unschlagbare Vorteile:
-          </p>
-          <ul>
-            <li>
-              <strong>Streifenfreie Sauberkeit: </strong>Da das Wasser keine Mineralien (Kalk) mehr enthält, trocknet es von selbst
-              rückstandsfrei ab.
-            </li>
-            <li>
-              <strong>Länger sauber: </strong>Ohne klebrige Reinigungsmittelrückstände bleibt die Oberfläche glatt. Schmutz findet
-              keinen Halt, und Ihre Fenster bleiben deutlich länger sauber.
-            </li>
-            <li>
-              <strong>Umweltfreundlich: </strong>Wir reinigen nur mit purem Wasser und damit ohne Chemie. Das schont Ihre Pflanzen im Garten
-              und die Umwelt.
-            </li>
-            <li>
-              <strong>Sicherheit &amp; Reichweite: </strong>Dank der wasserführenden Stangensysteme von Unger erreichen wir auch
-              schwer zugängliche Bereiche sicher vom Boden aus, oft ohne teure Leitern oder Gerüste.
-            </li>
-          </ul>
-          <br>
-          <p>
-            Wussten Sie, dass verschmutzte Panels <strong>bis zu 20% an Leistung verlieren</strong> können? Unsere Reinwasser-Methode
-            ist die sicherste und effektivste Art, Ihre Anlage von Staub, Pollen und Ruß zu befreien, um den vollen
-            Energieertrag zu sichern.
-          </p>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="glasreinigung" data-gallery-images='[
-            {"src":"assets/arbeitsalltag/projekt_dach-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-            {"src":"assets/arbeitsalltag/projekt_fensterreinigung-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-            {"src":"assets/arbeitsalltag/james_carbonstange-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-            {"src":"assets/arbeitsalltag/james_glas-vorher-1280.webp","alt":"Reinwasser-Reinigung an Glasflächen vor Ort"},
-            {"src":"assets/arbeitsalltag/james_glas-nachher-1920.webp","alt":"Streifenfrei gereinigte Glasflächen nach dem Einsatz"},
-            {"src":"assets/arbeitsalltag/james_osmose-1920.webp","alt":"Umkehrosmose-Technik für hochwertige Glasreinigung"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zur Glasreinigung öffnen">
-                <img class="gallery-feature-image" src="assets/arbeitsalltag/projekt_fensterreinigung-1280.webp"
-                  srcset="assets/arbeitsalltag/projekt_fensterreinigung-640.webp 640w, assets/arbeitsalltag/projekt_fensterreinigung-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Fenster- und Glasreinigung an einem Gebäude" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="glasreinigung" aria-labelledby="glasreinigung-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="glasreinigung" data-gallery-images='[
+              {"src":"assets/arbeitsalltag/projekt_dach-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
+              {"src":"assets/arbeitsalltag/projekt_fensterreinigung-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
+              {"src":"assets/arbeitsalltag/james_carbonstange-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
+              {"src":"assets/arbeitsalltag/james_glas-vorher-1280.webp","alt":"Reinwasser-Reinigung an Glasflächen vor Ort"},
+              {"src":"assets/arbeitsalltag/james_glas-nachher-1920.webp","alt":"Streifenfrei gereinigte Glasflächen nach dem Einsatz"},
+              {"src":"assets/arbeitsalltag/james_osmose-1920.webp","alt":"Umkehrosmose-Technik für hochwertige Glasreinigung"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zur Glasreinigung öffnen">
+                  <img class="gallery-feature-image" src="assets/arbeitsalltag/projekt_fensterreinigung-1280.webp"
+                    srcset="assets/arbeitsalltag/projekt_fensterreinigung-640.webp 640w, assets/arbeitsalltag/projekt_fensterreinigung-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Fenster- und Glasreinigung an einem Gebäude" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Sauberkeit &amp; Werterhalt</p>
+            <h2 id="glasreinigung-title">Fenster- &amp; Glasreinigung inkl. Solarpanels</h2>
+            <p>
+              Kristallklare Sicht ohne Chemie: die Kraft von Reinwasser.
+            </p>
+            <p>
+              Wir heben die Glasreinigung auf ein neues Level: Mit der innovativen Reinwasser-Technologie reinigen wir
+              Ihre Fenster, Glasfassaden und Solarpanels gründlich, ökologisch und absolut streifenfrei.
+            </p>
+            <p>Unsere Geheimwaffe: Die HydroPower RO Umkehrosmoseanlage</p>
+            <p>
+              Statt mit herkömmlichen Reinigungsmitteln und Leitungswasser zu arbeiten, nutzen wir entmineralisiertes
+              „Reinwasser“. Das bietet Ihnen unschlagbare Vorteile:
+            </p>
+            <ul>
+              <li>
+                <strong>Streifenfreie Sauberkeit: </strong>Da das Wasser keine Mineralien (Kalk) mehr enthält, trocknet es von selbst
+                rückstandsfrei ab.
+              </li>
+              <li>
+                <strong>Länger sauber: </strong>Ohne klebrige Reinigungsmittelrückstände bleibt die Oberfläche glatt. Schmutz findet
+                keinen Halt, und Ihre Fenster bleiben deutlich länger sauber.
+              </li>
+              <li>
+                <strong>Umweltfreundlich: </strong>Wir reinigen nur mit purem Wasser und damit ohne Chemie. Das schont Ihre Pflanzen im Garten
+                und die Umwelt.
+              </li>
+              <li>
+                <strong>Sicherheit &amp; Reichweite: </strong>Dank der wasserführenden Stangensysteme von Unger erreichen wir auch
+                schwer zugängliche Bereiche sicher vom Boden aus, oft ohne teure Leitern oder Gerüste.
+              </li>
+            </ul>
+            <br>
+            <p>
+              Wussten Sie, dass verschmutzte Panels <strong>bis zu 20% an Leistung verlieren</strong> können? Unsere Reinwasser-Methode
+              ist die sicherste und effektivste Art, Ihre Anlage von Staub, Pollen und Ruß zu befreien, um den vollen
+              Energieertrag zu sichern.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section leistung-detail-section" id="moebelmontage">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Montagearbeiten</p>
-          <h2>Montagearbeiten</h2>
-          <p>
-            Wir wissen, dass eine Montage nur so gut ist wie das Material, das dahintersteckt. Deshalb setzen wir
-            auf echtes Profi-Equipment:
-          </p>
-          <ul>
-            <li>
-              <strong>Lasertechnik:</strong> Mit Bosch Professional Kreuzlinienlasern messen wir alles präzise
-              ein.
-            </li>
-            <li>
-              <strong>Halt, der überzeugt:</strong> Wir verwenden Premium-Dübel und Schrauben von Würth.
-            </li>
-            <li>
-              <strong>Sauberes Bohren mit Absaugesystem:</strong> Mit leistungsstarken Bosch Bohr- und Schlaghämmern kommen wir durch jede Wand. Dabei
-              wird der Staub sofort abgesaugt und wir hinterlassen Ihren Raum so sauber, wie wir ihn vorgefunden haben.
-            </li>
-          </ul>
-          <br>
-          <p>Was wir für Sie montieren:</p>
-          <ul>
-            <li>
-              <strong>Möbelmontage:</strong> Fachgerechter Aufbau von Schranksystemen (z. B. IKEA), Kommoden und Tischen.
-            </li>
-            <li>
-              <strong>Multimedia:</strong> Sichere Installation von TV-Wandhalterungen (auch bei großen Bildschirmen).
-            </li>
-            <li>
-              <strong>Inneneinrichtung:</strong> Anbringen von Spiegeln, Bildern, Vorhangschienen und Gardinenstangen.
-            </li>
-            <li>
-              <strong>Küchen-Extras:</strong> Montage von Regalen, Leuchten oder anderen Accessoires.
-            </li>
-          </ul>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="moebelmontage" data-gallery-images='[
-          {"src":"assets/services/montagearbeiten_2.webp","alt":"Fachgerechte Montagearbeiten in einem Innenraum"},
-          {"src":"assets/services/montagearbeiten-1920.webp","alt":"TV-Wandhalterung Montage beim Kunden"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zu Montagearbeiten öffnen">
-                <img class="gallery-feature-image" src="assets/services/montagearbeiten-1280.webp"
-                  srcset="assets/services/montagearbeiten-640.webp 640w, assets/services/montagearbeiten-1280.webp 1280w, assets/services/montagearbeiten-1920.webp 1920w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Fachgerechte Montagearbeiten in einem Innenraum" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="moebelmontage" aria-labelledby="moebelmontage-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="moebelmontage" data-gallery-images='[
+            {"src":"assets/services/montagearbeiten_2.webp","alt":"Fachgerechte Montagearbeiten in einem Innenraum"},
+            {"src":"assets/services/montagearbeiten-1920.webp","alt":"TV-Wandhalterung Montage beim Kunden"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zu Montagearbeiten öffnen">
+                  <img class="gallery-feature-image" src="assets/services/montagearbeiten-1280.webp"
+                    srcset="assets/services/montagearbeiten-640.webp 640w, assets/services/montagearbeiten-1280.webp 1280w, assets/services/montagearbeiten-1920.webp 1920w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Fachgerechte Montagearbeiten in einem Innenraum" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Montagearbeiten</p>
+            <h2 id="moebelmontage-title">Montagearbeiten</h2>
+            <p>
+              Wir wissen, dass eine Montage nur so gut ist wie das Material, das dahintersteckt. Deshalb setzen wir
+              auf echtes Profi-Equipment:
+            </p>
+            <ul>
+              <li>
+                <strong>Lasertechnik:</strong> Mit Bosch Professional Kreuzlinienlasern messen wir alles präzise
+                ein.
+              </li>
+              <li>
+                <strong>Halt, der überzeugt:</strong> Wir verwenden Premium-Dübel und Schrauben von Würth.
+              </li>
+              <li>
+                <strong>Sauberes Bohren mit Absaugesystem:</strong> Mit leistungsstarken Bosch Bohr- und Schlaghämmern kommen wir durch jede Wand. Dabei
+                wird der Staub sofort abgesaugt und wir hinterlassen Ihren Raum so sauber, wie wir ihn vorgefunden haben.
+              </li>
+            </ul>
+            <br>
+            <p>Was wir für Sie montieren:</p>
+            <ul>
+              <li>
+                <strong>Möbelmontage:</strong> Fachgerechter Aufbau von Schranksystemen (z. B. IKEA), Kommoden und Tischen.
+              </li>
+              <li>
+                <strong>Multimedia:</strong> Sichere Installation von TV-Wandhalterungen (auch bei großen Bildschirmen).
+              </li>
+              <li>
+                <strong>Inneneinrichtung:</strong> Anbringen von Spiegeln, Bildern, Vorhangschienen und Gardinenstangen.
+              </li>
+              <li>
+                <strong>Küchen-Extras:</strong> Montage von Regalen, Leuchten oder anderen Accessoires.
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-alt leistung-detail-section" id="kleinreparaturen">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Instandhaltung</p>
-          <h2>Kleinreparaturen &amp; Instandhaltung</h2>
-          <p>
-            Kleinere Defekte und alltägliche Schäden beheben wir sauber, zeitnah und mit dem Anspruch, praktikable
-            Lösungen zu schaffen. Das betrifft unter anderem Nachbesserungen, kleinere Montagearbeiten und typische
-            Instandhaltungsaufgaben im laufenden Betrieb.
-          </p>
-          <p>
-            Wenn ein Thema größer wird, begleiten wir die nächsten Schritte mit Augenmaß. Sie erhalten eine klare
-            Einschätzung zum Aufwand und können sicher sein, dass nichts unnötig liegen bleibt.
-          </p>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="kleinreparaturen" data-gallery-images='[
-            {"src":"assets/services/reparaturen-1280.webp","alt":"Kleinreparatur und Instandhaltungsarbeit an einem Gebäude"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zu Kleinreparaturen öffnen">
-                <img class="gallery-feature-image" src="assets/services/reparaturen-1280.webp"
-                  srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-1280.webp 1280w, assets/services/reparaturen-1920.webp 1920w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Kleinreparatur und Instandhaltungsarbeit an einem Gebäude" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="kleinreparaturen" aria-labelledby="kleinreparaturen-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="kleinreparaturen" data-gallery-images='[
+              {"src":"assets/services/reparaturen-1280.webp","alt":"Kleinreparatur und Instandhaltungsarbeit an einem Gebäude"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zu Kleinreparaturen öffnen">
+                  <img class="gallery-feature-image" src="assets/services/reparaturen-1280.webp"
+                    srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-1280.webp 1280w, assets/services/reparaturen-1920.webp 1920w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Kleinreparatur und Instandhaltungsarbeit an einem Gebäude" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Instandhaltung</p>
+            <h2 id="kleinreparaturen-title">Kleinreparaturen &amp; Instandhaltung</h2>
+            <p>
+              Kleinere Defekte und alltägliche Schäden beheben wir sauber, zeitnah und mit dem Anspruch, praktikable
+              Lösungen zu schaffen. Das betrifft unter anderem Nachbesserungen, kleinere Montagearbeiten und typische
+              Instandhaltungsaufgaben im laufenden Betrieb.
+            </p>
+            <p>
+              Wenn ein Thema größer wird, begleiten wir die nächsten Schritte mit Augenmaß. Sie erhalten eine klare
+              Einschätzung zum Aufwand und können sicher sein, dass nichts unnötig liegen bleibt.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section leistung-detail-section" id="umzuege-entruempelung">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Transport &amp; Räumung</p>
-          <h2>Umzüge &amp; Entrümpelung</h2>
-          <p>
-            Ob ein kleiner Umzug ansteht oder Räume geordnet geräumt werden müssen, wir unterstützen Sie mit einem
-            pragmatischen und verlässlichen Ansatz. Möbel, Hausrat und Gegenstände werden sorgfältig bewegt,
-            verladen oder ausgeräumt, damit der Ablauf übersichtlich und planbar bleibt.
-          </p>
-          <p>
-            Gerade bei Wohnungswechseln, Übergaben oder vorbereitenden Räumungen ist eine saubere Organisation
-            entscheidend. Wir wissen, dass das Stress bedeutet und wollen Sie dabei unterstützen.
-          </p>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="umzuege-entruempelung" data-gallery-images='[
-            {"src":"assets/services/umzug-1280.webp","alt":"Unterstützung bei einem Umzug mit Transport- und Tragearbeiten"}          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zu Umzügen und Entrümpelung öffnen">
-                <img class="gallery-feature-image" src="assets/services/umzug-960.webp"
-                  srcset="assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Unterstützung bei einem Umzug mit Transport- und Tragearbeiten" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="umzuege-entruempelung" aria-labelledby="umzuege-entruempelung-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="umzuege-entruempelung" data-gallery-images='[
+              {"src":"assets/services/umzug-1280.webp","alt":"Unterstützung bei einem Umzug mit Transport- und Tragearbeiten"}          ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zu Umzügen und Entrümpelung öffnen">
+                  <img class="gallery-feature-image" src="assets/services/umzug-960.webp"
+                    srcset="assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Unterstützung bei einem Umzug mit Transport- und Tragearbeiten" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Transport &amp; Räumung</p>
+            <h2 id="umzuege-entruempelung-title">Umzüge &amp; Entrümpelung</h2>
+            <p>
+              Ob ein kleiner Umzug ansteht oder Räume geordnet geräumt werden müssen, wir unterstützen Sie mit einem
+              pragmatischen und verlässlichen Ansatz. Möbel, Hausrat und Gegenstände werden sorgfältig bewegt,
+              verladen oder ausgeräumt, damit der Ablauf übersichtlich und planbar bleibt.
+            </p>
+            <p>
+              Gerade bei Wohnungswechseln, Übergaben oder vorbereitenden Räumungen ist eine saubere Organisation
+              entscheidend. Wir wissen, dass das Stress bedeutet und wollen Sie dabei unterstützen.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-alt leistung-detail-section" id="winterdienst">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Sicherheit im Außenbereich</p>
-          <h2>Winterdienst</h2>
-          <p>
-            In den Wintermonaten sorgen wir im vereinbarten Rahmen für sichere Zugänge, Wege und Außenflächen. Dazu
-            gehören das Räumen von Schnee sowie Streumaßnahmen bei Glätte, damit Bewohner, Besucher und Mitarbeiter
-            sich sicher auf dem Grundstück bewegen können.
-          </p>
-          <p>
-            Unser Fokus liegt auf verlässlicher Ausführung und klaren Absprachen. So wissen Sie, worauf Sie sich
-            verlassen können, wenn Wetterlagen kurzfristig reagieren lassen.
-          </p>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="winterdienst" data-gallery-images='[
-            {"src":"assets/services/winterdienst-1280.webp","alt":"Winterdienst auf geräumten Wegen rund um ein Gebäude"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zum Winterdienst öffnen">
-                <img class="gallery-feature-image" src="assets/services/winterdienst-960.webp"
-                  srcset="assets/services/winterdienst-640.webp 640w, assets/services/winterdienst-960.webp 960w, assets/services/winterdienst-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Winterdienst auf geräumten Wegen rund um ein Gebäude" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section" id="winterdienst" aria-labelledby="winterdienst-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="winterdienst" data-gallery-images='[
+              {"src":"assets/services/winterdienst-1280.webp","alt":"Winterdienst auf geräumten Wegen rund um ein Gebäude"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zum Winterdienst öffnen">
+                  <img class="gallery-feature-image" src="assets/services/winterdienst-960.webp"
+                    srcset="assets/services/winterdienst-640.webp 640w, assets/services/winterdienst-960.webp 960w, assets/services/winterdienst-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Winterdienst auf geräumten Wegen rund um ein Gebäude" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Sicherheit im Außenbereich</p>
+            <h2 id="winterdienst-title">Winterdienst</h2>
+            <p>
+              In den Wintermonaten sorgen wir im vereinbarten Rahmen für sichere Zugänge, Wege und Außenflächen. Dazu
+              gehören das Räumen von Schnee sowie Streumaßnahmen bei Glätte, damit Bewohner, Besucher und Mitarbeiter
+              sich sicher auf dem Grundstück bewegen können.
+            </p>
+            <p>
+              Unser Fokus liegt auf verlässlicher Ausführung und klaren Absprachen. So wissen Sie, worauf Sie sich
+              verlassen können, wenn Wetterlagen kurzfristig reagieren lassen.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Optional service: currently not linked from the homepage service cards or primary navigation. -->
-    <section class="section section-alt leistung-detail-section" id="notdienst">
-      <div class="container leistung-detail-grid">
-        <div class="leistung-text reveal">
-          <p class="eyebrow">Schnelle Hilfe</p>
-          <h2>Notdienst außerhalb der Öffnungszeiten</h2>
-          <p>
-            Bei dringenden Anliegen sind wir auch außerhalb der üblichen Zeiten für Sie erreichbar. Wenn kurzfristig
-            Unterstützung notwendig ist, helfen wir mit einer ersten Einschätzung und, soweit möglich, mit
-            pragmatischen Sofortmaßnahmen weiter.
-          </p>
-          <p>
-            Unser Ziel ist nicht Hektik, sondern verlässliche Unterstützung in Situationen, in denen ein schneller
-            Ansprechpartner entscheidend ist.
-          </p>
-        </div>
-        <div class="leistung-images reveal" data-reveal-delay="80">
-          <div class="leistung-gallery" data-gallery="notdienst" data-gallery-images='[
-            {"src":"assets/services/notdienst-1280.webp","alt":"Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten"}
-          ]'>
-            <figure class="gallery-item gallery-item-featured">
-              <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                aria-label="Galerie zum Notdienst öffnen">
-                <img class="gallery-feature-image" src="assets/services/notdienst-960.webp"
-                  srcset="assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w"
-                  sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                  alt="Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten" />
-              </button>
-              <span class="gallery-indicator" aria-hidden="true"></span>
-            </figure>
+      <section class="leistung-detail-section leistung-contact-card" id="notdienst" aria-labelledby="notdienst-title">
+        <div class="leistung-detail-grid">
+          <div class="leistung-images reveal" data-reveal-delay="80">
+            <div class="leistung-gallery" data-gallery="notdienst" data-gallery-images='[
+              {"src":"assets/services/notdienst-1280.webp","alt":"Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten"}
+            ]'>
+              <figure class="gallery-item gallery-item-featured">
+                <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
+                  aria-label="Galerie zum Notdienst öffnen">
+                  <img class="gallery-feature-image" src="assets/services/notdienst-960.webp"
+                    srcset="assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w"
+                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
+                    alt="Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten" />
+                </button>
+                <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
+              </figure>
+            </div>
+          </div>
+          <div class="leistung-text reveal">
+            <p class="eyebrow">Schnelle Hilfe</p>
+            <h2 id="notdienst-title">Notdienst außerhalb der Öffnungszeiten</h2>
+            <p>
+              Bei dringenden Anliegen sind wir auch außerhalb der üblichen Zeiten für Sie erreichbar. Wenn kurzfristig
+              Unterstützung notwendig ist, helfen wir mit einer ersten Einschätzung und, soweit möglich, mit
+              pragmatischen Sofortmaßnahmen weiter.
+            </p>
+            <p>
+              Unser Ziel ist nicht Hektik, sondern verlässliche Unterstützung in Situationen, in denen ein schneller
+              Ansprechpartner entscheidend ist.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer full-bleed">
