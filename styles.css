@@ -520,7 +520,7 @@ ul {
   display: none;
 }
 
-/* Desktop off-canvas navigation; the mobile drilldown stays independent. */
+/* Shared off-canvas navigation for desktop and mobile. */
 .desktop-menu,
 .legal-desktop-utilities {
   display: none;
@@ -532,6 +532,21 @@ ul {
 
 .desktop-menu {
   position: relative;
+}
+
+@media (max-width: 56.24rem) {
+  .desktop-menu {
+    display: contents;
+  }
+
+  .legal-desktop-utilities {
+    display: flex;
+  }
+
+  .desktop-menu-toggle svg,
+  .legal-desktop-utilities > .header-cta {
+    display: none;
+  }
 }
 
 .desktop-menu-toggle {
@@ -869,16 +884,59 @@ body.desktop-menu-open {
   margin-top: 0.34rem;
 }
 
-.hero-whatsapp-button {
-  margin-left: 0.25rem;
-  flex-shrink: 0;
+.hero-actions .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 3.4rem;
+  border: 1px solid transparent;
+  text-align: left;
+  transition:
+    background-color 320ms var(--motion-smooth),
+    border-color 320ms ease,
+    box-shadow 320ms ease;
 }
 
-.hero-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+body.home-page .hero-cta {
+  padding: 1rem 1.2rem;
+  font-size: 0.84rem;
+  letter-spacing: 0.035em;
+}
+
+.hero-cta svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 320ms var(--motion-smooth);
+}
+
+.hero-actions .hero-cta:is(:hover, :focus-visible) {
+  transform: none;
+  background-color: var(--color-accent-hover);
+  box-shadow: 0 8px 24px rgba(255, 122, 48, 0.16);
+}
+
+.hero-cta:is(:hover, :focus-visible) svg {
+  transform: translateX(4px);
+}
+
+.hero-actions .hero-cta.button-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.hero-actions .hero-cta.button-secondary:is(:hover, :focus-visible) {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .hero-trust {

@@ -10,7 +10,6 @@
   const REVEAL_SERVICE_STAGGER_MS = 500;
 
   const getScrollY = () => window.scrollY || window.pageYOffset || 0;
-  const isDesktopNav = () => window.matchMedia(MEDIA_DESKTOP_NAV).matches;
   const onMediaQueryChange = (query, handler) => {
     if (typeof query.addEventListener === "function") {
       query.addEventListener("change", handler);
@@ -81,98 +80,7 @@
 
   initHeaderCompactState();
 
-  const menuButton = document.querySelector(".menu-toggle");
-  const primaryNav = document.getElementById("primary-nav");
-
-  if (menuButton && primaryNav) {
-    const servicesToggle = primaryNav.querySelector(".mobile-services-toggle");
-    const servicesBack = primaryNav.querySelector(".mobile-services-back");
-    const mainView = primaryNav.querySelector(".mobile-nav-view--main");
-    const servicesView = primaryNav.querySelector(".mobile-nav-view--services");
-    let mobileMenuView = "main";
-
-    const setMobileMenuView = (view) => {
-      mobileMenuView = view === "services" ? "services" : "main";
-      const showServices = mobileMenuView === "services";
-
-      primaryNav.dataset.mobileView = mobileMenuView;
-      servicesToggle?.setAttribute("aria-expanded", showServices ? "true" : "false");
-
-      if (mainView) {
-        mainView.setAttribute("aria-hidden", showServices ? "true" : "false");
-        mainView.inert = showServices;
-      }
-
-      if (servicesView) {
-        servicesView.setAttribute("aria-hidden", showServices ? "false" : "true");
-        servicesView.inert = !showServices;
-      }
-    };
-
-    const setMenuState = (isOpen) => {
-      primaryNav.classList.toggle("is-open", isOpen);
-      menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      menuButton.setAttribute("aria-label", isOpen ? "Menü schließen" : "Menü öffnen");
-      document.body.classList.toggle("mobile-nav-open", isOpen && !isDesktopNav());
-
-      if (!isOpen) {
-        setMobileMenuView("main");
-      }
-    };
-
-    setMobileMenuView("main");
-
-    menuButton.addEventListener("click", () => {
-      const isOpen = primaryNav.classList.contains("is-open");
-      setMenuState(!isOpen);
-    });
-
-    if (servicesToggle) {
-      servicesToggle.addEventListener("click", () => {
-        setMobileMenuView("services");
-      });
-    }
-
-    if (servicesBack) {
-      servicesBack.addEventListener("click", () => {
-        setMobileMenuView("main");
-        servicesToggle?.focus();
-      });
-    }
-
-    primaryNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        setMenuState(false);
-      });
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
-        setMenuState(false);
-        menuButton.focus();
-      }
-    });
-
-    document.addEventListener("click", (event) => {
-      const isMobile = !isDesktopNav();
-      if (!isMobile || !primaryNav.classList.contains("is-open")) {
-        return;
-      }
-
-      const target = event.target;
-      if (target instanceof Node && !primaryNav.contains(target) && !menuButton.contains(target)) {
-        setMenuState(false);
-      }
-    });
-
-    window.addEventListener("resize", () => {
-      if (isDesktopNav()) {
-        setMenuState(false);
-      }
-    });
-  }
-
-  const initDesktopMenu = () => {
+  const initOffcanvasMenu = () => {
     const menu = document.querySelector(".desktop-menu");
     const toggle = menu?.querySelector(".desktop-menu-toggle");
     const panel = menu?.querySelector(".desktop-menu-panel");
@@ -182,6 +90,7 @@
     }
 
     const desktopQuery = window.matchMedia(MEDIA_DESKTOP_NAV);
+    const triggers = [toggle];
     const motionQuery = window.matchMedia(MEDIA_REDUCED_MOTION);
     let closeTimer = 0;
     let openFrame = 0;
@@ -200,19 +109,19 @@
       }
       panel.inert = true;
       menu.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
+      triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "false"));
       document.body.classList.remove("desktop-menu-open");
     };
 
     const setOpen = (open, immediate = false) => {
       clearPending();
-      if (open && desktopQuery.matches) {
+      if (open) {
         panel.inert = false;
         if (!panel.open) {
           panel.showModal();
         }
         document.body.classList.add("desktop-menu-open");
-        toggle.setAttribute("aria-expanded", "true");
+        triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "true"));
         // Commit the starting position before sliding the top-layer dialog in.
         panel.getBoundingClientRect();
         openFrame = window.requestAnimationFrame(() => {
@@ -222,7 +131,7 @@
         closeButton.focus({ preventScroll: true });
       } else {
         menu.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
+        triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "false"));
         if (immediate || motionQuery.matches || !panel.open) {
           finishClose();
         } else {
@@ -231,7 +140,9 @@
       }
     };
 
-    toggle.addEventListener("click", () => setOpen(!panel.open));
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => setOpen(!panel.open));
+    });
     toggle.addEventListener("keydown", (event) => {
       if (event.key === "ArrowDown") {
         event.preventDefault();
@@ -279,7 +190,7 @@
     panel.addEventListener("close", () => {
       clearPending();
       menu.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
+      triggers.forEach((trigger) => trigger.setAttribute("aria-expanded", "false"));
       panel.inert = true;
       document.body.classList.remove("desktop-menu-open");
     });
@@ -289,14 +200,14 @@
     onMediaQueryChange(desktopQuery, () => {
       const wasOpen = panel.open;
       setOpen(false, true);
-      if (wasOpen && !desktopQuery.matches) {
-        document.querySelector(".menu-toggle")?.focus({ preventScroll: true });
+      if (wasOpen) {
+        toggle.focus({ preventScroll: true });
       }
     });
     finishClose();
   };
 
-  initDesktopMenu();
+  initOffcanvasMenu();
 
   const initReveal = () => {
     const revealElements = Array.from(document.querySelectorAll(".reveal"));
