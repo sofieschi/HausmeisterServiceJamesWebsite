@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="styles.css?v=20260608-hausverwaltungen-page" />
 </head>
 
-<body class="has-page-hero">
+<body class="has-page-hero hausverwaltungen-page">
   <header class="site-header" id="top">
     <div class="header-topbar" aria-label="Kontaktinformationen">
       <div class="container header-topbar-inner">
@@ -94,7 +94,7 @@
   </header>
 
   <main>
-    <section class="section page-intro hausverwaltung-hero full-bleed" aria-labelledby="hausverwaltungen-title">
+    <section class="section page-intro hausverwaltung-hero full-bleed" id="hausverwaltungen-hero" aria-labelledby="hausverwaltungen-title">
       <div class="container hausverwaltung-hero-inner">
         <p class="eyebrow reveal">Für Hausverwaltungen</p>
         <h1 class="reveal" id="hausverwaltungen-title" data-reveal-delay="80">
@@ -114,7 +114,6 @@
     <section class="section hausverwaltung-intro" aria-labelledby="hausverwaltung-intro-title">
       <div class="container hausverwaltung-intro-grid">
         <div class="hausverwaltung-copy reveal">
-          <p class="eyebrow">Immobilienbetreuung vor Ort</p>
           <h2 id="hausverwaltung-intro-title">Ein verlässlicher Partner für Ihre Immobilien</h2>
           <p>
             Eine professionelle Immobilienverwaltung steht und fällt mit zuverlässigen Dienstleistern vor Ort. Als
@@ -150,7 +149,6 @@
     <section class="section hausverwaltung-matrix-section" id="leistungsmatrix" aria-labelledby="leistungsmatrix-title">
       <div class="container">
         <div class="section-heading hausverwaltung-section-heading reveal">
-          <p class="eyebrow">Übersicht</p>
           <h2 id="leistungsmatrix-title">Leistungsmatrix für Hausverwaltungen</h2>
           <p>
             Nachfolgend finden Sie eine Übersicht der Dienstleistungen, die wir für Ihre Liegenschaften fachgerecht und
@@ -264,7 +262,6 @@
     <section class="section hausverwaltung-tech-section" aria-labelledby="hausverwaltung-tech-title">
       <div class="container">
         <div class="section-heading hausverwaltung-section-heading reveal">
-          <p class="eyebrow">Technische Stärke</p>
           <h2 id="hausverwaltung-tech-title">Technische Highlights &amp; Handwerkskompetenz</h2>
           <p>
             Bei der Betreuung Ihrer Objekte profitieren Sie von unserer gelernten SHK-Fachkompetenz. Viele kleinere
@@ -368,7 +365,6 @@
 
     <section class="section hausverwaltung-cta-section" aria-labelledby="hausverwaltung-cta-title">
       <div class="container hausverwaltung-cta reveal">
-        <p class="eyebrow">Anfrage</p>
         <h2 id="hausverwaltung-cta-title">Sie suchen einen zuverlässigen Hausmeisterservice für Ihre Objekte?</h2>
         <p>
           Senden Sie uns gerne eine Anfrage mit den wichtigsten Informationen zu Ihren Liegenschaften. Wir melden uns
@@ -379,20 +375,39 @@
     </section>
   </main>
 
-  <footer class="site-footer full-bleed">
+  <footer class="site-footer site-footer--modern full-bleed">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <p class="footer-title">Hausmeisterservice James GbR in Landshut</p>
+        <a class="footer-brand-link" href="#hausverwaltungen-hero" aria-label="Hausmeisterservice James – zum Seitenanfang">
+          <img src="assets/Dach-cropped.svg" width="72" height="44" alt="" loading="lazy" decoding="async" />
+          <p class="footer-title">Hausmeisterservice James GbR in Landshut</p>
+        </a>
         <p class="footer-copy">Zuverlässige Betreuung für Wohn- und Gewerbeobjekte.</p>
       </div>
+      <nav class="footer-navigation" aria-labelledby="footer-navigation-title">
+        <h2 class="footer-heading" id="footer-navigation-title">Entdecken</h2>
+        <a href="/leistungen.html">Leistungen</a>
+        <a href="/hausverwaltungen.html" aria-current="page">Hausverwaltungen</a>
+        <a href="/index.html#ueber-uns">Über uns</a>
+        <a href="/index.html#faq">FAQ</a>
+      </nav>
+      <div class="footer-contact-group">
+        <h2 class="footer-heading">Kontakt</h2>
+        <a href="tel:+491601112474">0160 111 2474</a>
+        <a href="mailto:info@hausmeister-james.de">info@hausmeister-james.de</a>
+        <p>Mo–Fr, 08:00–17:00 Uhr<br />Landshut und Umgebung</p>
+      </div>
+    </div>
+    <div class="container footer-meta">
+      <small>&copy; <span id="year"></span> Hausmeisterservice James GbR</small>
       <nav class="footer-links" aria-label="Rechtliche Links">
         <a href="/impressum.html">Impressum</a>
         <a href="/datenschutz.html">Datenschutz</a>
       </nav>
-      <p class="footer-contact">Kontakt: 0160 111 2474 | info@hausmeister-james.de</p>
-    </div>
-    <div class="container footer-meta">
-      <small>&copy; <span id="year"></span> Hausmeisterservice James GbR</small>
+      <a class="footer-top-link" href="#hausverwaltungen-hero">
+        Nach oben
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" /></svg>
+      </a>
     </div>
   </footer>
 
