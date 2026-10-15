@@ -747,6 +747,34 @@ ul {
 }
 
 /* Shared cards */
+/* Homepage card shapes follow the rectangular service detail cards. */
+.index-page {
+  --radius-card: 4px;
+  --radius-card-media: 4px;
+  --service-card-media-height: clamp(15rem, 26vw, 20rem);
+}
+
+.index-page .service-card {
+  max-height: none;
+}
+
+.index-page .service-media {
+  min-height: var(--service-card-media-height);
+}
+
+.index-page .service-media img {
+  height: var(--service-card-media-height);
+}
+
+.index-page .card,
+.index-page .review-card,
+.index-page .review-proof,
+.index-page .profile-media,
+.index-page .profile-stats,
+.index-page .contact-form {
+  border-radius: var(--radius-card);
+}
+
 .card {
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid var(--color-panel-border);
@@ -3928,6 +3956,10 @@ body.lightbox-open {
     min-height: clamp(12rem, 52vw, 13.5rem);
   }
 
+  .index-page {
+    --service-card-media-height: clamp(13rem, 56vw, 15rem);
+  }
+
   .service-media img {
     height: clamp(12rem, 52vw, 13.5rem);
   }
@@ -4608,6 +4640,10 @@ body.lightbox-open {
 }
 
 @media (min-width: 75rem) {
+  .index-page {
+    --service-card-media-height: clamp(14rem, 18vw, 17rem);
+  }
+
   body.home-page .review-card {
     flex-basis: calc(50% - (clamp(1rem, 2vw, 1.5rem) / 2));
   }
