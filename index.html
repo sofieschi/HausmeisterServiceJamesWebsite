@@ -96,7 +96,7 @@
   }
   </script>
   
-  <link rel="stylesheet" href="styles.css?v=20261015-home-card-shapes" />
+  <link rel="stylesheet" href="styles.css?v=20261015-offcanvas-nav" />
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -118,12 +118,6 @@
 
       <div class="header-right nav-anim">
           <nav id="primary-nav" class="primary-nav" aria-label="Hauptnavigation">
-            <div class="desktop-nav-links">
-              <a href="/leistungen.html">Leistungen</a>
-              <a href="/hausverwaltungen.html">Hausverwaltungen</a>
-              <a href="#ueber-uns">Über uns</a>
-              <a href="#faq">FAQ</a>
-            </div>
             <div class="mobile-nav-drilldown">
               <div class="mobile-nav-track">
                 <div class="mobile-nav-view mobile-nav-view--main">
@@ -161,6 +155,42 @@
             </div>
           </nav>
         <div class="header-utilities">
+          <nav class="desktop-menu" aria-label="Seitennavigation">
+            <button class="desktop-menu-toggle" type="button" aria-expanded="false" aria-controls="desktop-menu-panel">
+              Menü
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 5h10M3 11h10" /></svg>
+            </button>
+            <dialog class="desktop-menu-panel" id="desktop-menu-panel" aria-labelledby="desktop-menu-title" inert>
+              <div class="offcanvas-header">
+                <h2 id="desktop-menu-title">Menü</h2>
+                <button class="offcanvas-close" type="button" aria-label="Menü schließen">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+                </button>
+              </div>
+              <nav class="offcanvas-links" aria-label="Seiten">
+              <a class="desktop-menu-link" href="/index.html" aria-current="page">
+                <span><strong>Startseite</strong><span>Hausmeisterservice James im Überblick</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/leistungen.html">
+                <span><strong>Leistungen</strong><span>Alle Arbeiten im Überblick</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/hausverwaltungen.html">
+                <span><strong>Hausverwaltungen</strong><span>Betreuung für Ihre Liegenschaften</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/index.html#faq">
+                <span><strong>FAQ</strong><span>Antworten auf häufige Fragen</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              </nav>
+              <div class="offcanvas-footer">
+                <a class="button" href="/index.html#kontakt">Jetzt anfragen</a>
+                <p>Hausmeisterservice James GbR<br />Landshut und Umgebung</p>
+              </div>
+            </dialog>
+          </nav>
           <a class="button header-cta" href="#kontakt">Jetzt anfragen</a>
           <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="primary-nav"
             aria-expanded="false">
@@ -1247,7 +1277,7 @@
       <button class="lightbox-next" type="button" aria-label="Nächstes Bild">›</button>
     </div>
 
-  <script src="script.js?v=20260608-hausverwaltungen-page"></script>
+  <script src="script.js?v=20261015-offcanvas-nav"></script>
   </body>
 
 </html>

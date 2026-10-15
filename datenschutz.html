@@ -9,7 +9,7 @@
       content="Datenschutzerklärung von Hausmeisterservice James GbR für die Website und Kontaktanfragen aus Landshut und Umgebung."
     />
     <link rel="icon" href="assets/favicon.ico" />
-    <link rel="stylesheet" href="styles.css?v=20260608-hausverwaltungen-page" />
+    <link rel="stylesheet" href="styles.css?v=20261015-offcanvas-nav" />
   </head>
   <body>
     <header class="site-header" id="top">
@@ -18,12 +18,45 @@
           <img class="brand-logo nav-logo" src="assets/Dach-cropped.svg" alt="Hausmeisterservice Logo" decoding="async" />
           <span class="brand-text">Hausmeisterservice James GbR</span>
         </a>
-        <nav class="legal-nav" aria-label="Seitennavigation">
-          <a href="index.html">Startseite</a>
-          <a href="hausverwaltungen.html">Hausverwaltungen</a>
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html" aria-current="page">Datenschutz</a>
-        </nav>
+        <div class="header-utilities legal-desktop-utilities">
+          <nav class="desktop-menu" aria-label="Seitennavigation">
+            <button class="desktop-menu-toggle" type="button" aria-expanded="false" aria-controls="desktop-menu-panel">
+              Menü
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 5h10M3 11h10" /></svg>
+            </button>
+            <dialog class="desktop-menu-panel" id="desktop-menu-panel" aria-labelledby="desktop-menu-title" inert>
+              <div class="offcanvas-header">
+                <h2 id="desktop-menu-title">Menü</h2>
+                <button class="offcanvas-close" type="button" aria-label="Menü schließen">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+                </button>
+              </div>
+              <nav class="offcanvas-links" aria-label="Seiten">
+              <a class="desktop-menu-link" href="/index.html">
+                <span><strong>Startseite</strong><span>Hausmeisterservice James im Überblick</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/leistungen.html">
+                <span><strong>Leistungen</strong><span>Alle Arbeiten im Überblick</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/hausverwaltungen.html">
+                <span><strong>Hausverwaltungen</strong><span>Betreuung für Ihre Liegenschaften</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <a class="desktop-menu-link" href="/index.html#faq">
+                <span><strong>FAQ</strong><span>Antworten auf häufige Fragen</span></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              </nav>
+              <div class="offcanvas-footer">
+                <a class="button" href="/index.html#kontakt">Jetzt anfragen</a>
+                <p>Hausmeisterservice James GbR<br />Landshut und Umgebung</p>
+              </div>
+            </dialog>
+          </nav>
+          <a class="button header-cta" href="/index.html#kontakt">Jetzt anfragen</a>
+        </div>
         <div class="legal-mobile-menu">
             <nav id="primary-nav" class="primary-nav" aria-label="Mobile Seitennavigation">
               <div class="mobile-nav-drilldown">
@@ -233,6 +266,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=20260608-hausverwaltungen-page"></script>
+    <script src="script.js?v=20261015-offcanvas-nav"></script>
   </body>
 </html>
