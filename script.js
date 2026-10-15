@@ -414,26 +414,48 @@
   const accordions = document.querySelectorAll("[data-accordion]");
   accordions.forEach((accordion) => {
     const buttons = accordion.querySelectorAll(".faq-question");
+    const animations = new WeakMap();
+    const reducedMotion = window.matchMedia(MEDIA_REDUCED_MOTION);
     const getPanel = (button) => {
       const panelId = button.getAttribute("aria-controls");
       return panelId ? document.getElementById(panelId) : null;
     };
 
-    const closePanel = (button) => {
+    const setPanelState = (button, isOpen) => {
       const panel = getPanel(button);
-      button.setAttribute("aria-expanded", "false");
-      if (panel) {
-        panel.hidden = true;
+      button.setAttribute("aria-expanded", String(isOpen));
+      if (!panel) {
+        return;
       }
+      // Start from the rendered height so repeated clicks reverse smoothly.
+      const startHeight = panel.hidden ? 0 : panel.getBoundingClientRect().height;
+      const startOpacity = panel.hidden ? 0 : Number(getComputedStyle(panel).opacity);
+      animations.get(panel)?.cancel();
+      panel.inert = !isOpen;
+      panel.setAttribute("aria-hidden", String(!isOpen));
+      if (reducedMotion.matches || typeof panel.animate !== "function"
+        || (!isOpen && panel.hidden)) {
+        panel.hidden = !isOpen;
+        return;
+      }
+      panel.hidden = false;
+      const animation = panel.animate(
+        [
+          { height: `${startHeight}px`, opacity: startOpacity },
+          { height: `${isOpen ? panel.scrollHeight : 0}px`, opacity: isOpen ? 1 : 0 },
+        ],
+        { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "both" }
+      );
+      animations.set(panel, animation);
+      animation.onfinish = () => {
+        panel.hidden = !isOpen;
+        animation.cancel();
+        animations.delete(panel);
+      };
     };
 
-    const openPanel = (button) => {
-      const panel = getPanel(button);
-      button.setAttribute("aria-expanded", "true");
-      if (panel) {
-        panel.hidden = false;
-      }
-    };
+    const closePanel = (button) => setPanelState(button, false);
+    const openPanel = (button) => setPanelState(button, true);
 
     const closeOthers = (activeButton) => {
       buttons.forEach((button) => {

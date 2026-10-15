@@ -156,6 +156,35 @@ body.home-page .lead {
   line-height: 1.68;
 }
 
+body:is(.home-page, .index-page) .section-intro {
+  max-width: 74ch;
+  text-wrap: pretty;
+}
+
+/* Shared, spacious introduction for homepage content sections. */
+body:is(.home-page, .index-page) .section-heading {
+  display: grid;
+  width: min(100%, 76rem);
+  max-width: none;
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+body:is(.home-page, .index-page) .section-heading h2 {
+  max-width: 100%;
+  margin: 0;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+body:is(.home-page, .index-page) .section-heading .section-intro {
+  max-width: 74ch;
+  margin: 0;
+}
+
+body:is(.home-page, .index-page) :is(.services-section-header, .reviews-header) {
+  margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+
 body.home-page .button {
   padding: 0.9rem 1.45rem;
   font-size: 0.98rem;
@@ -838,8 +867,8 @@ body.desktop-menu-open {
 }
 
 .hero-content {
-  width: min(100%, 46rem);
-  max-width: 46rem;
+  width: min(100%, 70rem);
+  max-width: 70rem;
   display: grid;
   gap: clamp(1.18rem, 2vw, 1.66rem);
   margin-inline: auto;
@@ -864,16 +893,18 @@ body.desktop-menu-open {
 
 .hero .lead {
   color: rgba(255, 255, 255, 0.93);
-  max-width: 40ch;
-  margin-bottom: 0.22rem;
+  max-width: 56ch;
+  margin-bottom: 0;
+  line-height: 1.65;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.27);
 }
 
 .hero h1 {
-  margin-bottom: 0.38rem;
-  max-width: 13.6ch;
+  margin-bottom: 0;
+  max-width: 23ch;
+  text-wrap: balance;
   text-shadow: 0 3px 18px rgba(0, 0, 0, 0.35);
-  line-height: 1.12;
+  line-height: 1.1;
 }
 
 .hero-actions {
@@ -1093,12 +1124,10 @@ body.home-page .hero-cta {
   display: grid;
   gap: 0.72rem;
   margin-bottom: clamp(1.4rem, 2.8vw, 2.2rem);
-  max-width: 46rem;
 }
 
 .services-section-header .section-intro {
   margin: 0;
-  max-width: 40rem;
 }
 
 .services-section-header .eyebrow {
@@ -1583,7 +1612,6 @@ body.home-page .hero-cta {
   display: grid;
   justify-items: start;
   gap: 0.85rem;
-  max-width: 52rem;
   margin-inline: 0 auto;
   text-align: left;
 }
@@ -1927,7 +1955,6 @@ body.lightbox-open {
 .reviews-header {
   display: grid;
   gap: 0.78rem;
-  max-width: 42rem;
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
 }
 
@@ -3217,16 +3244,59 @@ body.lightbox-open {
    ABLAUF
 ========================= */
 .steps-grid {
+  --step-gap: clamp(0.95rem, 1.8vw, 1.5rem);
+  --step-progress-duration: 1800ms;
   grid-template-columns: 1fr;
-  gap: clamp(0.95rem, 1.8vw, 1.5rem);
+  gap: var(--step-gap);
+  padding-inline-start: 1.75rem;
 }
 
 .step-card {
   --reveal-duration: 650ms;
+  position: relative;
   height: 100%;
   display: grid;
   align-content: start;
   gap: 0.5rem;
+}
+
+/* Each segment connects to the next card, without covering its content. */
+.step-card::before {
+  content: "";
+  position: absolute;
+  left: -1.75rem;
+  top: 2rem;
+  width: 10px;
+  height: 10px;
+  z-index: 1;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.step-connector {
+  position: absolute;
+  left: calc(-1.75rem + 4px);
+  top: calc(2rem + 5px);
+  width: 2px;
+  height: calc(100% + var(--step-gap));
+  background: rgba(255, 122, 48, 0.18);
+  pointer-events: none;
+}
+
+.step-connector::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--step-progress-duration) cubic-bezier(0.45, 0, 0.55, 1);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 450ms + var(--step-progress-delay, 0ms));
+}
+
+.step-card.is-visible .step-connector::after {
+  transform: scaleY(1);
 }
 
 .step-number {
@@ -3299,11 +3369,12 @@ body.lightbox-open {
 }
 
 .faq-answer {
-  padding: 0 0 1rem;
+  overflow: hidden;
 }
 
 .faq-answer p {
   margin: 0;
+  padding-bottom: 1rem;
 }
 
 /* =========================
@@ -3581,6 +3652,10 @@ body.lightbox-open {
 :root body :is(button, .button, .contact-whatsapp-button) {
   border-radius: var(--radius-button);
   text-transform: uppercase;
+}
+
+:root body button.faq-question {
+  text-transform: none;
 }
 
 .button {
@@ -4465,20 +4540,21 @@ body.lightbox-open {
   }
 
   .hero-content {
-    width: min(100%, 34rem);
-    gap: 1.16rem;
+    width: min(100%, 42rem);
+    gap: 1.6rem;
   }
 
-  .hero h1 {
-    max-width: 12.5ch;
-    margin-bottom: 0.3rem;
-    line-height: 1.16;
+  body.home-page .hero h1 {
+    max-width: 100%;
+    font-size: clamp(1.85rem, 8vw, 3.6rem);
+    margin-bottom: 0;
+    line-height: 1.14;
   }
 
   .hero .lead {
-    max-width: 29ch;
+    max-width: 48ch;
     line-height: 1.62;
-    margin-bottom: 0.26rem;
+    margin-bottom: 0;
   }
 
   .hero-actions {
@@ -4655,9 +4731,6 @@ body.lightbox-open {
     width: min(100%, 34rem);
   }
 
-  .steps-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (min-width: 42rem) and (max-width: 63.99rem) {
@@ -4792,16 +4865,16 @@ body.lightbox-open {
   }
 
   .hero {
-    min-height: 620px;
-    height: 86vh;
+    min-height: max(640px, 86svh);
+    height: auto;
   }
 
   .hero-content {
     margin-inline: 0;
-    padding-left: clamp(2.4rem, 4.2vw, 5.4rem);
-    width: min(100%, 54rem);
-    max-width: 54rem;
-    gap: clamp(1.35rem, 1.9vw, 1.85rem);
+    padding-left: 0;
+    width: min(100%, 70rem);
+    max-width: 70rem;
+    gap: clamp(1.65rem, 2.5vw, 2.5rem);
   }
 
   .header-inner {
@@ -4974,6 +5047,37 @@ body.lightbox-open {
 
   .steps-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-inline-start: 0;
+    padding-top: 2rem;
+  }
+
+  .step-card::before {
+    left: calc(50% - 5px);
+    top: -2rem;
+  }
+
+  .step-connector {
+    left: 50%;
+    top: calc(-2rem + 4px);
+    width: calc(100% + var(--step-gap));
+    height: 2px;
+  }
+
+  .step-connector::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .step-card:nth-child(2) {
+    --step-progress-delay: var(--step-progress-duration);
+  }
+
+  .step-card:nth-child(3) {
+    --step-progress-delay: calc(var(--step-progress-duration) * 2);
+  }
+
+  .step-card.is-visible .step-connector::after {
+    transform: scaleX(1);
   }
 
   .contact-layout {
