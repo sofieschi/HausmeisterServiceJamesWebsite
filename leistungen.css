@@ -1,15 +1,11 @@
-/* Page-scoped service cards; shared navigation, footer and lightbox use styles.css. */
-.leistungen-page .page-intro {
-  min-height: clamp(29rem, 58vh, 40rem);
-}
-
+/* Services only: shared navigation, controls and lightbox stay in styles.css. */
+.leistungen-page .page-intro { min-height: clamp(29rem, 58vh, 40rem); }
 .leistungen-page .page-intro-inner {
   max-width: none;
   justify-items: center;
   text-align: center;
   gap: 1.1rem;
 }
-
 .leistungen-page .page-intro h1 {
   max-width: 18ch;
   margin: 0;
@@ -18,161 +14,249 @@
   line-height: 1.1;
   letter-spacing: -0.035em;
 }
+.leistungen-page .page-intro-text { max-width: 43rem; margin: 0; }
 
-.leistungen-page .page-intro-text {
-  max-width: 43rem;
-  margin: 0;
-}
+/* Progressive enhancement: readable even if either script is unavailable. */
+.leistungen-page:not(.service-story-ready) .reveal { opacity: 1; transform: none; }
 
 .leistungen-page .leistungen-catalogue {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
-  gap: clamp(1.25rem, 2.5vw, 2.25rem);
-  max-width: 88rem;
-  padding-block: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  max-width: var(--site-max-width);
+  padding-block: clamp(2.5rem, 6vw, 6rem);
 }
-
-.leistungen-page .leistung-detail-section,
+.leistungen-page .leistung-detail-section {
+  min-width: 0;
+  padding: clamp(1.25rem, 3.5vw, 3.5rem) 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  scroll-margin-top: 8rem;
+}
 .leistungen-page .leistung-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 2rem;
+  height: auto;
+  min-height: 0;
   min-width: 0;
   padding: 0;
   border: 0;
-  border-radius: 4px;
-  background: var(--color-surface-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-
-.leistungen-page .leistung-detail-section {
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.045);
-  scroll-margin-top: 7rem;
+.leistungen-page .leistung-text,
+.leistungen-page .leistung-images {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  align-self: start;
 }
-
-.leistungen-page .leistung-detail-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  height: 100%;
-  min-height: 0;
-  box-shadow: none;
+.leistungen-page .leistung-text { order: 1; max-width: 66ch; }
+.leistungen-page .leistung-text .eyebrow { margin: 0 0 1rem; font-size: 0.75rem; }
+.leistungen-page .leistung-text h2 {
+  max-width: 100%;
+  margin: 0 0 1.75rem;
+  font-size: clamp(1.65rem, 2.8vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
-
+.leistungen-page .leistung-text p,
+.leistungen-page .leistung-text li {
+  font-size: clamp(1.075rem, 1.35vw, 1.3rem);
+  line-height: 1.85;
+  color: var(--color-muted);
+}
+.leistungen-page .leistung-text p:not(.eyebrow) { margin: 0 0 1.5rem; }
+.leistungen-page .leistung-text ul { gap: 1.25rem; margin-block: 1.75rem; padding-left: 1.25rem; }
+.leistungen-page .leistung-text > :last-child { margin-bottom: 0; }
+.leistungen-page .leistung-text li::marker { color: var(--color-accent); }
+.leistungen-page .leistung-text strong { color: var(--color-navbar-dark); }
 .leistungen-page .leistung-images {
   order: 0;
-  width: 100%;
-  align-self: auto;
-  background: var(--color-surface);
+  position: relative;
+  background: transparent;
+  overflow-anchor: none;
 }
-
 .leistungen-page .leistung-gallery,
 .leistungen-page .gallery-item,
 .leistungen-page .gallery-item-featured,
 .leistungen-page .gallery-lightbox-trigger {
   height: auto;
   min-height: 0;
+  margin: 0;
   border: 0;
   border-radius: 0;
+  background: transparent;
   box-shadow: none;
   transform: none;
 }
-
-/* Fill the photo frame consistently across portrait and landscape images. */
+.leistungen-page .gallery-item-featured { background: transparent; }
+/* Natural ratios on mobile; a reserved stage on desktop prevents layout shifts. */
 .leistungen-page .leistung-images .gallery-feature-image {
   display: block;
   width: 100%;
-  height: clamp(18rem, 28vw, 24rem);
+  height: auto;
   min-height: 0;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   transform: none;
+  transition: none;
 }
-
-.leistungen-page .leistung-text {
-  order: 1;
-  max-width: none;
-  padding: clamp(1.35rem, 2.6vw, 2.25rem);
+.leistungen-page .gallery-lightbox-trigger { position: relative; }
+.leistungen-page .leistung-images .gallery-feature-image.service-story-outgoing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
-
+/* Neutralize the former card hover transforms around the sticky stage. */
+body.leistungen-page .leistung-gallery .gallery-item,
+body.leistungen-page .leistung-gallery .gallery-item .gallery-feature-image {
+  transform: none;
+  box-shadow: none;
+  transition: none;
+}
 .leistungen-page .leistung-photo-caption {
   position: absolute;
-  right: 0.85rem;
-  bottom: 0.85rem;
-  padding: 0.35rem 0.7rem;
-  border-radius: 3px;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0;
   background: rgba(31, 41, 55, 0.86);
   color: #fff;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   pointer-events: none;
 }
-
-.leistungen-page .leistung-text .eyebrow {
-  margin-bottom: 0.6rem;
-  font-size: 0.75rem;
+.service-story-step + .service-story-step {
+  margin-top: 1.75rem;
 }
-
-.leistungen-page .leistung-text h2 {
-  max-width: 28ch;
-  margin: 0 0 0.85rem;
-  font-size: clamp(1.4rem, 2vw, 1.9rem);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  overflow-wrap: break-word;
+.leistungen-page .service-story-step > :last-child {
+  margin-bottom: 0;
 }
-
-.leistungen-page .leistung-text p,
-.leistungen-page .leistung-text li {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--color-muted);
-}
-
-.leistungen-page .leistung-text p {
-  margin: 0;
-}
-
-.leistungen-page .leistung-text ul {
-  gap: 0.35rem;
-  margin-top: 1.15rem;
-  padding-left: 1.15rem;
-}
-
-.leistungen-page .leistung-text li::marker {
-  color: var(--color-accent);
-}
-
-.leistungen-page .leistung-contact-card {
-  grid-column: 1 / -1;
-}
-
-.leistungen-page .leistung-contact-card .leistung-detail-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+.service-text-progress {
+  display: flex;
   align-items: center;
-}
-
-.leistungen-page .leistung-contact-card .button {
+  gap: 1rem;
   margin-top: 1.25rem;
 }
-
-@media (max-width: 48rem) {
-  .leistungen-page .leistungen-catalogue {
+.service-text-progress[hidden] {
+  display: none;
+}
+.service-text-count {
+  flex: 0 0 auto;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.07em;
+}
+.service-text-progress-buttons {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.5rem;
+}
+.service-text-step-control {
+  display: grid;
+  place-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.service-text-step-control::before {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: var(--color-line);
+  transition: background-color 280ms ease;
+}
+.service-text-step-control[aria-current="step"]::before {
+  background: var(--color-accent);
+}
+.service-text-step-control:not([aria-current="step"]):is(:hover, :focus-visible)::before {
+  background: var(--color-secondary);
+}
+.service-text-step-control:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+@media (min-width: 64rem) {
+  .leistungen-page .leistung-detail-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(2.5rem, 5vw, 6rem);
+  }
+  .leistungen-page .leistung-text { order: 0; grid-column: 1; grid-row: 1; }
+  .leistungen-page .leistung-images { order: 1; grid-column: 2; grid-row: 1; }
+  .leistungen-page .gallery-lightbox-trigger { height: min(62svh, 40rem); aspect-ratio: auto; }
+  .leistungen-page .leistung-images .gallery-feature-image { height: 100%; }
+}
+@media (min-width: 64rem) and (min-height: 38rem) and (prefers-reduced-motion: no-preference) {
+  /* One pinned stage: text panels move subtly; photos only crossfade in place. */
+  .leistungen-page .is-text-story {
+    min-height: var(--service-story-height, 0px);
+  }
+  .leistungen-page .is-text-story .leistung-detail-grid {
+    position: sticky;
+    top: 8rem;
+  }
+  .leistungen-page .is-text-story .leistung-images {
+    position: static;
+  }
+  .leistungen-page .is-text-story .leistung-text {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .is-text-story .service-story-steps {
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.4rem;
+    align-items: start;
   }
-
-  .leistungen-page .leistung-contact-card .leistung-detail-grid {
-    display: flex;
+  .is-text-story .service-story-step {
+    grid-area: 1 / 1;
+    min-width: 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, 12px, 0);
+    transition:
+      opacity 280ms ease,
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 420ms;
   }
-
-  .leistungen-page .leistung-images .gallery-feature-image {
-    height: clamp(16rem, 75vw, 24rem);
+  .is-text-story .service-story-step.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s;
   }
-
-  .leistungen-page .page-intro {
-    min-height: 31rem;
-    padding-block: 7rem 3rem;
+  .leistungen-page .is-text-story .service-story-step p {
+    margin-bottom: 1rem;
   }
+  .leistungen-page .is-text-story .service-story-step ul {
+    gap: 0.9rem;
+    margin-block: 0;
+  }
+  .leistungen-page .is-text-story .service-story-step > :last-child {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 48rem) {
+  .leistungen-page .page-intro { min-height: 31rem; padding-block: 7rem 3rem; }
 }

@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="stylesheet" href="styles.css?v=20261015-mobile-offcanvas" />
-  <link rel="stylesheet" href="leistungen.css?v=20261015" />
+  <link rel="stylesheet" href="leistungen.css?v=20261026-scroll-photos" />
 </head>
 
 <body class="has-page-hero leistungen-page">
@@ -97,17 +97,24 @@
     <div class="container leistungen-catalogue">
       <section class="leistung-detail-section" id="hausmeisterdienste" aria-labelledby="hausmeisterdienste-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="hausmeisterdienste" data-gallery-images='[
-              {"src":"assets/services/wohnungen-1280.webp","alt":"Hausmeister bei der laufenden Betreuung einer Immobilie"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="hausmeisterdienste" data-gallery-images='[
+              {
+                "src": "assets/services/wohnungen-1280.webp",
+                "alt": "Hausmeister bei der laufenden Betreuung einer Immobilie",
+                "preview": "assets/services/wohnungen-1280.webp",
+                "srcset": "assets/services/wohnungen-640.webp 640w, assets/services/wohnungen-960.webp 960w, assets/services/wohnungen-1280.webp 1280w",
+                "width": 1280,
+                "height": 853
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zur Objektbetreuung öffnen">
-                  <img class="gallery-feature-image" src="assets/services/wohnungen-960.webp"
+                  aria-label="Bilder zu hausmeisterdienste in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/services/wohnungen-1280.webp"
                     srcset="assets/services/wohnungen-640.webp 640w, assets/services/wohnungen-960.webp 960w, assets/services/wohnungen-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="eager" decoding="async"
-                    alt="Hausmeister bei der laufenden Betreuung einer Immobilie" />
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="853"
+                    loading="lazy" decoding="async" alt="Hausmeister bei der laufenden Betreuung einer Immobilie" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -139,19 +146,38 @@
 
       <section class="leistung-detail-section" id="gartenpflege" aria-labelledby="gartenpflege-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="gartenpflege" data-gallery-images='[
-              {"src":"assets/arbeitsalltag/IMG_2423.webp","alt":"Gepflegte Garten- und Grünanlage an einem Objekt"},
-              {"src":"assets/arbeitsalltag/james_rasen-1920.webp","alt":"Präzise Gartenpflege mit Akku-Technik"},
-              {"src":"assets/arbeitsalltag/werkzeug_rasen-1920.webp","alt":"Professionelle Geräte für eine gepflegte Außenanlage"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="gartenpflege" data-gallery-images='[
+              {
+                "src": "assets/arbeitsalltag/IMG_2423.webp",
+                "alt": "Gepflegte Garten- und Grünanlage an einem Objekt",
+                "preview": "assets/arbeitsalltag/IMG_2423.webp",
+                "width": 1920,
+                "height": 2560
+              },
+              {
+                "src": "assets/arbeitsalltag/james_rasen-1920.webp",
+                "alt": "Präzise Gartenpflege mit Akku-Technik",
+                "preview": "assets/arbeitsalltag/james_rasen-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_rasen-640.webp 640w, assets/arbeitsalltag/james_rasen-1280.webp 1280w, assets/arbeitsalltag/james_rasen-1920.webp 1920w",
+                "width": 1280,
+                "height": 1280
+              },
+              {
+                "src": "assets/arbeitsalltag/werkzeug_rasen-1920.webp",
+                "alt": "Professionelle Geräte für eine gepflegte Außenanlage",
+                "preview": "assets/arbeitsalltag/werkzeug_rasen-1280.webp",
+                "srcset": "assets/arbeitsalltag/werkzeug_rasen-640.webp 640w, assets/arbeitsalltag/werkzeug_rasen-1280.webp 1280w, assets/arbeitsalltag/werkzeug_rasen-1920.webp 1920w",
+                "width": 1280,
+                "height": 960
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zur Gartenpflege öffnen">
-                  <img class="gallery-feature-image" src="assets/services/garten-960.webp"
-                    srcset="assets/services/garten-640.webp 640w, assets/services/garten-960.webp 960w, assets/services/garten-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Gepflegte Garten- und Grünanlage an einem Objekt" />
+                  aria-label="Bilder zu gartenpflege in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/arbeitsalltag/IMG_2423.webp"
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1920" height="2560"
+                    loading="lazy" decoding="async" alt="Gepflegte Garten- und Grünanlage an einem Objekt" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -192,21 +218,45 @@
 
       <section class="leistung-detail-section" id="rohrreinigung" aria-labelledby="rohrreinigung-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="rohrreinigung" data-gallery-images='[
-              {"src":"assets/arbeitsalltag/werkzeug_rohrreinigung.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-              {"src":"assets/services/rohrreinigung-1920.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-              {"src":"assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"},
-              {"src":"assets/arbeitsalltag/werkzeug_kamera-2.webp","alt":"Rohrreinigung und Hilfe bei Verstopfungen"}
-
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="rohrreinigung" data-gallery-images='[
+              {
+                "src": "assets/arbeitsalltag/werkzeug_rohrreinigung.webp",
+                "alt": "Rohrreinigung und Hilfe bei Verstopfungen",
+                "preview": "assets/arbeitsalltag/werkzeug_rohrreinigung.webp",
+                "width": 1920,
+                "height": 1440
+              },
+              {
+                "src": "assets/services/rohrreinigung-1920.webp",
+                "alt": "Rohrreinigung und Hilfe bei Verstopfungen",
+                "preview": "assets/services/rohrreinigung-1280.webp",
+                "srcset": "assets/services/rohrreinigung-640.webp 640w, assets/services/rohrreinigung-1280.webp 1280w, assets/services/rohrreinigung-1920.webp 1920w",
+                "width": 1280,
+                "height": 960
+              },
+              {
+                "src": "assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp",
+                "alt": "Rohrreinigung und Hilfe bei Verstopfungen",
+                "preview": "assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_rohrreinigung_kamera-640.webp 640w, assets/arbeitsalltag/james_rohrreinigung_kamera-1280.webp 1280w, assets/arbeitsalltag/james_rohrreinigung_kamera-1920.webp 1920w",
+                "width": 1280,
+                "height": 1707
+              },
+              {
+                "src": "assets/arbeitsalltag/werkzeug_kamera-2.webp",
+                "alt": "Rohrreinigung und Hilfe bei Verstopfungen",
+                "preview": "assets/arbeitsalltag/werkzeug_kamera-2.webp",
+                "width": 1280,
+                "height": 1707
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zur Rohrreinigung öffnen">
-                  <img class="gallery-feature-image" src="assets/services/rohrreinigung-1280.webp"
-                    srcset="assets/services/rohrreinigung-640.webp 640w, assets/services/rohrreinigung-1280.webp 1280w, assets/services/rohrreinigung-1920.webp 1920w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Rohrreinigung und Hilfe bei Verstopfungen" />
+                  aria-label="Bilder zu rohrreinigung in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/arbeitsalltag/werkzeug_rohrreinigung.webp"
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1920" height="1440"
+                    loading="lazy" decoding="async" alt="Rohrreinigung und Hilfe bei Verstopfungen" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -242,22 +292,64 @@
 
       <section class="leistung-detail-section" id="glasreinigung" aria-labelledby="glasreinigung-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="glasreinigung" data-gallery-images='[
-              {"src":"assets/arbeitsalltag/projekt_dach-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-              {"src":"assets/arbeitsalltag/projekt_fensterreinigung-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-              {"src":"assets/arbeitsalltag/james_carbonstange-1280.webp","alt":"Fenster- und Glasreinigung an einem Gebäude"},
-              {"src":"assets/arbeitsalltag/james_glas-vorher-1280.webp","alt":"Reinwasser-Reinigung an Glasflächen vor Ort"},
-              {"src":"assets/arbeitsalltag/james_glas-nachher-1920.webp","alt":"Streifenfrei gereinigte Glasflächen nach dem Einsatz"},
-              {"src":"assets/arbeitsalltag/james_osmose-1920.webp","alt":"Umkehrosmose-Technik für hochwertige Glasreinigung"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="glasreinigung" data-gallery-images='[
+              {
+                "src": "assets/arbeitsalltag/projekt_dach-1280.webp",
+                "alt": "Fenster- und Glasreinigung an einem Gebäude",
+                "preview": "assets/arbeitsalltag/projekt_dach-1280.webp",
+                "srcset": "assets/arbeitsalltag/projekt_dach-640.webp 640w, assets/arbeitsalltag/projekt_dach-1280.webp 1280w, assets/arbeitsalltag/projekt_dach-1920.webp 1920w",
+                "width": 1280,
+                "height": 1280
+              },
+              {
+                "src": "assets/arbeitsalltag/projekt_fensterreinigung-1280.webp",
+                "alt": "Fenster- und Glasreinigung an einem Gebäude",
+                "preview": "assets/arbeitsalltag/projekt_fensterreinigung-1280.webp",
+                "srcset": "assets/arbeitsalltag/projekt_fensterreinigung-640.webp 640w, assets/arbeitsalltag/projekt_fensterreinigung-1280.webp 1280w",
+                "width": 1280,
+                "height": 2276
+              },
+              {
+                "src": "assets/arbeitsalltag/james_carbonstange-1280.webp",
+                "alt": "Fenster- und Glasreinigung an einem Gebäude",
+                "preview": "assets/arbeitsalltag/james_carbonstange-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_carbonstange-640.webp 640w, assets/arbeitsalltag/james_carbonstange-1280.webp 1280w, assets/arbeitsalltag/james_carbonstange-1920.webp 1920w",
+                "width": 1280,
+                "height": 2276
+              },
+              {
+                "src": "assets/arbeitsalltag/james_glas-vorher-1280.webp",
+                "alt": "Reinwasser-Reinigung an Glasflächen vor Ort",
+                "preview": "assets/arbeitsalltag/james_glas-vorher-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_glas-vorher-640.webp 640w, assets/arbeitsalltag/james_glas-vorher-1280.webp 1280w",
+                "width": 1280,
+                "height": 1707
+              },
+              {
+                "src": "assets/arbeitsalltag/james_glas-nachher-1920.webp",
+                "alt": "Streifenfrei gereinigte Glasflächen nach dem Einsatz",
+                "preview": "assets/arbeitsalltag/james_glas-nachher-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_glas-nachher-640.webp 640w, assets/arbeitsalltag/james_glas-nachher-1280.webp 1280w, assets/arbeitsalltag/james_glas-nachher-1920.webp 1920w",
+                "width": 1280,
+                "height": 1280
+              },
+              {
+                "src": "assets/arbeitsalltag/james_osmose-1920.webp",
+                "alt": "Umkehrosmose-Technik für hochwertige Glasreinigung",
+                "preview": "assets/arbeitsalltag/james_osmose-1280.webp",
+                "srcset": "assets/arbeitsalltag/james_osmose-640.webp 640w, assets/arbeitsalltag/james_osmose-1280.webp 1280w, assets/arbeitsalltag/james_osmose-1920.webp 1920w",
+                "width": 1280,
+                "height": 1280
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zur Glasreinigung öffnen">
-                  <img class="gallery-feature-image" src="assets/arbeitsalltag/projekt_fensterreinigung-1280.webp"
-                    srcset="assets/arbeitsalltag/projekt_fensterreinigung-640.webp 640w, assets/arbeitsalltag/projekt_fensterreinigung-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Fenster- und Glasreinigung an einem Gebäude" />
+                  aria-label="Bilder zu glasreinigung in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/arbeitsalltag/projekt_dach-1280.webp"
+                    srcset="assets/arbeitsalltag/projekt_dach-640.webp 640w, assets/arbeitsalltag/projekt_dach-1280.webp 1280w, assets/arbeitsalltag/projekt_dach-1920.webp 1920w"
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="1280"
+                    loading="lazy" decoding="async" alt="Fenster- und Glasreinigung an einem Gebäude" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -308,18 +400,30 @@
 
       <section class="leistung-detail-section" id="moebelmontage" aria-labelledby="moebelmontage-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="moebelmontage" data-gallery-images='[
-            {"src":"assets/services/montagearbeiten_2.webp","alt":"Fachgerechte Montagearbeiten in einem Innenraum"},
-            {"src":"assets/services/montagearbeiten-1920.webp","alt":"TV-Wandhalterung Montage beim Kunden"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="moebelmontage" data-gallery-images='[
+              {
+                "src": "assets/services/montagearbeiten_2.webp",
+                "alt": "Fachgerechte Montagearbeiten in einem Innenraum",
+                "preview": "assets/services/montagearbeiten_2.webp",
+                "width": 1320,
+                "height": 1760
+              },
+              {
+                "src": "assets/services/montagearbeiten-1920.webp",
+                "alt": "TV-Wandhalterung Montage beim Kunden",
+                "preview": "assets/services/montagearbeiten-1280.webp",
+                "srcset": "assets/services/montagearbeiten-640.webp 640w, assets/services/montagearbeiten-1280.webp 1280w, assets/services/montagearbeiten-1920.webp 1920w",
+                "width": 1280,
+                "height": 960
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zu Montagearbeiten öffnen">
-                  <img class="gallery-feature-image" src="assets/services/montagearbeiten-1280.webp"
-                    srcset="assets/services/montagearbeiten-640.webp 640w, assets/services/montagearbeiten-1280.webp 1280w, assets/services/montagearbeiten-1920.webp 1920w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Fachgerechte Montagearbeiten in einem Innenraum" />
+                  aria-label="Bilder zu moebelmontage in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/services/montagearbeiten_2.webp"
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1320" height="1760"
+                    loading="lazy" decoding="async" alt="Fachgerechte Montagearbeiten in einem Innenraum" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -367,17 +471,24 @@
 
       <section class="leistung-detail-section" id="kleinreparaturen" aria-labelledby="kleinreparaturen-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="kleinreparaturen" data-gallery-images='[
-              {"src":"assets/services/reparaturen-1280.webp","alt":"Kleinreparatur und Instandhaltungsarbeit an einem Gebäude"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="kleinreparaturen" data-gallery-images='[
+              {
+                "src": "assets/services/reparaturen-1280.webp",
+                "alt": "Kleinreparatur und Instandhaltungsarbeit an einem Gebäude",
+                "preview": "assets/services/reparaturen-1280.webp",
+                "srcset": "assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-1280.webp 1280w, assets/services/reparaturen-1920.webp 1920w",
+                "width": 1280,
+                "height": 960
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zu Kleinreparaturen öffnen">
+                  aria-label="Bilder zu kleinreparaturen in Großansicht öffnen">
                   <img class="gallery-feature-image" src="assets/services/reparaturen-1280.webp"
                     srcset="assets/services/reparaturen-640.webp 640w, assets/services/reparaturen-1280.webp 1280w, assets/services/reparaturen-1920.webp 1920w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Kleinreparatur und Instandhaltungsarbeit an einem Gebäude" />
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="960"
+                    loading="lazy" decoding="async" alt="Kleinreparatur und Instandhaltungsarbeit an einem Gebäude" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -401,16 +512,24 @@
 
       <section class="leistung-detail-section" id="umzuege-entruempelung" aria-labelledby="umzuege-entruempelung-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="umzuege-entruempelung" data-gallery-images='[
-              {"src":"assets/services/umzug-1280.webp","alt":"Unterstützung bei einem Umzug mit Transport- und Tragearbeiten"}          ]'>
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="umzuege-entruempelung" data-gallery-images='[
+              {
+                "src": "assets/services/umzug-1280.webp",
+                "alt": "Unterstützung bei einem Umzug mit Transport- und Tragearbeiten",
+                "preview": "assets/services/umzug-1280.webp",
+                "srcset": "assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w",
+                "width": 1280,
+                "height": 850
+              }
+            ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zu Umzügen und Entrümpelung öffnen">
-                  <img class="gallery-feature-image" src="assets/services/umzug-960.webp"
+                  aria-label="Bilder zu umzuege-entruempelung in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/services/umzug-1280.webp"
                     srcset="assets/services/umzug-640.webp 640w, assets/services/umzug-960.webp 960w, assets/services/umzug-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Unterstützung bei einem Umzug mit Transport- und Tragearbeiten" />
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="850"
+                    loading="lazy" decoding="async" alt="Unterstützung bei einem Umzug mit Transport- und Tragearbeiten" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -434,17 +553,24 @@
 
       <section class="leistung-detail-section" id="winterdienst" aria-labelledby="winterdienst-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="winterdienst" data-gallery-images='[
-              {"src":"assets/services/winterdienst-1280.webp","alt":"Winterdienst auf geräumten Wegen rund um ein Gebäude"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="winterdienst" data-gallery-images='[
+              {
+                "src": "assets/services/winterdienst-1280.webp",
+                "alt": "Winterdienst auf geräumten Wegen rund um ein Gebäude",
+                "preview": "assets/services/winterdienst-1280.webp",
+                "srcset": "assets/services/winterdienst-640.webp 640w, assets/services/winterdienst-960.webp 960w, assets/services/winterdienst-1280.webp 1280w",
+                "width": 1280,
+                "height": 853
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zum Winterdienst öffnen">
-                  <img class="gallery-feature-image" src="assets/services/winterdienst-960.webp"
+                  aria-label="Bilder zu winterdienst in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/services/winterdienst-1280.webp"
                     srcset="assets/services/winterdienst-640.webp 640w, assets/services/winterdienst-960.webp 960w, assets/services/winterdienst-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Winterdienst auf geräumten Wegen rund um ein Gebäude" />
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="853"
+                    loading="lazy" decoding="async" alt="Winterdienst auf geräumten Wegen rund um ein Gebäude" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -468,17 +594,24 @@
 
       <section class="leistung-detail-section leistung-contact-card" id="notdienst" aria-labelledby="notdienst-title">
         <div class="leistung-detail-grid">
-          <div class="leistung-images reveal" data-reveal-delay="80">
-            <div class="leistung-gallery" data-gallery="notdienst" data-gallery-images='[
-              {"src":"assets/services/notdienst-1280.webp","alt":"Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten"}
+          <div class="leistung-images">
+            <div class="leistung-gallery" data-scroll-gallery data-gallery="notdienst" data-gallery-images='[
+              {
+                "src": "assets/services/notdienst-1280.webp",
+                "alt": "Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten",
+                "preview": "assets/services/notdienst-1280.webp",
+                "srcset": "assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w",
+                "width": 1280,
+                "height": 850
+              }
             ]'>
               <figure class="gallery-item gallery-item-featured">
                 <button class="gallery-lightbox-trigger" type="button" data-gallery-open="0"
-                  aria-label="Galerie zum Notdienst öffnen">
-                  <img class="gallery-feature-image" src="assets/services/notdienst-960.webp"
+                  aria-label="Bilder zu notdienst in Großansicht öffnen">
+                  <img class="gallery-feature-image" src="assets/services/notdienst-1280.webp"
                     srcset="assets/services/notdienst-640.webp 640w, assets/services/notdienst-960.webp 960w, assets/services/notdienst-1280.webp 1280w"
-                    sizes="(max-width: 56.25rem) 100vw, 50vw" loading="lazy" decoding="async"
-                    alt="Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten" />
+                    sizes="(min-width: 64rem) 46vw, 100vw" width="1280" height="850"
+                    loading="lazy" decoding="async" alt="Notdienst-Unterstützung bei einem dringenden Anliegen außerhalb der Öffnungszeiten" />
                 </button>
                 <span class="leistung-photo-caption" aria-hidden="true">Fotos ansehen</span>
               </figure>
@@ -546,6 +679,7 @@
   </div>
 
   <script src="script.js?v=20261015-mobile-offcanvas"></script>
+  <script src="leistungen-story.js?v=20261026-smooth-crossfade"></script>
 </body>
 
 </html>

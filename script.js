@@ -753,7 +753,10 @@
 
   const initServiceGalleryRotation = () => {
     const ROTATION_INTERVAL_MS = 5000;
-    const galleries = Array.from(document.querySelectorAll(".leistung-gallery[data-gallery-images]"));
+    // Scroll-driven galleries are owned exclusively by the services page controller.
+    const galleries = Array.from(document.querySelectorAll(
+      ".leistung-gallery[data-gallery-images]:not([data-scroll-gallery])"
+    ));
     const supportsObserver = "IntersectionObserver" in window;
 
     galleries.forEach((gallery) => {
