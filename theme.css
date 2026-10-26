@@ -1,0 +1,215 @@
+/* Shared theme layer. The existing light design remains unchanged. */
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #11171d;
+  --color-text: #edf2f6;
+  --color-navbar-dark: #edf2f6;
+  --color-surface: #151d26;
+  --color-surface-strong: #243445;
+  --color-muted: #b7c2ce;
+  --color-line: rgba(226, 234, 242, 0.16);
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-panel-bg: rgba(36, 52, 69, 0.88);
+  --color-panel-border: rgba(148, 185, 214, 0.2);
+  --color-panel-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  --color-panel-shadow-hover: 0 18px 36px rgba(0, 0, 0, 0.26);
+  --shadow-card: 0 14px 36px rgba(0, 0, 0, 0.18);
+  --shadow-card-hover: 0 26px 52px rgba(0, 0, 0, 0.3);
+  --color-accent-hover: #ff955c;
+  --theme-glass: rgba(17, 23, 29, 0.9);
+}
+
+/* The menu switch is also available on narrow screens and via keyboard. */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  min-height: 3.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+  transition: border-color 240ms ease;
+}
+
+.theme-toggle:is(:hover, :focus-visible) {
+  border-color: var(--color-accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.theme-toggle-icon {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle-label {
+  display: grid;
+  flex: 1;
+  gap: 0.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.theme-toggle-value {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.theme-toggle-track {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 1.6rem;
+  padding: 0.2rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: var(--color-surface-strong);
+  transition: background-color 240ms ease;
+}
+
+.theme-toggle-track > span {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background: var(--color-muted);
+  transition: transform 280ms var(--motion-smooth), background-color 240ms ease;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-track {
+  background: rgba(255, 122, 48, 0.15);
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-track > span {
+  background: var(--color-accent);
+  transform: translateX(1.05rem);
+}
+
+/* Replace legacy hard-coded light surfaces, without filtering photos or logos. */
+html[data-theme="dark"] :is(.section-alt, .portfolio-section, .reviews-section, #leistungen, #ablauf, #kontakt) {
+  background: var(--color-surface);
+}
+
+html[data-theme="dark"] :is(.card, .service-card, .review-card) {
+  background: var(--color-surface-strong);
+  border-color: var(--color-panel-border);
+}
+
+html[data-theme="dark"] :is(.service-card, .review-card)::before {
+  background: none;
+}
+
+html[data-theme="dark"] :is(.service-card-badge, .work-gallery-tags span, .partner-logo-placeholder, .review-proof) {
+  background: var(--color-surface);
+  border-color: var(--color-line);
+}
+
+html[data-theme="dark"] :is(
+  .services-section-hint, .service-list, .review-text, .review-meta,
+  .reviews-cta-text, .profile-stat-label, .contact-trust-points, .partner-logo-placeholder
+) {
+  color: var(--color-muted);
+}
+
+html[data-theme="dark"] :is(.review-author, .profile-stat-value, .work-gallery-tags span, .faq-question[aria-expanded="true"]) {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] :is(.review-meta, .faq-accordion, .faq-item, .legal-card) {
+  border-color: var(--color-line);
+}
+
+html[data-theme="dark"] .review-stars {
+  color: #f4bf57;
+  text-shadow: none;
+}
+
+html[data-theme="dark"] .review-quote-mark {
+  color: rgba(226, 234, 242, 0.08);
+}
+
+html[data-theme="dark"] :is(.about-copy, .hausverwaltung-note) {
+  --card-fill: #8e421f;
+}
+
+html[data-theme="dark"] :is(
+  .about-values-list li, .profile-stat-card, .hausverwaltung-proof-card,
+  .hausverwaltung-feature-card, .hausverwaltung-benefit
+) {
+  --card-fill: #1c627b;
+}
+
+html[data-theme="dark"] :is(.profile-stat-icon, .hausverwaltung-feature-icon):is(:hover, :focus-within),
+html[data-theme="dark"] :is(.profile-stat-card:hover .profile-stat-icon, .hausverwaltung-feature-card:hover .hausverwaltung-feature-icon, .hausverwaltung-benefit:hover > span) {
+  background-color: rgba(226, 234, 242, 0.1);
+}
+
+html[data-theme="dark"] :is(.hausverwaltung-matrix-head, .site-footer--modern) {
+  background: #0c1117;
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] .contact-form :is(input, textarea)::placeholder {
+  color: #8997a7;
+}
+
+html[data-theme="dark"] .form-status.is-success { color: #8bd7aa; }
+html[data-theme="dark"] .form-status.is-error { color: #ffb093; }
+
+/* Preserve the transparent hero header; only solid/scrolled states get dark glass. */
+html[data-theme="dark"] body .site-header.site-header--scrolled,
+html[data-theme="dark"] .legal-page .site-header {
+  background: var(--theme-glass);
+  border-bottom-color: var(--color-line);
+}
+
+html[data-theme="dark"] .header-topbar {
+  background: rgba(17, 23, 29, 0.4);
+}
+
+html[data-theme="dark"] .header-topbar-inner {
+  color: var(--color-muted);
+}
+
+html[data-theme="dark"] .desktop-menu-toggle {
+  border-color: var(--color-line);
+}
+
+html[data-theme="dark"] .desktop-menu-toggle:hover {
+  background-color: rgba(226, 234, 242, 0.1);
+}
+
+html[data-theme="dark"] .site-header--scrolled .brand-logo,
+html[data-theme="dark"] .legal-page .brand-logo {
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.18));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle-track,
+  .theme-toggle-track > span {
+    transition: none;
+  }
+}

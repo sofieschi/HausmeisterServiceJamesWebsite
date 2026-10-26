@@ -3,6 +3,38 @@
 ========================= */
 
 @font-face {
+  font-family: "Lato";
+  src: url("assets/fonts/lato/lato-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("assets/fonts/lato/lato-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("assets/fonts/lato/lato-black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("assets/fonts/lato/lato-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Michroma";
   src: url("/assets/fonts/michroma/michroma-regular.woff2") format("woff2");
   font-weight: 400;
@@ -11,6 +43,9 @@
 }
 
 :root {
+  --font-body: "Lato", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-body);
+
   /* Core palette */
   --color-bg: #e9e3df;
   --color-text: #000000;
@@ -112,7 +147,7 @@ html {
 body {
   position: relative;
   margin: 0;
-  font-family: "Johnston100", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-body);
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
@@ -280,7 +315,7 @@ h3 {
   margin: 0 0 1rem;
   line-height: 1.15;
   letter-spacing: -0.015em;
-  font-family: 'Obviously', sans-serif;
+  font-family: var(--font-heading);
 }
 
 h1 {
@@ -2004,7 +2039,7 @@ body.lightbox-open {
   position: absolute;
   top: 0.55rem;
   right: 1rem;
-  font-family: "Obviously", sans-serif;
+  font-family: var(--font-heading);
   font-size: 4.4rem;
   line-height: 1;
   color: rgba(70, 92, 136, 0.1);

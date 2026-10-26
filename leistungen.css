@@ -127,18 +127,6 @@ body.leistungen-page .leistung-gallery .gallery-item .gallery-feature-image {
   box-shadow: none;
   transition: none;
 }
-.leistungen-page .leistung-photo-caption {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.4rem 0.75rem;
-  border-radius: 0;
-  background: rgba(31, 41, 55, 0.86);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  pointer-events: none;
-}
 .service-story-step + .service-story-step {
   margin-top: 1.75rem;
 }
